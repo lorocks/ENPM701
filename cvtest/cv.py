@@ -3,7 +3,7 @@ import time
 
 cap = cv2.VideoCapture(0)
 
-# record = cv2.VideoWriter('video.avi',cv2.VideoWriter_fourcc(*"XVID"), 2, (1280,720))
+record = cv2.VideoWriter('video.avi',cv2.VideoWriter_fourcc(*"XVID"), 2, (1280,720))
 
 start = time.time()
 
@@ -15,10 +15,10 @@ while cap.isOpened():
 	if not ret:
 		break
 
-	cv2.imshow("Frame", frame)
 	cv2.putText(frame, 'FPS: {0:.2f}'.format(frame_rate_calc), (30, 50), cv2.FONT_HERSHEY_SIMPLEX,
                 1, (255, 255, 0), 2,
                 cv2.LINE_AA)
+	cv2.imshow("Frame", frame)
 
 	t2 = cv2.getTickCount()
 	time1 = (t2 - t1) / cv2.getTickFrequency()
