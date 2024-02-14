@@ -3,7 +3,7 @@ import time
 
 cap = cv2.VideoCapture(0)
 
-record = cv2.VideoWriter('video.avi',cv2.VideoWriter_fourcc(*"XVID"), 2, (1280,720))
+record = cv2.VideoWriter('video.avi',cv2.VideoWriter_fourcc(*'MJPG'), 10, (1280,720))
 
 start = time.time()
 
@@ -29,8 +29,9 @@ while cap.isOpened():
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 
-	if time.time() - start > 5:
+	if time.time() - start > 10:
 		  break
 
 cv2.destroyAllWindows()
 cap.release()
+record.release()
