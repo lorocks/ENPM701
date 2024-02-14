@@ -31,7 +31,7 @@ while(True):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-        if time.time() - start > 10:
+        if time.time() - start >35:
               break
 
     else:
