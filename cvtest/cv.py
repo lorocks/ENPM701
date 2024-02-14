@@ -20,6 +20,8 @@ while cap.isOpened():
                 cv2.LINE_AA)
 	cv2.imshow("Frame", frame)
 
+	record.write(frame)
+
 	t2 = cv2.getTickCount()
 	time1 = (t2 - t1) / cv2.getTickFrequency()
 	frame_rate_calc = 1 / time1
@@ -27,7 +29,7 @@ while cap.isOpened():
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 
-	if time.time() - start > 35:
+	if time.time() - start > 5:
 		  break
 
 cv2.destroyAllWindows()
