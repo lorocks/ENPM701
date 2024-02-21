@@ -56,7 +56,7 @@ while cap.isOpened():
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1)
 
     cv2.imshow("Video Stream", frame)
-    cv2.imshow("hsv", mask)
+    # cv2.imshow("hsv", mask)
 
     result.write(frame)
 
