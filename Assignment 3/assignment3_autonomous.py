@@ -14,9 +14,21 @@ lower = np.array([40, 60, 50])
 upper = np.array([95, 255, 255])
 lower = np.array([50, 70, 100])
 
+frame_width = int(cap.get(3))
+frame_height = int(cap.get(4))
 
+size = (frame_width, frame_height)
+
+result = cv2.VideoWriter('video.avi',
+                         cv2.VideoWriter_fourcc(*'MJPG'),
+                         10, size)
+
+count = 0
 
 while cap.isOpened():
+    count += 1
+    if count == 100:
+       print("Frame number 100 reached")
     start = time.time()
     # Read frame from the video
     ret, frame = cap.read()
@@ -44,7 +56,7 @@ while cap.isOpened():
     cv2.imshow("Video Stream", frame)
     cv2.imshow("hsv", mask)
 
-    # record.write(image)
+    result.write(frame)
 
     time1 = time.time() - start
     time_vals.append(time1)
