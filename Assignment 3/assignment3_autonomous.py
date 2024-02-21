@@ -50,7 +50,9 @@ while cap.isOpened():
 
     # Draw bounding box
     for contour in contours:
-        x, y, w, h = cv2.boundingRect(contour)
+        c = max(contours, key = cv2.contourArea)
+        x,y,w,h = cv2.boundingRect(c)
+        # x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1)
 
     cv2.imshow("Video Stream", frame)
