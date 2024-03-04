@@ -30,6 +30,7 @@ time_vals = []
 # Define the lower and upper color thresholds
 lower = np.array([40, 60, 50])
 upper = np.array([95, 255, 255])
+# lower = np.array([30, 50, 40])
 
 
 while cap.isOpened():
@@ -41,21 +42,21 @@ while cap.isOpened():
         break
 
     # Update object localizer
-    # frame = cv2.flip(frame, -1)
+    frame = cv2.flip(frame, -1)
 
     # Convert the image to the HSV color space
     hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Create a mask based on the color thresholds
-    mask = cv2.inRange(hsv_image, lower, upper)
+    mask_h = cv2.inRange(hsv_image, lower, upper)
 
     # Apply morphological operations to remove noise
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     # kernel = np.ones((5,5),np.uint8)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.morphologyEx(mask_h, cv2.MORPH_OPEN, kernel)
 
     # Gaussian blurring
-    mask = cv2.GaussianBlur(mask, (19, 19),0)
+    # mask = cv2.GaussianBlur(mask, (9, 9),0)
     # mask = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)[1]
 
     contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -103,7 +104,7 @@ while cap.isOpened():
 
 
     cv2.imshow("Video Stream", frame)
-    # cv2.imshow("hsv", mask)
+    # cv2.imshow("hsv", mask_h)
 
     result.write(frame)
 
