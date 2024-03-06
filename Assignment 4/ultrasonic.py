@@ -41,8 +41,8 @@ cap = cv2.VideoCapture(0)
 ret, frame = cap.read()
 
 if ret:
-    frame = cv2.flip(frame)
-    cv2.putText(frame, f'Distance: {sum(dist)/len(dist)} cm', (30, 50), cv2.FONT_HERSHEY_SIMPLEX,
+    frame = cv2.flip(frame, -1)
+    cv2.putText(frame, f'Distance: {sum(distances)/len(distances)} cm', (30, 50), cv2.FONT_HERSHEY_SIMPLEX,
                 1, (255, 255, 0), 2,
                 cv2.LINE_AA)
     

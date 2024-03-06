@@ -42,7 +42,7 @@ while cap.isOpened():
         break
 
     # Update object localizer
-    frame = cv2.flip(frame, -1)
+    # frame = cv2.flip(frame, -1)
 
     # Convert the image to the HSV color space
     hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
