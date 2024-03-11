@@ -25,7 +25,21 @@ def forward(t):
 
     time.sleep(t)
 
-    destroy()
-    g.cleanup()
+def reverse(t):
+    init()
+
+    g.output(31, False)
+    g.output(33, True)
+
+    g.output(35, True)
+    g.output(37, False)
+
+    time.sleep(t)
+
 
 forward(2)
+time.sleep(2)
+reverse(2)
+
+destroy()
+g.cleanup()
