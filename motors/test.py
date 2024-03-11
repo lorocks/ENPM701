@@ -37,9 +37,9 @@ def reverse(t):
     time.sleep(t)
 
 
-forward(2)
+forward(1)
 time.sleep(2)
-reverse(2)
+reverse(1)
 
 destroy()
 g.cleanup()
