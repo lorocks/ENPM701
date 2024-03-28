@@ -73,9 +73,9 @@ def key_input(event):
     init()
     print("Key=", event)
     tf=1
-    if(key_press.lower()=='w'):
+    if(key_press.lower()=='s'):
         forward(tf)
-    elif(key_press.lower()=='s'):
+    elif(key_press.lower()=='w'):
         reverse(tf)
     elif(key_press.lower()=='a'):
         left(tf)

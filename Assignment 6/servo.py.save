@@ -25,7 +25,7 @@ try:
     current = close
     stepChange = -0.5
 
-    while cap.isOpened():
+	    while cap.isOpened():
         ret, frame = cap.read()
 
         if not ret:
@@ -42,7 +42,6 @@ try:
         if current > close:
             current = close
             stepChange *= -1
-            break
         
         pwm.ChangeDutyCycle(current)
         

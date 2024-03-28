@@ -31,6 +31,7 @@ def dist():
 
     return distance
 
-print(f"Distance {dist()} cm")
+d = dist()
+print(f"Distance {d} cm")
 gpio.cleanup()
 
