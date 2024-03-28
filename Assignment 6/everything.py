@@ -92,7 +92,7 @@ try:
 
     time.sleep(0.1)
 
-    result = cv2.VideoWriter('video.avi',
+    result = cv2.VideoWriter('other_video.avi',
                             cv2.VideoWriter_fourcc(*'MJPG'),
                             10, (640, 480))
 
@@ -102,10 +102,6 @@ try:
         image = cv2.flip(image,-1)
 
         distance = dist()
-
-        if distance < 8:
-            pwm.ChangeDutyCycle(close - 0.5)
-            time.sleep(0.3)
 
         cv2.putText(image, f"Distance: {distance}",(100,100),cv2.FONT_HERSHEY_SIMPLEX ,1,(255,255,255),1,cv2.LINE_AA)
 
