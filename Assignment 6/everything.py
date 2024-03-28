@@ -12,8 +12,8 @@ try:
     echo = 18
     servo = 36
 
-    open = 3.1
-    close = 6.9
+    open = 5
+    close = 7.9
 
     gpio.setmode(gpio.BOARD)
     gpio.setup(servo,gpio.OUT)

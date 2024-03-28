@@ -1,15 +1,18 @@
 import RPi.GPIO as g
 import cv2
+import time
 
 try:
     g.setmode(g.BOARD)
     g.setup(36, g.OUT)
     pwm = g.PWM(36, 50)
 
-    open = 3.1
-    close = 6.9
+    open = 5
+    close = 7.9
+    current = close
+    stepChange = (open - close) / 10
 
-    pwm.start(close)
+    pwm.start(current)
 
     cap = cv2.VideoCapture(0)
 
@@ -21,9 +24,6 @@ try:
     result = cv2.VideoWriter('video.avi',
                             cv2.VideoWriter_fourcc(*'MJPG'),
                             10, size)
-    
-    current = close
-    stepChange = -0.5
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -31,7 +31,11 @@ try:
         if not ret:
             break
 
+        frame = cv2.flip(frame, -1)
+
         cv2.putText(frame,f"Duty cycle: {current}%",(20,20),cv2.FONT_HERSHEY_SIMPLEX ,1,(255,255,255),1,cv2.LINE_AA)
+
+        cv2.imshow("Frame", frame)
 
         result.write(frame)
 
