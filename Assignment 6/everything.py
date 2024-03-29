@@ -47,7 +47,7 @@ try:
         gpio.output(35,False)
         gpio.output(37,False)
         
-    def forawrd():
+    def forward():
         gpio.output(31,True)
         gpio.output(33,False)
         gpio.output(35,False)
