@@ -9,8 +9,8 @@ try:
 
     open = 5
     close = 7.9
-    current = close
-    stepChange = (open - close) / 10
+    current = open
+    stepChange = (close - open) / 10
 
     pwm.start(current)
 
@@ -42,16 +42,16 @@ try:
         result.write(frame)
 
         current += stepChange
-        if current < open:
-            current = open
+        if current > close:
+            current = close
             stepChange *= -1
         if current < close and current > open:
             pwm.ChangeDutyCycle(current)
             
-        if current > close:
+        if current < open:
             count += 1
             
-        if count >= 10:
+        if count >= 15:
             break
         
         # Press key q to stop
