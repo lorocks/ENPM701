@@ -99,7 +99,7 @@ try:
         if not ret:
             break
 
-        image = cv2.flip(image,-1)
+        image = cv2.flip(frame,-1)
 
         distance = dist()
 
