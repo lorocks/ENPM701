@@ -87,7 +87,7 @@ try:
 
     size = (frame_width, frame_height)
 
-    result = cv2.VideoWriter('video.avi',
+    result = cv2.VideoWriter('other_video.avi',
                             cv2.VideoWriter_fourcc(*'MJPG'),
                             10, size)
 

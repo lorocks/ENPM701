@@ -24,6 +24,8 @@ try:
     result = cv2.VideoWriter('video.avi',
                             cv2.VideoWriter_fourcc(*'MJPG'),
                             10, size)
+                            
+    count = 0
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -43,12 +45,14 @@ try:
         if current < open:
             current = open
             stepChange *= -1
+        if current < close and current > open:
+            pwm.ChangeDutyCycle(current)
+            
         if current > close:
-            current = close
-            stepChange *= -1
+            count += 1
+            
+        if count >= 10:
             break
-        
-        pwm.ChangeDutyCycle(current)
         
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
