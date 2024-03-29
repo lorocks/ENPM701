@@ -47,7 +47,7 @@ try:
         gpio.output(35,False)
         gpio.output(37,False)
         
-    def reverse():
+    def forawrd():
         gpio.output(31,True)
         gpio.output(33,False)
         gpio.output(35,False)
@@ -55,7 +55,7 @@ try:
         time.sleep(1)
         gameover()
 
-    def forward():
+    def reverse():
         gpio.output(31,False)
         gpio.output(33,True)
         gpio.output(35,True)
