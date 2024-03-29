@@ -1,10 +1,5 @@
 import RPi.GPIO as gpio
 import time
-import datetime
-import os
-import glob
-from picamera.array import PiRGBArray
-from picamera import PiCamera
 import cv2
 
 try:
@@ -85,27 +80,28 @@ try:
         gameover()
 
 
-    camera = PiCamera()
-    camera.resolution = (640, 480)
-    camera.framerate = 40
-    rawCapture = PiRGBArray(camera, size=(640, 480))
+    cap = cv2.VideoCapture(0)
 
-    time.sleep(0.1)
+    frame_width = int(cap.get(3))
+    frame_height = int(cap.get(4))
+
+    size = (frame_width, frame_height)
 
     result = cv2.VideoWriter('video.avi',
                             cv2.VideoWriter_fourcc(*'MJPG'),
-                            10, (640, 480))
+                            10, size)
 
     counter = 0
-    for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-        image = frame.array
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+
+        if not ret:
+            break
+
         image = cv2.flip(image,-1)
 
         distance = dist()
-
-        if distance < 8:
-            pwm.ChangeDutyCycle(close - 0.5)
-            time.sleep(0.3)
 
         cv2.putText(image, f"Distance: {distance}",(100,100),cv2.FONT_HERSHEY_SIMPLEX ,1,(255,255,255),1,cv2.LINE_AA)
 
@@ -132,7 +128,6 @@ try:
                 gpio.cleanup()
                 break
 
-        rawCapture.truncate(0)
         counter+=1
 
     result.release()
