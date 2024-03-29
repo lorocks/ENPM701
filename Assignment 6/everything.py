@@ -93,6 +93,7 @@ try:
         gpio.output(33,False)
         gpio.output(35,False)
         gpio.output(37,False)
+        time.sleep(0.5)
         
     def forward():
         gpio.output(31,True)
@@ -144,7 +145,6 @@ try:
         image = cv2.flip(frame,-1)
 
         distance = dist()
-        print(distance)
 
         cv2.putText(image, f"Distance: {distance}",(30,30),cv2.FONT_HERSHEY_SIMPLEX ,1,(0, 0, 0),1,cv2.LINE_AA)
 
@@ -154,6 +154,7 @@ try:
             key_press = input("Enter keyboard input:")
             if(key_press.lower()=='w'):
                 forward()
+                
             elif(key_press.lower()=='s'):
                 reverse()
             elif(key_press.lower()=='a'):
