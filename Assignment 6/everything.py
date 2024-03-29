@@ -132,8 +132,8 @@ try:
 
     result.release()
     cv2.destroyAllWindows()
-except:
-    print("Error aborting!")
+except Exception as error:
+    print("Error aborting!", error)
     pwm.stop()
     gpio.cleanup()
     result.release()
