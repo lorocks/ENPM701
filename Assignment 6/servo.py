@@ -7,7 +7,7 @@ try:
     g.setup(36, g.OUT)
     pwm = g.PWM(36, 50)
 
-    open = 5
+    open = 4
     close = 7.9
     current = open
     stepChange = (close - open) / 10
