@@ -2,17 +2,25 @@ import os
 import datetime
 import smtplib
 import email
+import cv2
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
 time_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-command = 'raspistill -w 1280 -h 720 -vf -hf -o ' + time_now + '.jpg'
-os.system(command)
 
 smtpUser = 'ENPM701.lorocks@gmail.com'
 smtpPass = 'jtesrcwsaygtxubj'
+
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+
+    image = cv2.flip(frame, -1)
+
+    break
 
 
 to = 'lorocks@umd.edu'
@@ -28,9 +36,9 @@ body = MIMEText('testing aaaaa')
 msg.attach(body)
 
 # fp = open(time_now + '.jpg','rb')
-# img = MIMEImage(fp.read())
+img = MIMEImage(image)
 # fp.close()
-# msg.attach(img)
+msg.attach(img)
 
 
 s = smtplib.SMTP('smtp.gmail.com', 587)
