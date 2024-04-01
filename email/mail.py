@@ -3,6 +3,7 @@ import datetime
 import smtplib
 import email
 import cv2
+import base64
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -22,6 +23,8 @@ while cap.isOpened():
 
     break
 
+ret, buffer = cv2.imencode('.jpg', frame)
+string_image = base64.b64encode(buffer).decode('utf-8')
 
 to = 'lorocks@umd.edu'
 fromAdd = smtpUser
@@ -36,8 +39,11 @@ body = MIMEText('testing aaaaa')
 msg.attach(body)
 
 # fp = open(time_now + '.jpg','rb')
-img = MIMEImage(image)
+img = MIMEImage(string_image)
 # fp.close()
+msg.attach(img)
+
+img = MIMEImage(buffer)
 msg.attach(img)
 
 
