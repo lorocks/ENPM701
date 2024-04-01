@@ -23,8 +23,22 @@ while cap.isOpened():
 
     break
 
-ret, buffer = cv2.imencode('.jpg', frame)
-string_image = base64.b64encode(buffer).decode('utf-8')
+print(image)
+
+cv2.imwrite("test.jpg", image)
+
+buffer = cv2.imencode('.jpg', frame)[1].tostring()
+# string_image = base64.b64encode(buffer)
+# .decode('utf-8')
+
+# byte_image = bytes(string_image, 'utf-8')
+
+# print(buffer)
+
+# print("-------------------------------------------")
+
+# print(string_image)
+# print("-------------------------------------------")
 
 to = 'lorocks@umd.edu'
 fromAdd = smtpUser
@@ -38,10 +52,14 @@ msg.preamble = 'testing 123!'
 body = MIMEText('testing aaaaa')
 msg.attach(body)
 
-# fp = open(time_now + '.jpg','rb')
-img = MIMEImage(string_image)
+
+
+# fp = open('test.jpg','rb')
+# print(buffer.tostring() == fp.read())
+# print(fp.read())
+# img = MIMEImage(string_image)
 # fp.close()
-msg.attach(img)
+# msg.attach(img)
 
 img = MIMEImage(buffer)
 msg.attach(img)
