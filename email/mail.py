@@ -27,10 +27,10 @@ msg.preamble = 'testing 123!'
 body = MIMEText('testing aaaaa')
 msg.attach(body)
 
-fp = open(time_now + '.jpg','rb')
-img = MIMEImage(fp.read())
-fp.close()
-msg.attach(img)
+# fp = open(time_now + '.jpg','rb')
+# img = MIMEImage(fp.read())
+# fp.close()
+# msg.attach(img)
 
 
 s = smtplib.SMTP('smtp.gmail.com', 587)
