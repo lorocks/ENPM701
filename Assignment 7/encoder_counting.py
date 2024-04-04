@@ -11,7 +11,7 @@ try:
     gpio.setup(33, gpio.OUT) # Left wheels reverse
     gpio.setup(35, gpio.OUT) # Right wheels reverse
 
-    pwm_31 = gpio.PWM(35, 50)
+    pwm_31 = gpio.PWM(31, 50)
     pwm_37 = gpio.PWM(37, 50)
     pwm_val = 50
 
@@ -23,7 +23,7 @@ try:
     ticks_r = ticks_l = []
 
     pwm_31.start(pwm_val)
-    # pwm_37.start(pwm_val)
+    pwm_37.start(pwm_val)
 
     while counter_r < 50 and counter_l < 50:
         ticks_r.append(gpio.input(12))
@@ -50,7 +50,7 @@ try:
     f.close()
 
     pwm_31.stop()
-    # pwm_37.stop()
+    pwm_37.stop()
     gpio.cleanup()
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")

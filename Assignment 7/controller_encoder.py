@@ -17,7 +17,10 @@ try:
     pwm_31 = gpio.PWM(31, 50)
     pwm_37 = gpio.PWM(37, 50)
     pwm_val = 50
-    Kp = 2
+    Kp = -2.1 # Forward
+    Kp = -1.9
+#     Kp = -2.3
+
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
     gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
