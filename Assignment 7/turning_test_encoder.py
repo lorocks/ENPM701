@@ -11,10 +11,10 @@ try:
     gpio.setup(35, gpio.OUT)
     gpio.setup(37,gpio.OUT) #IN4
 
-    pwm_31 = gpio.PWM(31, 50)
-    pwm_33 = gpio.PWM(33, 50)
-    pwm_35 = gpio.PWM(35, 50)
-    pwm_37 = gpio.PWM(37, 50)
+    pwm_31 = gpio.PWM(33, 50)
+#    pwm_33 = gpio.PWM(33, 50)
+    pwm_35 = gpio.PWM(37, 50)
+#    pwm_37 = gpio.PWM(37, 50)
     pwm_val = 100
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -26,8 +26,9 @@ try:
 
     pwm_31.start(pwm_val)
     pwm_35.start(pwm_val)
-
-    while counter_r < 90 * 4.8:
+# 4.7 Left
+# 3.7 Right
+    while counter_r < 90 * 3.7:
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 
@@ -54,7 +55,7 @@ try:
     f.close()
 
     pwm_31.stop()
-    pwm_37.stop()
+    pwm_35.stop()
     gpio.cleanup()
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
@@ -72,5 +73,5 @@ except:
     print(per_angle, angle_90)
 
     pwm_31.stop()
-    pwm_37.stop()
+    pwm_35.stop()
     gpio.cleanup()

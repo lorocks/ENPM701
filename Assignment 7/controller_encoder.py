@@ -14,12 +14,13 @@ try:
     gpio.setup(33, gpio.OUT)
     gpio.setup(35, gpio.OUT)
 
-    pwm_31 = gpio.PWM(31, 50)
-    pwm_37 = gpio.PWM(37, 50)
+    pwm_31 = gpio.PWM(33, 50)
+    pwm_37 = gpio.PWM(35, 50)
     pwm_val = 50
+#    pwm_val = 25
     Kp = -2.1 # Forward
     Kp = -1.9
-    Kp = -1.5
+    Kp = -5 # Reverse
 
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -45,16 +46,6 @@ try:
             tick_l = gpio.input(7)
         
         error = counter_r - counter_l
-
-        # if error > 8:
-        #     pwm_31.ChangeDutyCycle(75)
-        #     pwm_37.ChangeDutyCycle(25)
-        # elif error < 8:
-        #     pwm_31.ChangeDutyCycle(25)
-        #     pwm_37.ChangeDutyCycle(75)
-        # else:
-        #     pwm_31.ChangeDutyCycle(pwm_val)
-        #     pwm_37.ChangeDutyCycle(pwm_val)
 
         val = pwm_val + (Kp*error)
         if val > 100:
