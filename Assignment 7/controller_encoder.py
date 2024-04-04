@@ -46,10 +46,15 @@ try:
         
         error = counter_r - counter_l
 
-        if error == 0:
+        if error > 8:
+            pwm_31.ChangeDutyCycle(100)
             pwm_37.ChangeDutyCycle(pwm_val)
-        else:
+        elif error < 8:
+            pwm_31.ChangeDutyCycle(pwm_val)
             pwm_37.ChangeDutyCycle(100)
+        else:
+            pwm_31.ChangeDutyCycle(pwm_val)
+            pwm_37.ChangeDutyCycle(pwm_val)
 
         # val = pwm_val + (Kp*error)
         # if val > 100:
