@@ -42,22 +42,30 @@ try:
             tick_l = gpio.input(7)
         
         error = counter_r - counter_l
-        if error > 0:
-            val = pwm_val - (Kp*error)
-            if val < 0:
-                val = 0
-            if val > 100:
-                val = 100
-            # pwm_31.ChangeDutyCycle(pwm_val)
-            pwm_37.ChangeDutyCycle(val) # Forward
-        elif error < 0:
-            val = pwm_val + (Kp*error)
-            if val > 100:
-                val = 100
-            if val < 0:
-                val = 0
-            pwm_37.ChangeDutyCycle(val) # Forward
-            # pwm_31.ChangeDutyCycle(pwm_val)
+
+        val = pwm_val + (Kp*error)
+        if val > 100:
+            val = 100
+        if val < 0:
+            val = 0
+        pwm_37.ChangeDutyCycle(val)
+
+        # if error > 0:
+        #     val = pwm_val - (Kp*error)
+        #     if val < 0:
+        #         val = 0
+        #     if val > 100:
+        #         val = 100
+        #     # pwm_31.ChangeDutyCycle(pwm_val)
+        #     pwm_37.ChangeDutyCycle(val) # Forward
+        # elif error < 0:
+        #     val = pwm_val + (Kp*error)
+        #     if val > 100:
+        #         val = 100
+        #     if val < 0:
+        #         val = 0
+        #     pwm_37.ChangeDutyCycle(val) # Forward
+        #     # pwm_31.ChangeDutyCycle(pwm_val)
 
     f = open("encoder_right.txt", 'w')
     for i in ticks_r:
