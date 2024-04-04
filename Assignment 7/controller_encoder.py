@@ -6,6 +6,7 @@
 
 import RPi.GPIO as gpio
 import time
+import os
 
 try:
     gpio.setmode(gpio.BOARD)
@@ -70,6 +71,16 @@ try:
         #         val = 0
         #     pwm_37.ChangeDutyCycle(val) # Forward
         #     # pwm_31.ChangeDutyCycle(pwm_val)
+
+    if os.path.exists("encoder_right.txt"):
+        os.remove("hw4data.txt")
+    else:
+        print("The file does not exist")
+
+    if os.path.exists("encoder_left.txt"):
+        os.remove("hw4data.txt")
+    else:
+        print("The file does not exist")
 
     f = open("encoder_right.txt", 'w')
     for i in ticks_r:

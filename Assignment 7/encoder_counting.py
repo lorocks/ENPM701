@@ -1,6 +1,7 @@
 
 import RPi.GPIO as gpio
 import time
+import os
 
 # Left overextends sometimes
 
@@ -36,6 +37,17 @@ try:
         if gpio.input(7) != tick_l:
             counter_l += 1
             tick_l = gpio.input(7)
+
+
+    if os.path.exists("encoder_right.txt"):
+        os.remove("hw4data.txt")
+    else:
+        print("The file does not exist")
+
+    if os.path.exists("encoder_left.txt"):
+        os.remove("hw4data.txt")
+    else:
+        print("The file does not exist")
 
     f = open("encoder_right.txt", 'w')
     for i in ticks_r:
