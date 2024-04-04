@@ -19,7 +19,7 @@ try:
     pwm_val = 50
     Kp = -2.1 # Forward
     Kp = -1.9
-#     Kp = -2.3
+    Kp = -1.5
 
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -46,22 +46,22 @@ try:
         
         error = counter_r - counter_l
 
-        if error > 8:
-            pwm_31.ChangeDutyCycle(75)
-            pwm_37.ChangeDutyCycle(25)
-        elif error < 8:
-            pwm_31.ChangeDutyCycle(25)
-            pwm_37.ChangeDutyCycle(75)
-        else:
-            pwm_31.ChangeDutyCycle(pwm_val)
-            pwm_37.ChangeDutyCycle(pwm_val)
+        # if error > 8:
+        #     pwm_31.ChangeDutyCycle(75)
+        #     pwm_37.ChangeDutyCycle(25)
+        # elif error < 8:
+        #     pwm_31.ChangeDutyCycle(25)
+        #     pwm_37.ChangeDutyCycle(75)
+        # else:
+        #     pwm_31.ChangeDutyCycle(pwm_val)
+        #     pwm_37.ChangeDutyCycle(pwm_val)
 
-        # val = pwm_val + (Kp*error)
-        # if val > 100:
-        #     val = 100
-        # if val < 0:
-        #     val = 0
-        # pwm_37.ChangeDutyCycle(val)
+        val = pwm_val + (Kp*error)
+        if val > 100:
+            val = 100
+        if val < 0:
+            val = 0
+        pwm_37.ChangeDutyCycle(val)
 
         # if error > 0:
         #     val = pwm_val - (Kp*error)
