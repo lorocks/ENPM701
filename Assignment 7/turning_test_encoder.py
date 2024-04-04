@@ -2,8 +2,10 @@ import RPi.GPIO as gpio
 import time
 
 # Better to use imu to get it :O
+# 5 encoder ticks per angle
 
 try:
+    gpio.setmode(gpio.BOARD)
     gpio.setup(31,gpio.OUT) #IN1
     gpio.setup(33, gpio.OUT) 
     gpio.setup(35, gpio.OUT)
@@ -13,7 +15,7 @@ try:
     pwm_33 = gpio.PWM(33, 50)
     pwm_35 = gpio.PWM(35, 50)
     pwm_37 = gpio.PWM(37, 50)
-    pwm_val = 50
+    pwm_val = 100
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
     gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -25,7 +27,7 @@ try:
     pwm_31.start(pwm_val)
     pwm_35.start(pwm_val)
 
-    while counter_r < 50:
+    while True:
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 

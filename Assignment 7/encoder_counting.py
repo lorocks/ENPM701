@@ -1,9 +1,12 @@
 import RPi.GPIO as gpio
 import time
 
+# Left overextends sometimes
+
 try:
-    gpio.setup(31,gpio.OUT) #IN1
-    gpio.setup(37,gpio.OUT) #IN4
+    gpio.setmode(gpio.BOARD)
+    gpio.setup(31,gpio.OUT) # Left wheels forward
+    gpio.setup(37,gpio.OUT) # Right wheels forward
 
     pwm_31 = gpio.PWM(31, 50)
     pwm_37 = gpio.PWM(37, 50)
