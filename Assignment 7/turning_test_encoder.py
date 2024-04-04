@@ -27,7 +27,7 @@ try:
     pwm_31.start(pwm_val)
     pwm_35.start(pwm_val)
 
-    while True:
+    while counter_r < 90 * 4.8:
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 

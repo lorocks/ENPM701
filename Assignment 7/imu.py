@@ -7,12 +7,18 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 printed = False
 
+count = 0
+
 while not printed:
     if ser.in_waiting > 0:
-        data = ser.readline()
-        print(data)
+        count += 1
+        ser.readline()
 
-        data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
-        print(data)
+        if count > 10:
+            data = ser.readline()
+            print(data)
 
-        printed = True
+            # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
+            # print(data)
+
+            printed = True
