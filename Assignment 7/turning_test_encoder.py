@@ -29,7 +29,8 @@ try:
     pwm_35.start(pwm_val)
 # 4.7 Left
 # 3.7 Right
-    while counter_r < 90 * 3.7:
+    # while counter_r < 90 * 3.7:
+    while True:
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 
