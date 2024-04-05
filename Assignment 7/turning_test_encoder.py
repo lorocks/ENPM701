@@ -27,6 +27,8 @@ try:
 
     pwm_31.start(pwm_val)
     pwm_35.start(pwm_val)
+
+    Kp = -1.9
 # 4.7 Left
 # 3.7 Right
     # while counter_r < 90 * 3.7:
@@ -41,6 +43,15 @@ try:
         if gpio.input(7) != tick_l:
             counter_l += 1
             tick_l = gpio.input(7)
+
+        error = counter_r - counter_l
+
+        val = pwm_val + (Kp*error)
+        if val > 100:
+            val = 100
+        if val < 0:
+            val = 0
+        pwm_35.ChangeDutyCycle(val)
 
     if os.path.exists("encoder_right.txt"):
         os.remove("hw4data.txt")
@@ -71,16 +82,16 @@ try:
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
 except:
     print(counter_l, counter_r)
-    actual_count = counter_l
+    # actual_count = counter_l
 
-    if counter_l < counter_r:
-        actual_count = counter_r
+    # if counter_l < counter_r:
+    #     actual_count = counter_r
     
-    per_angle = 360/actual_count
+    # per_angle = 360/actual_count
 
-    angle_90 = per_angle * 90
+    # angle_90 = per_angle * 90
 
-    print(per_angle, angle_90)
+    # print(per_angle, angle_90)
 
     pwm_31.stop()
     pwm_35.stop()
