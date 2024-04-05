@@ -5,6 +5,7 @@ import serial
 # Better to use imu to get it :O
 
 try:
+    gpio.setmode(gpio.BOARD)
     gpio.setup(31,gpio.OUT) #IN1
     gpio.setup(33, gpio.OUT) 
     gpio.setup(35, gpio.OUT)
@@ -56,16 +57,16 @@ except:
 
     ser = serial.Serial('/dev/ttyUSB0', 9600)
 
-    # printed = False
-    # while not printed:
-    #     if ser.in_waiting > 0:
-    #         data = ser.readline()
-    #         print(data)
+    printed = False
+    while not printed:
+        if ser.in_waiting > 0:
+            data = ser.readline()
+            print(data)
 
-    #         data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
-    #         print(data)
+            # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
+            # print(data)
 
-    #         printed = True
+            printed = True
 
     # print(counter_l, counter_r)
     # actual_count = counter_l
