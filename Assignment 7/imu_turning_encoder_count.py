@@ -16,6 +16,8 @@ try:
     pwm_37 = gpio.PWM(37, 50)
     pwm_val = 50
 
+    Kp = -1.9
+
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
     gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
@@ -37,6 +39,15 @@ try:
         if gpio.input(7) != tick_l:
             counter_l += 1
             tick_l = gpio.input(7)
+        
+        error = counter_r - counter_l
+
+        val = pwm_val + (Kp*error)
+        if val > 100:
+            val = 100
+        if val < 0:
+            val = 0
+        pwm_37.ChangeDutyCycle(val)
 
     
 except:
@@ -45,28 +56,28 @@ except:
 
     ser = serial.Serial('/dev/ttyUSB0', 9600)
 
-    printed = False
-    while not printed:
-        if ser.in_waiting > 0:
-            data = ser.readline()
-            print(data)
+    # printed = False
+    # while not printed:
+    #     if ser.in_waiting > 0:
+    #         data = ser.readline()
+    #         print(data)
 
-            data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
-            print(data)
+    #         data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
+    #         print(data)
 
-            printed = True
+    #         printed = True
 
-    print(counter_l, counter_r)
-    actual_count = counter_l
+    # print(counter_l, counter_r)
+    # actual_count = counter_l
 
-    if counter_l < counter_r:
-        actual_count = counter_r
+    # if counter_l < counter_r:
+    #     actual_count = counter_r
     
-    per_angle = data/actual_count
+    # per_angle = data/actual_count
 
-    angle_90 = per_angle * 90
+    # angle_90 = per_angle * 90
 
-    print(per_angle, angle_90)
+    # print(per_angle, angle_90)
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
     
