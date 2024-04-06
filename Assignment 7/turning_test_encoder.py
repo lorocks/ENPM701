@@ -104,6 +104,28 @@ except:
     pwm_35.stop()
     gpio.cleanup()
 
+    if os.path.exists("encoder_right.txt"):
+        os.remove("encoder_right.txt")
+    else:
+        print("The file does not exist")
+
+    if os.path.exists("encoder_left.txt"):
+        os.remove("encoder_left.txt")
+    else:
+        print("The file does not exist")
+
+    f = open("encoder_right.txt", 'w')
+    for i in ticks_r:
+        f.write(str(i))
+        f.write('\n')
+    f.close()
+
+    f = open("encoder_left.txt", 'w')
+    for i in ticks_l:
+        f.write(str(i))
+        f.write('\n')
+    f.close()
+
     print(counter_l, counter_r)
     actual_count = (counter_l + counter_r)/2
 
