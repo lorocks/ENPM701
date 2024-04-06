@@ -15,6 +15,9 @@ try:
     gpio.setup(33, gpio.OUT)
     gpio.setup(35, gpio.OUT)
 
+    gpio.setup(36, gpio.OUT)
+    servo = gpio.PWM(36, 50)
+
     pwm_31 = gpio.PWM(33, 50)
     pwm_37 = gpio.PWM(35, 50)
     pwm_val = 50
