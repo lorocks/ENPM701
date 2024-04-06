@@ -22,3 +22,6 @@ while not printed:
             # print(data)
 
             printed = True
+
+angle = float(data.split(" ")[1][:-4])
+print(angle)
