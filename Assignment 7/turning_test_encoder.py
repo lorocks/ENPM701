@@ -82,6 +82,10 @@ try:
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
 except:
+    pwm_31.stop()
+    pwm_35.stop()
+    gpio.cleanup()
+    
     print(counter_l, counter_r)
     actual_count = (counter_l + counter_r)/2
 
@@ -117,7 +121,3 @@ except:
     angle_90 = per_angle * 90
 
     print(per_angle, angle_90)
-
-    pwm_31.stop()
-    pwm_35.stop()
-    gpio.cleanup()
