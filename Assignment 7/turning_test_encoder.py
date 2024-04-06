@@ -5,8 +5,24 @@ import serial
 
 # Better to use imu to get it :O
 # 5 encoder ticks per angle
+ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 try:
+    count = 0
+    while not printed:
+        if ser.in_waiting > 0:
+            count += 1
+            ser.readline()
+
+            if count > 10:
+                data = ser.readline()
+                print(data)
+
+                # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
+                # print(data)
+
+                printed = True
+
     gpio.setmode(gpio.BOARD)
     gpio.setup(31,gpio.OUT) #IN1
     gpio.setup(33, gpio.OUT) 
@@ -85,29 +101,13 @@ except:
     pwm_31.stop()
     pwm_35.stop()
     gpio.cleanup()
-    
+
     print(counter_l, counter_r)
     actual_count = (counter_l + counter_r)/2
 
-    ser = serial.Serial('/dev/ttyUSB0', 9600)
-
     printed = False
 
-    count = 0
-
-    while not printed:
-        if ser.in_waiting > 0:
-            count += 1
-            ser.readline()
-
-            if count > 10:
-                data = ser.readline()
-                print(data)
-
-                # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
-                # print(data)
-
-                printed = True
+    data = ser.readline()
 
     data = data.decode()
     angle = float(data.split(" ")[1][:-4])
