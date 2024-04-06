@@ -105,17 +105,18 @@ except:
 
                 printed = True
 
+    data = data.decode()
     angle = float(data.split(" ")[1][:-4])
     print(angle)
-
-    # if counter_l < counter_r:
-    #     actual_count = counter_r
     
-    # per_angle = 360/actual_count
+    try:
+        per_angle = actual_count/angle
+    except:
+        pass
 
-    # angle_90 = per_angle * 90
+    angle_90 = per_angle * 90
 
-    # print(per_angle, angle_90)
+    print(per_angle, angle_90)
 
     pwm_31.stop()
     pwm_35.stop()
