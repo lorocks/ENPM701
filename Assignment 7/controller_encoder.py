@@ -37,7 +37,7 @@ try:
     pwm_31.start(pwm_val)
     pwm_37.start(pwm_val)
 
-    while counter_r < 1500:
+    while counter_r < 2 * 8 * 120:
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 
