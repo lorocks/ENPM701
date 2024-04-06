@@ -9,6 +9,7 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 try:
     count = 0
+    printed = False
     while not printed:
         if ser.in_waiting > 0:
             count += 1
@@ -104,8 +105,6 @@ except:
 
     print(counter_l, counter_r)
     actual_count = (counter_l + counter_r)/2
-
-    printed = False
 
     data = ser.readline()
 
