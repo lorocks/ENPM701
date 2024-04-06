@@ -29,12 +29,15 @@ try:
     gpio.setup(33, gpio.OUT) 
     gpio.setup(35, gpio.OUT)
     gpio.setup(37,gpio.OUT) #IN4
+    gpio.setup(36, gpio.OUT)
 
+    pwm = gpio.PWM(36, 50)
+    pwm.start(7.9)
     pwm_31 = gpio.PWM(31, 50)
 #    pwm_33 = gpio.PWM(33, 50)
     pwm_35 = gpio.PWM(35, 50)
 #    pwm_37 = gpio.PWM(37, 50)
-    pwm_val = 100
+    pwm_val = 75
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
     gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -96,12 +99,14 @@ try:
 
     pwm_31.stop()
     pwm_35.stop()
+    pwm.stop()
     gpio.cleanup()
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
 except:
     pwm_31.stop()
     pwm_35.stop()
+    pwm.stop()
     gpio.cleanup()
 
     if os.path.exists("encoder_right.txt"):
