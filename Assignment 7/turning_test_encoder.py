@@ -28,7 +28,7 @@ try:
     pwm_31.start(pwm_val)
     pwm_35.start(pwm_val)
 
-    Kp = -1.9
+    Kp = -2.1
 # 4.7 Left
 # 3.7 Right
     # while counter_r < 90 * 3.7:
