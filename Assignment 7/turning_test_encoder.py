@@ -73,12 +73,12 @@ try:
         pwm_35.ChangeDutyCycle(val)
 
     if os.path.exists("encoder_right.txt"):
-        os.remove("hw4data.txt")
+        os.remove("encoder_right.txt")
     else:
         print("The file does not exist")
 
     if os.path.exists("encoder_left.txt"):
-        os.remove("hw4data.txt")
+        os.remove("encoder_left.txt")
     else:
         print("The file does not exist")
 
