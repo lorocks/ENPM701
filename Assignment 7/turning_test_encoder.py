@@ -110,7 +110,7 @@ except:
     data = ser.readline()
 
     data = data.decode()
-    angle = float(data.split(" ")[1][:-4])
+    angle = 360 - float(data.split(" ")[1][:-4])
     print(angle)
     
     try:
