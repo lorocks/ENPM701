@@ -23,5 +23,6 @@ while not printed:
 
             printed = True
 
+data = data.decode()
 angle = float(data.split(" ")[1][:-4])
 print(angle)
