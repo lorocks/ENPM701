@@ -30,9 +30,9 @@ try:
     gpio.setup(35, gpio.OUT)
     gpio.setup(37,gpio.OUT) #IN4
 
-    pwm_31 = gpio.PWM(33, 50)
+    pwm_31 = gpio.PWM(31, 50)
 #    pwm_33 = gpio.PWM(33, 50)
-    pwm_35 = gpio.PWM(37, 50)
+    pwm_35 = gpio.PWM(35, 50)
 #    pwm_37 = gpio.PWM(37, 50)
     pwm_val = 100
 
@@ -48,8 +48,8 @@ try:
 
     Kp = -2.1
 # 4.7 Left
-# 3.7 Right
-    while counter_r < 90 * 3.7:
+# 4.6 Anticlockwise
+    while counter_r < 90 * 6:
     # while True:
         # data = ser.readline()
         ticks_r.append(gpio.input(12))
