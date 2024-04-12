@@ -6,6 +6,7 @@ def init():
     gpio.setup(33,gpio.OUT) #IN2
     gpio.setup(35,gpio.OUT) #IN3
     gpio.setup(37,gpio.OUT) #IN4
+    gpio.setup(36,gpio.OUT)
     
 def gameover():
     gpio.output(31,False)

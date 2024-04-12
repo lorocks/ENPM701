@@ -142,7 +142,7 @@ try:
         pwm33.start(pwm_val_turn)
         pwm37.start(pwm_val_turn)
 
-        while counter_r < angle_turn * 4.6 or counter_l < angle_turn * 4.6:
+        while counter_r < angle_turn * 0.11 or counter_l < angle_turn * 0.11:
             ser.readline()
             if gpio.input(12) != tick_r:
                 counter_r += 1
@@ -153,13 +153,13 @@ try:
                 tick_l = gpio.input(7)
 
             error = counter_r - counter_l
-
+#            print(counter_r)
             val = pwm_val + (Kp*error)
             if val > 100:
                 val = 100
             if val < 0:
                 val = 0
-            pwm37.ChangeDutyCycle(val)
+#            pwm37.ChangeDutyCycle(val)
 
         pwm33.stop()
         pwm37.stop()
@@ -214,6 +214,7 @@ try:
 
     f = open("nonimu_angles.txt", 'w')
     for i in angles:
+        print(i)
         f.write(str(i))
         f.write('\n')
     f.close()
