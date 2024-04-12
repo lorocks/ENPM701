@@ -30,7 +30,7 @@ open = 5
 close = 7.9
 
 pwm_val = 50
-pwm_val_turn = 75
+pwm_val_turn = 100
 Kp = -2.1
 
 gpio.setmode(gpio.BOARD)
