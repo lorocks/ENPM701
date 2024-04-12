@@ -96,6 +96,11 @@ try:
         f.write(str(i))
         f.write('\n')
     f.close()
+    
+    f = open("plot.txt", "w")
+    f.write(str(angle))
+    f.write('\n')
+    f.close
 
     data = data.decode()
     angle = (data.split(" ")[1][:-4])
