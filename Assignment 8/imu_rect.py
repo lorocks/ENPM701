@@ -135,8 +135,8 @@ try:
         #gpio.output(35,False)
         #gpio.output(37,True)
         
-        pwm33.start(75)
-        pwm37.start(75)
+        pwm33.start(90)
+        pwm37.start(90)
 
         data = ser.readline()
         data = data.decode()
@@ -148,11 +148,15 @@ try:
         else:
             check_angle = 360
 
-        while round(initial_angle - current_angle) % check_angle < angle_turn - 3:
+        while round(initial_angle - current_angle) % check_angle < angle_turn - 1:
             data = ser.readline()
             data = data.decode()
             #print(data)
             current_angle = float(data.split(" ")[1][:-4])
+
+            if (initial_angle - current_angle) % check_angle < angle_turn - 10:
+                pwm33.ChangeDutyCycle(60)
+                pwm37.ChangeDutyCycle(60)
 
         print(current_angle)
         pwm33.stop()
@@ -165,40 +169,40 @@ try:
 
     angles = []
 
-    data = ser.readline()
-    data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    # data = ser.readline()
+    # data = data.decode()
+    # angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*8*2)
-    timeskip(1.5)
-    left(90)
-    timeskip(1.5)
+    # forward(120*8*2)
+    # timeskip(1.5)
+    # left(90)
+    # timeskip(1.5)
 
-    data = ser.readline()
-    data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    # data = ser.readline()
+    # data = data.decode()
+    # angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*8*2)
-    timeskip(1.5)
-    left(90)
-    timeskip(1.5)
+    # forward(120*8*2)
+    # timeskip(1.5)
+    # left(90)
+    # timeskip(1.5)
 
-    data = ser.readline()
-    data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    # data = ser.readline()
+    # data = data.decode()
+    # angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*8*2)
-    timeskip(1.5)
+    # forward(120*8*2)
+    # timeskip(1.5)
     left(89)
     timeskip(1.5)
 
-    data = ser.readline()
-    data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    # data = ser.readline()
+    # data = data.decode()
+    # angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*8*2)
-    timeskip(1.5)
-    timeskip(1.5)
+    # forward(120*8*2)
+    # timeskip(1.5)
+    # timeskip(1.5)
 
 
     if os.path.exists("imu_angles.txt"):
