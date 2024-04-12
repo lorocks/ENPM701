@@ -172,7 +172,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+#    forward(120*2*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
@@ -181,7 +181,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+#    forward(120*2*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
@@ -190,7 +190,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+#    forward(120*2*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
@@ -199,7 +199,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+#    forward(120*2*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
