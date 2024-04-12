@@ -18,13 +18,13 @@ try:
     gpio.setup(36, gpio.OUT)
     servo = gpio.PWM(36, 50)
 
-    pwm_31 = gpio.PWM(33, 50)
-    pwm_37 = gpio.PWM(35, 50)
+    pwm_31 = gpio.PWM(31, 50)
+    pwm_37 = gpio.PWM(37, 50)
     pwm_val = 50
 #    pwm_val = 25
     Kp = -2.1 # Forward
     Kp = -1.9
-    Kp = -5 # Reverse
+#    Kp = -5 # Reverse
 
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -96,6 +96,8 @@ try:
         f.write(str(i))
         f.write('\n')
     f.close()
+    
+    
 
     pwm_31.stop()
     pwm_37.stop()

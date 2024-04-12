@@ -54,7 +54,7 @@ try:
 # 4.6 Anticlockwise
     while counter_r < 90 * 4.6:
     # while True:
-        # data = ser.readline()
+        data = ser.readline()
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 
@@ -96,6 +96,11 @@ try:
         f.write(str(i))
         f.write('\n')
     f.close()
+    
+    f = open("plot.txt", "w")
+    f.write(str(angle))
+    f.write('\n')
+    f.close
 
     pwm_33.stop()
     pwm_37.stop()
