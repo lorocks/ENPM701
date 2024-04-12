@@ -26,7 +26,7 @@ trig = 16
 echo = 18
 servo = 36
 
-open = 5
+open_s = 5
 close = 7.9
 
 pwm_val = 50
@@ -129,10 +129,9 @@ try:
         gameover()
 
     def left(angle_turn):
-        gpio.output(31,False)
-        gpio.output(33,True)
-        gpio.output(35,False)
-        gpio.output(37,True)
+        
+        pwm33.start(100)
+        pwm37.start(100)
 
         data = ser.readline()
         data = data.decode()
@@ -144,12 +143,15 @@ try:
         else:
             check_angle = 360
 
-        while (initial_angle - current_angle) % check_angle >= angle_turn:
+        while round(initial_angle - current_angle) % check_angle < angle_turn - 1:
             data = ser.readline()
             data = data.decode()
+            print(data)
             current_angle = float(data.split(" ")[1][:-4])
 
-        gameover()
+        pwm33.stop()
+        pwm37.stop()
+        #gameover()
         
     counter = 0
 
@@ -179,7 +181,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+   forward(120*2*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)

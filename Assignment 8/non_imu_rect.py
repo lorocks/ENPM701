@@ -145,9 +145,9 @@ try:
 
         Kp = -2.1
 
-        while counter_r < 90 * 4.6:
+        while counter_r < 11:
         # while True:
-            # data = ser.readline()
+            data = ser.readline()
             ticks_r.append(gpio.input(12))
             ticks_l.append(gpio.input(7))
 
