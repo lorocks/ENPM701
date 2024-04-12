@@ -125,7 +125,7 @@ try:
 
             error = counter_r - counter_l
 
-            val = pwm_val + (Kp*error)
+            val = pwm_val_turn + (Kp*error)
             if val > 100:
                 val = 100
             if val < 0:
@@ -138,12 +138,19 @@ try:
     def left(angle_turn):
         counter_r = counter_l = 0
         tick_r = tick_l = 0
+        ticks_r = ticks_l = []
 
         pwm33.start(pwm_val_turn)
         pwm37.start(pwm_val_turn)
 
-        while counter_r < angle_turn * 0.11 or counter_l < angle_turn * 0.11:
-            ser.readline()
+        Kp = -2.1
+
+        while counter_r < 90 * 4.6:
+        # while True:
+            # data = ser.readline()
+            ticks_r.append(gpio.input(12))
+            ticks_l.append(gpio.input(7))
+
             if gpio.input(12) != tick_r:
                 counter_r += 1
                 tick_r = gpio.input(12)
@@ -153,13 +160,13 @@ try:
                 tick_l = gpio.input(7)
 
             error = counter_r - counter_l
-#            print(counter_r)
-            val = pwm_val + (Kp*error)
+
+            val = pwm_val_turn + (Kp*error)
             if val > 100:
                 val = 100
             if val < 0:
                 val = 0
-#            pwm37.ChangeDutyCycle(val)
+            pwm37.ChangeDutyCycle(val)
 
         pwm33.stop()
         pwm37.stop()
