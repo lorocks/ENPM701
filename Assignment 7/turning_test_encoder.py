@@ -34,10 +34,10 @@ try:
     pwm = gpio.PWM(36, 50)
     pwm.start(7.9)
     pwm_31 = gpio.PWM(31, 50)
-#    pwm_33 = gpio.PWM(33, 50)
+    pwm_33 = gpio.PWM(33, 50)
     pwm_35 = gpio.PWM(35, 50)
-#    pwm_37 = gpio.PWM(37, 50)
-    pwm_val = 75
+    pwm_37 = gpio.PWM(37, 50)
+    pwm_val = 100
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
     gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -46,8 +46,8 @@ try:
     tick_r = tick_l = 0
     ticks_r = ticks_l = []
 
-    pwm_31.start(pwm_val)
-    pwm_35.start(pwm_val)
+    pwm_33.start(pwm_val)
+    pwm_37.start(pwm_val)
 
     Kp = -2.1
 # 4.7 Left
@@ -73,7 +73,7 @@ try:
             val = 100
         if val < 0:
             val = 0
-        pwm_35.ChangeDutyCycle(val)
+        pwm_37.ChangeDutyCycle(val)
 
     if os.path.exists("encoder_right.txt"):
         os.remove("encoder_right.txt")
@@ -97,15 +97,15 @@ try:
         f.write('\n')
     f.close()
 
-    pwm_31.stop()
-    pwm_35.stop()
+    pwm_33.stop()
+    pwm_37.stop()
     pwm.stop()
     gpio.cleanup()
 
     print(f"Right encoder counts {counter_r} & Left encoder counts {counter_l}")
 except:
-    pwm_31.stop()
-    pwm_35.stop()
+    pwm_33.stop()
+    pwm_37.stop()
     pwm.stop()
     gpio.cleanup()
 
