@@ -29,7 +29,7 @@ servo = 36
 open_s = 5
 close = 7.9
 
-pwm_val = 50
+pwm_val = 75
 Kp = -2.1
 
 gpio.setmode(gpio.BOARD)
@@ -73,7 +73,8 @@ try:
         pwm37.start(pwm_val)
 
         while counter_r < encoder_count:
-            ser.readline()
+            # ser.readline()
+            #print(counter_r)
             # ticks_r.append(gpio.input(12))
             # ticks_l.append(gpio.input(7))
 
@@ -86,7 +87,7 @@ try:
                 tick_l = gpio.input(7)
             
             error = counter_r - counter_l
-
+            Kp = -2.5
             val = pwm_val + (Kp*error)
             if val > 100:
                 val = 100
@@ -129,9 +130,13 @@ try:
         gameover()
 
     def left(angle_turn):
+        #gpio.output(31,False)        
+        #gpio.output(33,True)
+        #gpio.output(35,False)
+        #gpio.output(37,True)
         
-        pwm33.start(100)
-        pwm37.start(100)
+        pwm33.start(75)
+        pwm37.start(75)
 
         data = ser.readline()
         data = data.decode()
@@ -143,12 +148,13 @@ try:
         else:
             check_angle = 360
 
-        while round(initial_angle - current_angle) % check_angle < angle_turn - 1:
+        while round(initial_angle - current_angle) % check_angle < angle_turn - 3:
             data = ser.readline()
             data = data.decode()
-            print(data)
+            #print(data)
             current_angle = float(data.split(" ")[1][:-4])
 
+        print(current_angle)
         pwm33.stop()
         pwm37.stop()
         #gameover()
@@ -163,7 +169,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+    forward(120*8*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
@@ -172,7 +178,7 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+    forward(120*8*2)
     timeskip(1.5)
     left(90)
     timeskip(1.5)
@@ -181,18 +187,17 @@ try:
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+    forward(120*8*2)
     timeskip(1.5)
-    left(90)
+    left(89)
     timeskip(1.5)
 
     data = ser.readline()
     data = data.decode()
     angles.append(float(data.split(" ")[1][:-4]))
 
-    forward(120*2*2)
+    forward(120*8*2)
     timeskip(1.5)
-    left(90)
     timeskip(1.5)
 
 
@@ -221,4 +226,5 @@ except Exception as error:
     pwm33.stop()
     pwm35.stop()
     pwm37.stop()
+    gameover()
     gpio.cleanup()
