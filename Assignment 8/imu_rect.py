@@ -154,7 +154,7 @@ try:
             #print(data)
             current_angle = float(data.split(" ")[1][:-4])
 
-            if (initial_angle - current_angle) % check_angle < angle_turn - 10:
+            if (initial_angle - current_angle) % check_angle > angle_turn - 30:
                 pwm33.ChangeDutyCycle(60)
                 pwm37.ChangeDutyCycle(60)
 
@@ -169,40 +169,40 @@ try:
 
     angles = []
 
-    # data = ser.readline()
-    # data = data.decode()
-    # angles.append(float(data.split(" ")[1][:-4]))
+    data = ser.readline()
+    data = data.decode()
+    angles.append(float(data.split(" ")[1][:-4]))
+    
+    forward(120*8*2)
+    timeskip(1.5)
+    left(90)
+    timeskip(1.5)
 
-    # forward(120*8*2)
-    # timeskip(1.5)
-    # left(90)
-    # timeskip(1.5)
+    data = ser.readline()
+    data = data.decode()
+    angles.append(float(data.split(" ")[1][:-4]))
 
-    # data = ser.readline()
-    # data = data.decode()
-    # angles.append(float(data.split(" ")[1][:-4]))
+    forward(120*8*2)
+    timeskip(1.5)
+    left(90)
+    timeskip(1.5)
 
-    # forward(120*8*2)
-    # timeskip(1.5)
-    # left(90)
-    # timeskip(1.5)
+    data = ser.readline()
+    data = data.decode()
+    angles.append(float(data.split(" ")[1][:-4]))
 
-    # data = ser.readline()
-    # data = data.decode()
-    # angles.append(float(data.split(" ")[1][:-4]))
-
-    # forward(120*8*2)
-    # timeskip(1.5)
+    forward(120*8*2)
+    timeskip(1.5)
     left(89)
     timeskip(1.5)
 
-    # data = ser.readline()
-    # data = data.decode()
-    # angles.append(float(data.split(" ")[1][:-4]))
+    data = ser.readline()
+    data = data.decode()
+    angles.append(float(data.split(" ")[1][:-4]))
 
-    # forward(120*8*2)
-    # timeskip(1.5)
-    # timeskip(1.5)
+    forward(120*8*2)
+    timeskip(1.5)
+    timeskip(1.5)
 
 
     if os.path.exists("imu_angles.txt"):
