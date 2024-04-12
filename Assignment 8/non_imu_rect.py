@@ -30,6 +30,7 @@ open = 5
 close = 7.9
 
 pwm_val = 50
+pwm_val_turn = 75
 Kp = -2.1
 
 gpio.setmode(gpio.BOARD)
@@ -106,50 +107,60 @@ try:
         gameover()
 
     def right(angle_turn):
-        gpio.output(31,True)        
-        gpio.output(33,False)
-        gpio.output(35,True)
-        gpio.output(37,False)
+        counter_r = counter_l = 0
+        tick_r = tick_l = 0
 
-        data = ser.readline()
-        data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
-        current_angle = initial_angle
+        pwm31.start(pwm_val_turn)
+        pwm35.start(pwm_val_turn)
 
-        if angle_turn < 180:
-            check_angle = 180
-        else:
-            check_angle = 360
+        while counter_r < angle_turn * 6:
+            if gpio.input(12) != tick_r:
+                counter_r += 1
+                tick_r = gpio.input(12)
 
-        while (initial_angle - current_angle) % check_angle >= angle_turn:
-            data = ser.readline()
-            data = data.decode()
-            current_angle = float(data.split(" ")[1][:-4])
+            if gpio.input(7) != tick_l:
+                counter_l += 1
+                tick_l = gpio.input(7)
 
-        gameover()
+            error = counter_r - counter_l
+
+            val = pwm_val + (Kp*error)
+            if val > 100:
+                val = 100
+            if val < 0:
+                val = 0
+            pwm35.ChangeDutyCycle(val)
+
+        pwm31.stop()
+        pwm35.stop()
 
     def left(angle_turn):
-        gpio.output(31,False)
-        gpio.output(33,True)
-        gpio.output(35,False)
-        gpio.output(37,True)
+        counter_r = counter_l = 0
+        tick_r = tick_l = 0
 
-        data = ser.readline()
-        data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
-        current_angle = initial_angle
+        pwm33.start(pwm_val_turn)
+        pwm37.start(pwm_val_turn)
 
-        if angle_turn < 180:
-            check_angle = 180
-        else:
-            check_angle = 360
+        while counter_r < angle_turn * 4.6:
+            if gpio.input(12) != tick_r:
+                counter_r += 1
+                tick_r = gpio.input(12)
 
-        while (initial_angle - current_angle) % check_angle >= angle_turn:
-            data = ser.readline()
-            data = data.decode()
-            current_angle = float(data.split(" ")[1][:-4])
+            if gpio.input(7) != tick_l:
+                counter_l += 1
+                tick_l = gpio.input(7)
 
-        gameover()
+            error = counter_r - counter_l
+
+            val = pwm_val + (Kp*error)
+            if val > 100:
+                val = 100
+            if val < 0:
+                val = 0
+            pwm37.ChangeDutyCycle(val)
+
+        pwm33.stop()
+        pwm37.stop()
         
     counter = 0
 
@@ -194,12 +205,12 @@ try:
     timeskip(1.5)
 
 
-    if os.path.exists("imu_angles.txt"):
-        os.remove("imu_angles.txt")
+    if os.path.exists("nonimu_angles.txt"):
+        os.remove("nonimu_angles.txt")
     else:
         print("The file does not exist")
 
-    f = open("imu_angles.txt", 'w')
+    f = open("nonimu_angles.txt", 'w')
     for i in angles:
         f.write(str(i))
         f.write('\n')

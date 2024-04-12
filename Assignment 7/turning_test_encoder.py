@@ -52,8 +52,8 @@ try:
     Kp = -2.1
 # 4.7 Left
 # 4.6 Anticlockwise
-    # while counter_r < 90 * 6:
-    while True:
+    while counter_r < 90 * 4.6:
+    # while True:
         # data = ser.readline()
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
@@ -73,7 +73,7 @@ try:
             val = 100
         if val < 0:
             val = 0
-        # pwm_35.ChangeDutyCycle(val)
+        pwm_35.ChangeDutyCycle(val)
 
     if os.path.exists("encoder_right.txt"):
         os.remove("encoder_right.txt")
