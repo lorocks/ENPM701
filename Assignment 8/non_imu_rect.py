@@ -168,11 +168,11 @@ try:
 
     ser.readline()
 
-    angles = []
+    angles_list = []
 
     data = ser.readline()
     data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    angles_list.append(float(data.split(" ")[1][:-4]))
 
 #    forward(120*2*2)
     timeskip(1.5)
@@ -181,7 +181,7 @@ try:
 
     data = ser.readline()
     data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    angles_list.append(float(data.split(" ")[1][:-4]))
 
 #    forward(120*2*2)
     timeskip(1.5)
@@ -190,7 +190,7 @@ try:
 
     data = ser.readline()
     data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    angles_list.append(float(data.split(" ")[1][:-4]))
 
 #    forward(120*2*2)
     timeskip(1.5)
@@ -199,7 +199,7 @@ try:
 
     data = ser.readline()
     data = data.decode()
-    angles.append(float(data.split(" ")[1][:-4]))
+    angles_list.append(float(data.split(" ")[1][:-4]))
 
 #    forward(120*2*2)
     timeskip(1.5)
@@ -213,7 +213,7 @@ try:
         print("The file does not exist")
 
     f = open("nonimu_angles.txt", 'w')
-    for i in angles:
+    for i in angles_list:
         print(i)
         f.write(str(i))
         f.write('\n')
