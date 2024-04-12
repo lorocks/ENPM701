@@ -8,21 +8,21 @@ import serial
 ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 try:
-    # count = 0
-    # printed = False
-    # while not printed:
-    #     if ser.in_waiting > 0:
-    #         count += 1
-    #         ser.readline()
+    count = 0
+    printed = False
+    while not printed:
+        if ser.in_waiting > 0:
+            count += 1
+            ser.readline()
 
-    #         if count > 10:
-    #             data = ser.readline()
-    #             print(data)
+            if count > 10:
+                data = ser.readline()
+                print(data)
 
-    #             # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
-    #             # print(data)
+                # data = float(str(data.rstrip().lstrip()).strip("'").strip("b'")[2:7])
+                # print(data)
 
-    #             printed = True
+                printed = True
 
     gpio.setmode(gpio.BOARD)
     gpio.setup(31,gpio.OUT) #IN1
@@ -54,7 +54,7 @@ try:
 # 4.6 Anticlockwise
     while counter_r < 90 * 4.6:
     # while True:
-        # data = ser.readline()
+        data = ser.readline()
         ticks_r.append(gpio.input(12))
         ticks_l.append(gpio.input(7))
 
@@ -95,6 +95,13 @@ try:
     for i in ticks_l:
         f.write(str(i))
         f.write('\n')
+    f.close()
+
+    data = data.decode()
+    angle = (data.split(" ")[1][:-4])
+    f.open("plot.txt", "w")
+    f.write(angle)
+    f.wriet("\n")
     f.close()
 
     pwm_33.stop()

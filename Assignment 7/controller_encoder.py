@@ -24,7 +24,7 @@ try:
 #    pwm_val = 25
     Kp = -2.1 # Forward
     Kp = -1.9
-    Kp = -5 # Reverse
+    # Kp = -5 # Reverse
 
 
     gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
