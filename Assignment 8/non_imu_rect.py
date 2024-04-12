@@ -26,7 +26,7 @@ trig = 16
 echo = 18
 servo = 36
 
-open = 5
+open_s = 5
 close = 7.9
 
 pwm_val = 50
