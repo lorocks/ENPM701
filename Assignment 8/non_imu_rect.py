@@ -142,7 +142,7 @@ try:
         pwm33.start(pwm_val_turn)
         pwm37.start(pwm_val_turn)
 
-        while counter_r < angle_turn * 0.11 or counter_l < angle_turn * 0.11:
+        while counter_r < 10 or counter_l < angle_turn * 0.11:
             ser.readline()
             if gpio.input(12) != tick_r:
                 counter_r += 1
