@@ -264,46 +264,6 @@ try:
         pwm37.stop()
         #gameover()
 
-    def send_email(image):
-        time_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-
-        smtpUser = 'ENPM701.lorocks@gmail.com'
-        smtpPass = 'jtesrcwsaygtxubj'
-
-
-        buffer = cv2.imencode('.jpg', image)[1].tostring()
-
-
-        to = 'ENPM809TS19@gmail.com'
-        fromAdd = smtpUser
-        cc = ['jsuriya@umd.edu']
-        msg = MIMEMultipart()
-        msg['Subject'] = 'Assignment 9: lorock (120095719)'
-        msg['From'] = fromAdd
-        msg['To'] = to
-        msg['CC'] = cc
-        msg.preamble = 'Image from RPi'
-
-        body = MIMEText(f'Image Found at {time_now}')
-        msg.attach(body)
-
-
-        img = MIMEImage(buffer)
-        msg.attach(img)
-
-
-        s = smtplib.SMTP('smtp.gmail.com', 587)
-
-        s.ehlo()
-        s.starttls()
-        s.ehlo()
-
-        s.login(smtpUser, smtpPass)
-        s.sendmail(fromAdd, [to] + cc, msg.as_string())
-        s.quit()
-
-        print("Email send")
-
     
     while True:
         frame = videostream.read()
@@ -332,17 +292,8 @@ try:
                     right(abs(x_diff*0.061))
                 else:
                     left(abs(x_diff*0.061))
-
-            if y + h > 480 - 5:
-                pass # Servo close
-            else:
-                forward(300) # put actual distance
-
-            # Check for object at bottom screen              
-
-
-
-        result.write(image)
+                
+                result.write(image)
 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):

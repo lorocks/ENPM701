@@ -177,6 +177,7 @@ try:
     result.release()
     cv2.destroyAllWindows()
     videostream.stop()
+    
 except Exception as error:
     print("Error aborting!", error)
     pwm.stop()
