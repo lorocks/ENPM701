@@ -126,8 +126,8 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 
 # Initialise HSV Colors
-lower_green = np.array([40, 100, 100])
-upper_green = np.array([70, 255, 255])
+lower_green = np.array([40, 40, 100])
+upper_green = np.array([60, 255, 255])
 
 lower_blue = np.array([110, 100, 80])
 upper_blue = np.array([115, 255, 255])
@@ -141,171 +141,172 @@ upper = [upper_blue, upper_green, upper_red]
 block_color = int(input("Enter BGR -> 1 2 3")) - 1
 
 
-try:
+# try:
 
-    def gameover():
-        gpio.output(31,False)
-        gpio.output(33,False)
-        gpio.output(35,False)
-        gpio.output(37,False)
+def gameover():
+    gpio.output(31,False)
+    gpio.output(33,False)
+    gpio.output(35,False)
+    gpio.output(37,False)
 
-    def timeskip(count):
-        start = time.time()
-        while time.time() - start < count:
-            ser.readline()
-
-        
-    def forward(encoder_count):
-        counter_r = counter_l = 0
-        tick_r = tick_l = 0
-
-        pwm31.start(pwm_val)
-        pwm37.start(pwm_val)
-
-        while counter_r < encoder_count:
-            # ser.readline()
-            #print(counter_r)
-            # ticks_r.append(gpio.input(12))
-            # ticks_l.append(gpio.input(7))
-
-            if gpio.input(12) != tick_r:
-                counter_r += 1
-                tick_r = gpio.input(12)
-
-            if gpio.input(7) != tick_l:
-                counter_l += 1
-                tick_l = gpio.input(7)
-            
-            error = counter_r - counter_l
-            Kp = -2.5
-            val = pwm_val + (Kp*error)
-            if val > 100:
-                val = 100
-            if val < 0:
-                val = 0
-            pwm37.ChangeDutyCycle(val)
-
-        pwm31.stop()
-        pwm37.stop()
-
-    def reverse(encoder_count):
-        gpio.output(31,False)
-        gpio.output(33,True)
-        gpio.output(35,True)
-        gpio.output(37,False)
-        time.sleep(1)
-        gameover()
-
-    def right(angle_turn):
-        # gpio.output(31,True)        
-        # gpio.output(33,False)
-        # gpio.output(35,True)
-        # gpio.output(37,False)
-
-        pwm31.start(90)
-        pwm35.start(90)
-
-        data = ser.readline()
-        data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
-        current_angle = initial_angle
-
-        if angle_turn < 180:
-            check_angle = 180
-        else:
-            check_angle = 360
-
-        while round(current_angle - initial_angle) % check_angle < angle_turn:
-            data = ser.readline()
-            data = data.decode()
-            current_angle = float(data.split(" ")[1][:-4])
-
-
-        pwm31.stop()
-        pwm35.stop()
-
-        gameover()
-
-    def left(angle_turn):
-        #gpio.output(31,False)        
-        #gpio.output(33,True)
-        #gpio.output(35,False)
-        #gpio.output(37,True)
-        
-        pwm33.start(90)
-        pwm37.start(90)
-
-        data = ser.readline()
-        data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
-        current_angle = initial_angle
-
-        if angle_turn < 180:
-            check_angle = 180
-        else:
-            check_angle = 360
-
-        while round(initial_angle - current_angle) % check_angle < angle_turn:
-            data = ser.readline()
-            data = data.decode()
-            #print(data)
-            current_angle = float(data.split(" ")[1][:-4])
-
-
-        pwm33.stop()
-        pwm37.stop()
-        #gameover()
+def timeskip(count):
+    start = time.time()
+    while time.time() - start < count:
+        ser.readline()
 
     
-    while True:
-        frame = videostream.read()
+def forward(encoder_count):
+    counter_r = counter_l = 0
+    tick_r = tick_l = 0
 
-        # find height and width, im assuming 640 and 480
+    pwm31.start(pwm_val)
+    pwm37.start(pwm_val)
 
-        image = cv2.flip(frame,-1)
+    while counter_r < encoder_count:
+        # ser.readline()
+        #print(counter_r)
+        # ticks_r.append(gpio.input(12))
+        # ticks_l.append(gpio.input(7))
 
-        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        if gpio.input(12) != tick_r:
+            counter_r += 1
+            tick_r = gpio.input(12)
 
-        mask = cv2.inRange(hsv, lower[block_color], upper[block_color])
+        if gpio.input(7) != tick_l:
+            counter_l += 1
+            tick_l = gpio.input(7)
+        
+        error = counter_r - counter_l
+        Kp = -2.5
+        val = pwm_val + (Kp*error)
+        if val > 100:
+            val = 100
+        if val < 0:
+            val = 0
+        pwm37.ChangeDutyCycle(val)
 
-        contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
-        if len(contours) > 0:
-            c = max(contours, key = cv2.contourArea)
-            x,y,w,h = cv2.boundingRect(c)
-
-            if x > 320+5 or x + w < 320 - 5:
-                ser.reset_input_buffer()
-                x_centr = x + (w/2)
-
-                x_diff = 320 - x_centr
-
-                if x_diff < 0:
-                    right(abs(x_diff*0.0061))
-                else:
-                    left(abs(x_diff*0.0061))
-
-                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
-
-
-        result.write(image)
-
-        cv2.imshow("Test", image)
-                
-        # Press key q to stop
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-
-    pwm_servo.stop()
     pwm31.stop()
-    pwm33.stop()
-    pwm35.stop()
     pwm37.stop()
-    gpio.cleanup()
-    result.release()
-    cv2.destroyAllWindows()
-    videostream.stop()
+
+def reverse(encoder_count):
+    gpio.output(31,False)
+    gpio.output(33,True)
+    gpio.output(35,True)
+    gpio.output(37,False)
+    time.sleep(1)
+    gameover()
+
+def right(angle_turn):
+    # gpio.output(31,True)        
+    # gpio.output(33,False)
+    # gpio.output(35,True)
+    # gpio.output(37,False)
+
+    pwm31.start(90)
+    pwm35.start(90)
+
+    data = ser.readline()
+    data = data.decode()
+    initial_angle = float(data.split(" ")[1][:-4])
+    current_angle = initial_angle
+
+    if angle_turn < 180:
+        check_angle = 180
+    else:
+        check_angle = 360
+
+    while round(current_angle - initial_angle) % check_angle < angle_turn:
+        data = ser.readline()
+        data = data.decode()
+        current_angle = float(data.split(" ")[1][:-4])
+
+
+    pwm31.stop()
+    pwm35.stop()
+
+    gameover()
+
+def left(angle_turn):
+    #gpio.output(31,False)        
+    #gpio.output(33,True)
+    #gpio.output(35,False)
+    #gpio.output(37,True)
+    
+    pwm33.start(90)
+    pwm37.start(90)
+
+    data = ser.readline()
+    data = data.decode()
+    initial_angle = float(data.split(" ")[1][:-4])
+    current_angle = initial_angle
+
+    if angle_turn < 180:
+        check_angle = 180
+    else:
+        check_angle = 360
+
+    while round(initial_angle - current_angle) % check_angle < angle_turn:
+        data = ser.readline()
+        data = data.decode()
+        #print(data)
+        current_angle = float(data.split(" ")[1][:-4])
+
+
+    pwm33.stop()
+    pwm37.stop()
+    #gameover()
+
+
+while True:
+    frame = videostream.read()
+
+    # find height and width, im assuming 640 and 480
+
+    image = cv2.flip(frame,-1)
+
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+    mask = cv2.inRange(hsv, lower[block_color], upper[block_color])
+
+    contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    if len(contours) > 0:
+        c = max(contours, key = cv2.contourArea)
+        x,y,w,h = cv2.boundingRect(c)
+
+        if (x > 320+5 or x + w < 320 - 5) and (w > 30 or h > 30):
+            ser.reset_input_buffer()
+            x_centr = x + (w/2)
+
+            x_diff = 320 - x_centr
+
+            if x_diff < 0:
+                right(abs(x_diff*0.00061))
+            else:
+                left(abs(x_diff*0.00061))
+
+            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+
+
+    result.write(image)
+
+    cv2.imshow("Test", image)
+            
+    # Press key q to stop
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+
+pwm_servo.stop()
+pwm31.stop()
+pwm33.stop()
+pwm35.stop()
+pwm37.stop()
+gpio.cleanup()
+result.release()
+cv2.destroyAllWindows()
+videostream.stop()
+    """
 except Exception as e:
     print(e)
     pwm_servo.stop()
@@ -316,4 +317,4 @@ except Exception as e:
     gpio.cleanup()
     result.release()
     cv2.destroyAllWindows()
-    videostream.stop()
+    videostream.stop()"""
