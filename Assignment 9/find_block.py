@@ -274,16 +274,16 @@ try:
             c = max(contours, key = cv2.contourArea)
             x,y,w,h = cv2.boundingRect(c)
 
-            if x > 320 or x + w < 320:
+            if x > 320+5 or x + w < 320 - 5:
                 ser.reset_input_buffer()
                 x_centr = x + (w/2)
 
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    right(abs(x_diff*0.061))
+                    right(abs(x_diff*0.0061))
                 else:
-                    left(abs(x_diff*0.061))
+                    left(abs(x_diff*0.0061))
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
