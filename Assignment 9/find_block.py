@@ -292,9 +292,14 @@ try:
                     right(abs(x_diff*0.061))
                 else:
                     left(abs(x_diff*0.061))
-                
-            result.write(image)
 
+                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+
+
+        result.write(image)
+
+        cv2.imshow("Test", image)
+                
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
