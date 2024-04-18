@@ -207,7 +207,10 @@ try:
 
         data = ser.readline()
         data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
         current_angle = initial_angle
 
         if angle_turn < 180:
@@ -237,7 +240,10 @@ try:
 
         data = ser.readline()
         data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
         current_angle = initial_angle
 
         if angle_turn < 180:
