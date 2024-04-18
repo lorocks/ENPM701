@@ -215,7 +215,7 @@ try:
         else:
             check_angle = 360
 
-        while round(current_angle - initial_angle) % check_angle >= angle_turn:
+        while round(current_angle - initial_angle) % check_angle < angle_turn:
             data = ser.readline()
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
@@ -306,7 +306,8 @@ try:
     result.release()
     cv2.destroyAllWindows()
     videostream.stop()
-except:
+except Exception as e:
+    print(e)
     pwm_servo.stop()
     pwm31.stop()
     pwm33.stop()
