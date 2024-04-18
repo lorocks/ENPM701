@@ -288,9 +288,9 @@ try:
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    right(abs(x_diff*0.00061))
+                    right(abs(x_diff*0.0012))
                 else:
-                    left(abs(x_diff*0.00061))
+                    left(abs(x_diff*0.0012))
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
