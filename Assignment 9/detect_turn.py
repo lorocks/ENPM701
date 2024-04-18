@@ -334,7 +334,7 @@ try:
                     left(abs(x_diff*0.061))
 
             if y + h > 480 - 5:
-                pass # Servo close
+                pass # Servo close, send email
             else:
                 forward(300) # put actual distance
 

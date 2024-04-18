@@ -293,7 +293,7 @@ try:
                 else:
                     left(abs(x_diff*0.061))
                 
-                result.write(image)
+            result.write(image)
 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
