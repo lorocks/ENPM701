@@ -224,7 +224,6 @@ try:
                 pwm31.ChangeDutyCycle(60)
                 pwm35.ChangeDutyCycle(60)
 
-        print(current_angle)
         pwm31.stop()
         pwm35.stop()
 
@@ -256,7 +255,6 @@ try:
             current_angle = float(data.split(" ")[1][:-4])
 
 
-        print(current_angle)
         pwm33.stop()
         pwm37.stop()
         #gameover()
@@ -264,6 +262,8 @@ try:
     
     while True:
         frame = videostream.read()
+
+        print(frame.shape)
 
         # find height and width, im assuming 640 and 480
 
