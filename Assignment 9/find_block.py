@@ -220,9 +220,6 @@ try:
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
 
-            if (current_angle - initial_angle) % check_angle > angle_turn - 7:
-                pwm31.ChangeDutyCycle(60)
-                pwm35.ChangeDutyCycle(60)
 
         pwm31.stop()
         pwm35.stop()
@@ -263,8 +260,6 @@ try:
     while True:
         frame = videostream.read()
 
-        print(frame.shape)
-
         # find height and width, im assuming 640 and 480
 
         image = cv2.flip(frame,-1)
@@ -285,10 +280,10 @@ try:
 
                 x_diff = 320 - x_centr
 
-                # if x_diff < 0:
-                #     right(abs(x_diff*0.061))
-                # else:
-                #     left(abs(x_diff*0.061))
+                if x_diff < 0:
+                    right(abs(x_diff*0.061))
+                else:
+                    left(abs(x_diff*0.061))
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
