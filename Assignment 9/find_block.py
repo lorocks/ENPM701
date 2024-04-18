@@ -127,7 +127,7 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 # Initialise HSV Colors
 lower_green = np.array([40, 100, 100])
-upper_green = np.array([60, 255, 255])
+upper_green = np.array([70, 255, 255])
 
 lower_blue = np.array([110, 100, 80])
 upper_blue = np.array([115, 255, 255])
@@ -255,9 +255,6 @@ try:
             #print(data)
             current_angle = float(data.split(" ")[1][:-4])
 
-            if (initial_angle - current_angle) % check_angle > angle_turn - 7:
-                pwm33.ChangeDutyCycle(60)
-                pwm37.ChangeDutyCycle(60)
 
         print(current_angle)
         pwm33.stop()
@@ -288,10 +285,10 @@ try:
 
                 x_diff = 320 - x_centr
 
-                if x_diff < 0:
-                    right(abs(x_diff*0.061))
-                else:
-                    left(abs(x_diff*0.061))
+                # if x_diff < 0:
+                #     right(abs(x_diff*0.061))
+                # else:
+                #     left(abs(x_diff*0.061))
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
