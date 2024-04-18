@@ -126,8 +126,8 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 
 # Initialise HSV Colors
-lower_green = np.array([40, 100, 100])
-upper_green = np.array([70, 255, 255])
+lower_green = np.array([40, 40, 100])
+upper_green = np.array([60, 255, 255])
 
 lower_blue = np.array([110, 100, 80])
 upper_blue = np.array([115, 255, 255])
@@ -280,16 +280,17 @@ try:
             c = max(contours, key = cv2.contourArea)
             x,y,w,h = cv2.boundingRect(c)
 
-            if x > 320+5 or x + w < 320 - 5:
+            if (x > 320+5 or x + w < 320 - 5) and (w > 30 or h > 30):
                 ser.reset_input_buffer()
+                time.sleep(0.1)
                 x_centr = x + (w/2)
 
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    right(abs(x_diff*0.0061))
+                    right(abs(x_diff*0.00061))
                 else:
-                    left(abs(x_diff*0.0061))
+                    left(abs(x_diff*0.00061))
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
