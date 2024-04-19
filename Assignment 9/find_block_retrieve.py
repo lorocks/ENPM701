@@ -344,7 +344,7 @@ try:
         return d
     
     def approachObject(y, height, width):
-        if y + height > 370 and width > 200:
+        if y + height > 350 and width > 200:
             return False
         return True
         
@@ -404,6 +404,7 @@ try:
                     if not approach:
                         forward(int((motor_rots*encoder_tick*(dist_to_block - 5))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
                         pwm_servo.ChangeDutyCycle(open_s)
+                        approach = True
 
             # Check for object at bottom screen              
 
