@@ -371,6 +371,9 @@ try:
             c = max(contours, key = cv2.contourArea)
             x,y,w,h = cv2.boundingRect(c)
 
+            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+            cv2.imshow("Test", image)
+
             if x > 320 or x + w < 320:
                 ser.reset_input_buffer()
                 x_centr = x + (w/2)
@@ -400,12 +403,12 @@ try:
 
             # Check for object at bottom screen              
 
-            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+            
 
 
         result.write(image)
 
-        cv2.imshow("Test", image)
+        
 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
