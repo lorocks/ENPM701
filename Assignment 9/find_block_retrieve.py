@@ -356,8 +356,7 @@ try:
 
         # Only mask if object not in servo, object_in_servo = False
         # When object_in_servo = True, navigate to drop zone
-        if object_in_servo:
-            break
+        
 
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -371,6 +370,11 @@ try:
 
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
             cv2.imshow("Test", image)
+
+            if object_in_servo:
+                # Send EMail
+                send_email(image)
+                break
 
             if x > 320 - 5 or x + w < 320 + 5:
                 ser.reset_input_buffer()
@@ -392,12 +396,8 @@ try:
                         print("end")
                         pwm_servo.ChangeDutyCycle(close - 0.5)
                         object_in_servo = True
-                        
-                        # Send EMail
-                        send_email(image)
 
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
-                        break
                     else:
                         print("forward")
                         forward(20)
