@@ -344,7 +344,7 @@ try:
         return d
     
     def approachObject(y, height, width):
-        if y + height > 480 - 110: # and width > 
+        if y + height > 310 and width > 200:
             return False
         return True
         
@@ -358,6 +358,8 @@ try:
 
         # Only mask if object not in servo, object_in_servo = False
         # When object_in_servo = True, navigate to drop zone
+        if object_in_servo:
+            break
 
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -388,6 +390,7 @@ try:
                         object_in_servo = True
                         send_email(image)
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
+                        break
                     else:
                         forward(20)
                 else:
