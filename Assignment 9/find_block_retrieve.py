@@ -344,7 +344,7 @@ try:
         return d
     
     def approachObject(y, height, width):
-        if y + height > 310 and width > 200:
+        if y + height > 370 and width > 200:
             return False
         return True
         
@@ -374,7 +374,7 @@ try:
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
             cv2.imshow("Test", image)
 
-            if x > 320 + 5 or x + w < 320 - 5:
+            if x > 320 - 5 or x + w < 320 + 5:
                 ser.reset_input_buffer()
                 x_centr = x + (w/2)
 
