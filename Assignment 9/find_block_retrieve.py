@@ -389,13 +389,16 @@ try:
                 dist_to_block = findDistanceToBlock(h)
                 if dist_to_block == -1 or approach:
                     approach = approachObject(y, h, w)
+                    print(approach)
                     if not approach:
+                        print("end")
                         pwm_servo.ChangeDutyCycle(close - 0.5)
                         object_in_servo = True
                         send_email(image)
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
                         break
                     else:
+                        print("forward")
                         forward(20)
                 else:
                     if not approach:
