@@ -394,7 +394,7 @@ try:
                         object_in_servo = True
                         
                         # Send EMail
-
+                        send_email(image)
 
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
                         break
