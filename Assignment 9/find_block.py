@@ -114,7 +114,7 @@ gpio.setup(35,gpio.OUT) #IN3
 gpio.setup(37,gpio.OUT)
 
 pwm_servo = gpio.PWM(servo,50)
-pwm_servo.start(close)
+pwm_servo.start(open_s)
 
 pwm31 = gpio.PWM(31, 50)
 pwm33 = gpio.PWM(33, 50)
