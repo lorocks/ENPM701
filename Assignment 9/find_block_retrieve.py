@@ -385,6 +385,7 @@ try:
                 else:
                     left(abs(x_diff*0.0061))
             else:
+                print(y+h, w)
                 dist_to_block = findDistanceToBlock(h)
                 if dist_to_block == -1 or approach:
                     approach = approachObject(y, h, w)
@@ -398,7 +399,7 @@ try:
                         forward(20)
                 else:
                     if not approach:
-                        forward(int((motor_rots*encoder_tick*(dist_to_block - 4))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
+                        forward(int((motor_rots*encoder_tick*(dist_to_block - 5))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
                         pwm_servo.ChangeDutyCycle(open_s)
 
             # Check for object at bottom screen              
