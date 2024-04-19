@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 import cv2
 from threading import Thread
@@ -19,6 +20,12 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
 import serial
+
+# Initialise Robot Params
+wheel_radius = 1.279528
+encoder_tick = 8
+motor_rots = 120
+
 
 # Initialise Serial
 ser = serial.Serial('/dev/ttyUSB0',9600)
@@ -193,7 +200,7 @@ try:
         gpio.output(33,True)
         gpio.output(35,True)
         gpio.output(37,False)
-        time.sleep(1)
+        time.sleep(encoder_count)
         gameover()
 
     def right(angle_turn):
@@ -202,12 +209,12 @@ try:
         # gpio.output(35,True)
         # gpio.output(37,False)
 
-        pwm31.start(90)
-        pwm35.start(90)
-
         data = ser.readline()
         data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
         current_angle = initial_angle
 
         if angle_turn < 180:
@@ -215,16 +222,15 @@ try:
         else:
             check_angle = 360
 
-        while round(current_angle - initial_angle) % check_angle >= angle_turn:
+        pwm31.start(90)
+        pwm35.start(90)
+
+        while round(current_angle - initial_angle) % check_angle < angle_turn:
             data = ser.readline()
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
 
-            if (current_angle - initial_angle) % check_angle > angle_turn - 7:
-                pwm31.ChangeDutyCycle(60)
-                pwm35.ChangeDutyCycle(60)
 
-        print(current_angle)
         pwm31.stop()
         pwm35.stop()
 
@@ -235,19 +241,22 @@ try:
         #gpio.output(33,True)
         #gpio.output(35,False)
         #gpio.output(37,True)
-        
-        pwm33.start(90)
-        pwm37.start(90)
 
         data = ser.readline()
         data = data.decode()
-        initial_angle = float(data.split(" ")[1][:-4])
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
         current_angle = initial_angle
 
         if angle_turn < 180:
             check_angle = 180
         else:
             check_angle = 360
+        
+        pwm33.start(90)
+        pwm37.start(90)
 
         while round(initial_angle - current_angle) % check_angle < angle_turn:
             data = ser.readline()
@@ -255,11 +264,7 @@ try:
             #print(data)
             current_angle = float(data.split(" ")[1][:-4])
 
-            if (initial_angle - current_angle) % check_angle > angle_turn - 7:
-                pwm33.ChangeDutyCycle(60)
-                pwm37.ChangeDutyCycle(60)
 
-        print(current_angle)
         pwm33.stop()
         pwm37.stop()
         #gameover()
@@ -276,9 +281,10 @@ try:
 
         to = 'ENPM809TS19@gmail.com'
         fromAdd = smtpUser
-        cc = ['jsuriya@umd.edu']
+        # cc = ['jsuriya@umd.edu']
+        cc = ['lorocks@umd.edu']
         msg = MIMEMultipart()
-        msg['Subject'] = 'Assignment 9: lorock (120095719)'
+        msg['Subject'] = f'ENPM701-HW9-BlockRetrieved-{time_now}-Lowell_Lobo-lorocks'
         msg['From'] = fromAdd
         msg['To'] = to
         msg['CC'] = cc
@@ -287,10 +293,8 @@ try:
         body = MIMEText(f'Image Found at {time_now}')
         msg.attach(body)
 
-
         img = MIMEImage(buffer)
         msg.attach(img)
-
 
         s = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -304,13 +308,56 @@ try:
 
         print("Email send")
 
+    def findDistanceToBlock(height):
+        if (height < 26):
+            d = ((51-46) * (height - 24) / (24-26)) + 51
+        elif (height < 27):
+            d = ((3) * (height - 26) / (26-27)) + 46
+        elif (height < 28):
+            d = ((3) * (height - 27) / (27-28)) + 43
+        elif (height < 33):
+            d = ((3) * (height - 28) / (28-33)) + 40
+        elif (height < 36):
+            d = ((3) * (height - 33) / (33-36)) + 37
+        elif (height < 39):
+            d = ((3) * (height - 36) / (36-39)) + 34
+        elif (height < 43):
+            d = ((3) * (height - 39) / (39-43)) + 31
+        elif (height < 51):
+            d = ((3) * (height - 43) / (43-51)) + 28
+        elif (height < 56):
+            d = ((3) * (height - 51) / (51-56)) + 25
+        elif (height < 65):
+            d = ((3) * (height - 56) / (56-65)) + 22
+        elif (height < 77):
+            d = ((3) * (height - 65) / (65-77)) + 19
+        elif (height < 90):
+            d = ((3) * (height - 77) / (77-90)) + 16
+        elif (height < 119):
+            d = ((3) * (height - 90) / (90-119)) + 13
+        elif (height < 185):
+            d = ((3) * (height - 119) / (119-185)) + 10
+
+        else:
+            return -1
+
+        return d
     
+    def approachObject(y, height, width):
+        if y + height > 480 - 110: # and width > 
+            return False
+        return True
+        
+    object_in_servo = False
+    approah = False
+
     while True:
         frame = videostream.read()
 
-        # find height and width, im assuming 640 and 480
-
         image = cv2.flip(frame,-1)
+
+        # Only mask if object not in servo, object_in_servo = False
+        # When object_in_servo = True, navigate to drop zone
 
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -329,14 +376,24 @@ try:
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    right(abs(x_diff*0.061))
+                    right(abs(x_diff*0.0061))
                 else:
-                    left(abs(x_diff*0.061))
-
-            if y + h > 480 - 5:
-                pass # Servo close, send email
+                    left(abs(x_diff*0.0061))
             else:
-                forward(300) # put actual distance
+                dist_to_block = findDistanceToBlock(h)
+                if dist_to_block == -1 or approach:
+                    approach = approachObject(y, h, w)
+                    if not approach:
+                        pwm_servo.ChangeDutyCycle(close - 0.5)
+                        object_in_servo = True
+                        send_email(image)
+                        reverse(2) # reverse then object in serv ocondition will take it to drop zone
+                    else:
+                        forward(20)
+                else:
+                    if not approach:
+                        forward(int((motor_rots*encoder_tick*dist_to_block)/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
+                        pwm_servo.ChangeDutyCycle(open_s)
 
             # Check for object at bottom screen              
 

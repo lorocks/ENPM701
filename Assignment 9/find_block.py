@@ -282,17 +282,17 @@ try:
 
             if (x > 320+5 or x + w < 320 - 5) and (w > 30 or h > 30):
                 ser.reset_input_buffer()
-                time.sleep(0.1)
                 x_centr = x + (w/2)
 
                 x_diff = 320 - x_centr
 
-                if x_diff < 0:
-                    right(abs(x_diff*0.0012))
-                else:
-                    left(abs(x_diff*0.0012))
+                # if x_diff < 0:
+                #     right(abs(x_diff*0.0012))
+                # else:
+                #     left(abs(x_diff*0.0012))
 
-                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+            print(y, h, w)
+            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
 
         result.write(image)
