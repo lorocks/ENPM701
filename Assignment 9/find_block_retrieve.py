@@ -22,7 +22,7 @@ from email.mime.image import MIMEImage
 import serial
 
 # Initialise Robot Params
-wheel_radius = 1.279528
+wheel_radius = 1.3
 encoder_tick = 8
 motor_rots = 120
 
@@ -398,7 +398,7 @@ try:
                         forward(20)
                 else:
                     if not approach:
-                        forward(int((motor_rots*encoder_tick*dist_to_block)/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
+                        forward(int((motor_rots*encoder_tick*(dist_to_block - 2))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
                         pwm_servo.ChangeDutyCycle(open_s)
 
             # Check for object at bottom screen              
