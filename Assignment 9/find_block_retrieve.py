@@ -395,6 +395,7 @@ try:
                     if not approach:
                         print("end")
                         pwm_servo.ChangeDutyCycle(close - 0.5)
+                        time.sleep(0.5)
                         object_in_servo = True
 
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
