@@ -398,7 +398,7 @@ try:
                         forward(20)
                 else:
                     if not approach:
-                        forward(int((motor_rots*encoder_tick*(dist_to_block - 2))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
+                        forward(int((motor_rots*encoder_tick*(dist_to_block - 4))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
                         pwm_servo.ChangeDutyCycle(open_s)
 
             # Check for object at bottom screen              
