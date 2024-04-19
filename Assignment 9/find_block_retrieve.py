@@ -275,19 +275,17 @@ try:
         smtpUser = 'ENPM701.lorocks@gmail.com'
         smtpPass = 'jtesrcwsaygtxubj'
 
-
         buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
 
         to = 'ENPM809TS19@gmail.com'
         fromAdd = smtpUser
-        # cc = ['jsuriya@umd.edu']
-        cc = ['lorocks@umd.edu']
+        cc = 'jsuriya@umd.edu'
         msg = MIMEMultipart()
         msg['Subject'] = f'ENPM701-HW9-BlockRetrieved-{time_now}-Lowell_Lobo-lorocks'
         msg['From'] = fromAdd
         msg['To'] = to
-        msg['CC'] = cc
+        msg['Cc'] = cc
         msg.preamble = 'Image from RPi'
 
         body = MIMEText(f'Image Found at {time_now}')
@@ -303,7 +301,7 @@ try:
         s.ehlo()
 
         s.login(smtpUser, smtpPass)
-        s.sendmail(fromAdd, [to] + cc, msg.as_string())
+        s.sendmail(fromAdd, to.split(",") + cc.split(","), msg.as_string())
         s.quit()
 
         print("Email send")
@@ -396,45 +394,7 @@ try:
                         object_in_servo = True
                         
                         # Send EMail
-                        time_now = datetime.now().strftime('%Y%m%d%H%M%S')
 
-                        smtpUser = 'ENPM701.lorocks@gmail.com'
-                        smtpPass = 'jtesrcwsaygtxubj'
-
-
-                        buffer = cv2.imencode('.jpg', image)[1].tobytes()
-                        print("Works1")
-
-                        to = 'ENPM809TS19@gmail.com'
-                        fromAdd = smtpUser
-                        # cc = ['jsuriya@umd.edu']
-                        cc = ['lorocks@umd.edu']
-                        msg = MIMEMultipart()
-                        msg['Subject'] = f'ENPM701-HW9-BlockRetrieved-{time_now}-Lowell_Lobo-lorocks'
-                        msg['From'] = fromAdd
-                        msg['To'] = to
-                        msg['CC'] = cc
-                        msg.preamble = 'Image from RPi'
-
-                        body = MIMEText(f'Image Found at {time_now}')
-                        msg.attach(body)
-
-                        img = MIMEImage(buffer)
-                        print("Works2")
-                        msg.attach(img)
-                        print("Works3")
-
-                        s = smtplib.SMTP('smtp.gmail.com', 587)
-
-                        s.ehlo()
-                        s.starttls()
-                        s.ehlo()
-
-                        s.login(smtpUser, smtpPass)
-                        s.sendmail(fromAdd, [to] + cc, msg.as_string())
-                        s.quit()
-
-                        print("Email send")
 
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
                         break
