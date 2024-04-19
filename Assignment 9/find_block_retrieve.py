@@ -280,7 +280,7 @@ try:
 
         to = 'ENPM809TS19@gmail.com'
         fromAdd = smtpUser
-        cc = 'jsuriya@umd.edu'
+        cc = 'jsuriya@umd.edu,lorocks@umd.edu'
         msg = MIMEMultipart()
         msg['Subject'] = f'ENPM701-HW9-BlockRetrieved-{time_now}-Lowell_Lobo-lorocks'
         msg['From'] = fromAdd
