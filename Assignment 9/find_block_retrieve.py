@@ -349,7 +349,7 @@ try:
         return True
         
     object_in_servo = False
-    approah = False
+    approach = False
 
     while True:
         frame = videostream.read()
