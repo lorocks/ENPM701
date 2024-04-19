@@ -394,7 +394,46 @@ try:
                         print("end")
                         pwm_servo.ChangeDutyCycle(close - 0.5)
                         object_in_servo = True
-                        send_email(image)
+                        
+                        # Send EMail
+                        time_now = datetime.now().strftime('%Y%m%d%H%M%S')
+
+                        smtpUser = 'ENPM701.lorocks@gmail.com'
+                        smtpPass = 'jtesrcwsaygtxubj'
+
+
+                        buffer = cv2.imencode('.jpg', image)[1].tobytes()
+
+
+                        to = 'ENPM809TS19@gmail.com'
+                        fromAdd = smtpUser
+                        # cc = ['jsuriya@umd.edu']
+                        cc = ['lorocks@umd.edu']
+                        msg = MIMEMultipart()
+                        msg['Subject'] = f'ENPM701-HW9-BlockRetrieved-{time_now}-Lowell_Lobo-lorocks'
+                        msg['From'] = fromAdd
+                        msg['To'] = to
+                        msg['CC'] = cc
+                        msg.preamble = 'Image from RPi'
+
+                        body = MIMEText(f'Image Found at {time_now}')
+                        msg.attach(body)
+
+                        img = MIMEImage(buffer)
+                        msg.attach(img)
+
+                        s = smtplib.SMTP('smtp.gmail.com', 587)
+
+                        s.ehlo()
+                        s.starttls()
+                        s.ehlo()
+
+                        s.login(smtpUser, smtpPass)
+                        s.sendmail(fromAdd, [to] + cc, msg.as_string())
+                        s.quit()
+
+                        print("Email send")
+
                         reverse(2) # reverse then object in serv ocondition will take it to drop zone
                         break
                     else:

@@ -23,8 +23,7 @@ while cap.isOpened():
 
     break
 
-# buffer = cv2.imencode('.jpg', image)[1].tobytes()
-
+buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
 # to = 'lorocks@umd.edu'
 # fromAdd = smtpUser
@@ -56,14 +55,11 @@ while cap.isOpened():
 # print("Email send ehe")
 
 
-def send_email(image):
+def send_email(buffer):
     time_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
     smtpUser = 'ENPM701.lorocks@gmail.com'
     smtpPass = 'jtesrcwsaygtxubj'
-
-
-    buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
 
     to = 'ENPM809TS19@gmail.com'
@@ -95,4 +91,5 @@ def send_email(image):
 
     print("Email send")
 
-send_email(image)
+
+send_email(buffer)
