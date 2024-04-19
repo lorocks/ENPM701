@@ -286,7 +286,7 @@ try:
 
                 x_diff = 320 - x_centr
 
-                forward((120*8)/(2*3.1415*1.279528))
+                # forward((120*8)/(2*3.1415*1.279528))
 
                 # if x_diff < 0:
                 #     right(abs(x_diff*0.0012))
