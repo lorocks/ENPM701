@@ -270,7 +270,7 @@ try:
         #gameover()
 
     def send_email(image):
-        time_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+        time_now = datetime.now().strftime('%Y%m%d%H%M%S')
 
         smtpUser = 'ENPM701.lorocks@gmail.com'
         smtpPass = 'jtesrcwsaygtxubj'
