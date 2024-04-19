@@ -276,7 +276,7 @@ try:
         smtpPass = 'jtesrcwsaygtxubj'
 
 
-        buffer = cv2.imencode('.jpg', image)[1].tostring()
+        buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
 
         to = 'ENPM809TS19@gmail.com'

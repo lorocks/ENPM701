@@ -23,7 +23,7 @@ while cap.isOpened():
 
     break
 
-buffer = cv2.imencode('.jpg', frame)[1].tostring()
+buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
 
 to = 'lorocks@umd.edu'
