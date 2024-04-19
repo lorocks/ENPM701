@@ -25,34 +25,34 @@ while cap.isOpened():
 
 buffer = cv2.imencode('.jpg', image)[1].tobytes()
 
-# to = 'lorocks@umd.edu'
-# fromAdd = smtpUser
-# subject = 'Test image'
-# msg = MIMEMultipart()
-# msg['Subject'] = subject
-# msg['From'] = fromAdd
-# msg['To'] = to
-# msg.preamble = 'testing 123!'
+to = 'lorocks@umd.edu'
+fromAdd = smtpUser
+subject = 'Test image'
+msg = MIMEMultipart()
+msg['Subject'] = subject
+msg['From'] = fromAdd
+msg['To'] = to
+msg.preamble = 'testing 123!'
 
-# body = MIMEText('testing aaaaa')
-# msg.attach(body)
-
-
-# img = MIMEImage(buffer)
-# msg.attach(img)
+body = MIMEText('testing aaaaa')
+msg.attach(body)
 
 
-# s = smtplib.SMTP('smtp.gmail.com', 587)
+img = MIMEImage(buffer)
+msg.attach(img)
 
-# s.ehlo()
-# s.starttls()
-# s.ehlo()
 
-# s.login(smtpUser, smtpPass)
-# s.sendmail(fromAdd, to, msg.as_string())
-# s.quit()
+s = smtplib.SMTP('smtp.gmail.com', 587)
 
-# print("Email send ehe")
+s.ehlo()
+s.starttls()
+s.ehlo()
+
+s.login(smtpUser, smtpPass)
+s.sendmail(fromAdd, to, msg.as_string())
+s.quit()
+
+print("Email send ehe")
 
 
 def send_email(buffer):

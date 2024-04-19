@@ -403,7 +403,7 @@ try:
 
 
                         buffer = cv2.imencode('.jpg', image)[1].tobytes()
-
+                        print("Works1")
 
                         to = 'ENPM809TS19@gmail.com'
                         fromAdd = smtpUser
@@ -420,7 +420,9 @@ try:
                         msg.attach(body)
 
                         img = MIMEImage(buffer)
+                        print("Works2")
                         msg.attach(img)
+                        print("Works3")
 
                         s = smtplib.SMTP('smtp.gmail.com', 587)
 
