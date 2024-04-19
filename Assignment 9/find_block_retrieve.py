@@ -421,7 +421,8 @@ try:
     result.release()
     cv2.destroyAllWindows()
     videostream.stop()
-except:
+except Exception as e:
+    print(e)
     pwm_servo.stop()
     pwm31.stop()
     pwm33.stop()
