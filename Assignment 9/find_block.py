@@ -114,7 +114,7 @@ gpio.setup(35,gpio.OUT) #IN3
 gpio.setup(37,gpio.OUT)
 
 pwm_servo = gpio.PWM(servo,50)
-pwm_servo.start(open_s)
+pwm_servo.start(close)
 
 pwm31 = gpio.PWM(31, 50)
 pwm33 = gpio.PWM(33, 50)
@@ -328,13 +328,13 @@ try:
                 # else:
                 #     left(abs(x_diff*0.0012))
 
-            print(findDistanceToBlock(h))
+#            print(findDistanceToBlock(h))
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
 
-        result.write(image)
+#        result.write(image)
 
-        cv2.imshow("Test", image)
+        cv2.imshow("Test", mask)
                 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
