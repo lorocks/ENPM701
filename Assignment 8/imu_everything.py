@@ -56,6 +56,7 @@ printed = False
 
 count = 0
 
+print("Started serial thingies")
 while not printed:
     if ser.in_waiting > 0:
         count += 1
@@ -63,6 +64,7 @@ while not printed:
 
         if count > 10:
             printed = True
+print("Serial cleaned")
 
 try:
     trig = 16
