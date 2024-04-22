@@ -26,13 +26,13 @@ printed = False
 
 count = 0
 
-while not printed:
-    if ser.in_waiting > 0:
-        count += 1
-        ser.readline()
+# while not printed:
+#     if ser.in_waiting > 0:
+#         count += 1
+#         ser.readline()
 
-        if count > 10:
-            printed = True
+#         if count > 10:
+#             printed = True
 
 
 
@@ -316,7 +316,7 @@ try:
             x,y,w,h = cv2.boundingRect(c)
 
             if (x > 320+5 or x + w < 320 - 5) and (w > 30 or h > 30):
-                ser.reset_input_buffer()
+                # ser.reset_input_buffer()
                 x_centr = x + (w/2)
 
                 x_diff = 320 - x_centr
