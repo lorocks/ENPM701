@@ -377,7 +377,7 @@ try:
 #                send_email(image)
                 break
 
-            if x > 320 - w*4/5 or x + w*4/5 < 320:
+            if x > 320  or x  < 320:
                 ser.reset_input_buffer()
                 x_centr = x + (w/2)
 
