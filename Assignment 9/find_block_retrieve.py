@@ -147,6 +147,7 @@ upper = [upper_blue, upper_green, upper_red]
 
 block_color = int(input("Enter BGR -> 1 2 3")) - 1
 
+ford = 0
 
 try:
 
@@ -406,7 +407,9 @@ try:
                     if not approach:
                         forward(int((motor_rots*encoder_tick*(dist_to_block - 5))/(2*3.1415*wheel_radius))) # save this distance travel so to use when reversing
                         pwm_servo.ChangeDutyCycle(open_s)
-                        approach = True
+                        if ford == 1:
+                            approach = True
+                        ford += 1
 
             # Check for object at bottom screen              
 
