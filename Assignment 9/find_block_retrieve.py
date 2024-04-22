@@ -133,14 +133,14 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 
 # Initialise HSV Colors
-lower_green = np.array([20, 10, 60])
+lower_green = np.array([37, 85, 100])
 upper_green = np.array([60, 255, 255])
 
-lower_blue = np.array([110, 100, 80])
-upper_blue = np.array([115, 255, 255])
+lower_blue = np.array([110, 90, 30])
+upper_blue = np.array([130, 255, 255])
 
-lower_red = np.array([0, 100, 100])
-upper_red = np.array([5, 255, 255])
+lower_red = np.array([150, 100, 100])
+upper_red = np.array([200, 255, 255])
 
 lower = [lower_blue, lower_green, lower_red]
 upper = [upper_blue, upper_green, upper_red]
