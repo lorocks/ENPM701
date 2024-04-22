@@ -373,7 +373,7 @@ try:
 
             if object_in_servo:
                 # Send EMail
-                send_email(image)
+#                send_email(image)
                 break
 
             if x > 320 - w/4 or x + w*3/4 < 320:
