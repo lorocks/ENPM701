@@ -126,14 +126,14 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 
 # Initialise HSV Colors
-lower_green = np.array([20, 10, 60])
+lower_green = np.array([20, 100, 100])
 upper_green = np.array([60, 255, 255])
 
 lower_blue = np.array([110, 100, 80])
 upper_blue = np.array([115, 255, 255])
 
 lower_red = np.array([0, 100, 100])
-upper_red = np.array([5, 255, 255])
+upper_red = np.array([20, 255, 255])
 
 lower = [lower_blue, lower_green, lower_red]
 upper = [upper_blue, upper_green, upper_red]
@@ -335,6 +335,7 @@ try:
 #        result.write(image)
 
         cv2.imshow("Test", mask)
+        cv2.imshow("Image", image)
                 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
