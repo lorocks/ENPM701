@@ -3,7 +3,7 @@ import time
 import cv2
 import serial
 
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+ser = serial.Serial('/dev/ttyUSB0', 115200)
 
 printed = False
 

@@ -1,0 +1,34 @@
+
+ultrasonic if below 30, stop take 10 and get mean and then do stuff
+
+distance travel to block travel like half then recheck
+
+
+height 40 found properly, below u need the delay
+if height > 40 -> 2 forwards
+if height < find which quadrant of image, break into 4 or 6 segments, pivot angle
+forward and repeat until height 40
+
+search and orient will take to wait some time for robot stable and then read image
+
+
+FSM -
+start
+forward a little if not search immideately
+searching and oreint
+forward 1 [for forward 1 x > 320 or x +w < 320]
+search and orient
+forward 2
+constantly flip between small forward and search and orient (Approach)
+grab
+reverse by forward 2 [ more precise turning]
+turn to 90
+forward till ultrasonic (dist)
+turn 90
+forward till ultrasonic (place_dist)
+place block
+reverse
+reorient -> start
+
+
+define min height for commiting to forward
