@@ -5,34 +5,35 @@ import time
 trig = 16
 echo = 18
 try:
-    # with this logic always remember to cleanup
-    gpio.setmode(gpio.BOARD)
-    gpio.setup(trig, gpio.OUT)
-    gpio.setup(echo, gpio.IN)
+    while True:
+        # with this logic always remember to cleanup
+        gpio.setmode(gpio.BOARD)
+        gpio.setup(trig, gpio.OUT)
+        gpio.setup(echo, gpio.IN)
 
-    gpio.output(trig, False)
-    time.sleep(0.01)
-
-    def dist():
-        gpio.output(trig, True)
-        time.sleep(0.00001)
         gpio.output(trig, False)
+        time.sleep(0.01)
 
-        while gpio.input(echo) == 0:
-            start = time.time()
+        def dist():
+            gpio.output(trig, True)
+            time.sleep(0.00001)
+            gpio.output(trig, False)
 
-        while gpio.input(echo) == 1:
-            end = time.time()
+            while gpio.input(echo) == 0:
+                start = time.time()
 
-        duration = end - start
+            while gpio.input(echo) == 1:
+                end = time.time()
 
-        distance = duration * 17150
-        distance = round(distance, 2)
+            duration = end - start
 
-        return distance
+            distance = duration * 17150
+            distance = round(distance, 2)
 
-    d = dist()
-    print(f"Distance {d} cm")
+            return distance
+
+        d = dist()
+        print(f"Distance {d} cm")
 
 
 except:
