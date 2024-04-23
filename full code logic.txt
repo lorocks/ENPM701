@@ -12,6 +12,10 @@ forward and repeat until height 40
 search and orient will take to wait some time for robot stable and then read image
 
 
+
+block is 1.5 wide, pillar is 0.3 wide
+
+
 FSM -
 start
 forward a little if not search immideately
@@ -32,3 +36,23 @@ reorient -> start
 
 
 define min height for commiting to forward
+
+##### think abt what if i over shoot or lose the object that needs to be found
+
+
+State 0 - search and move by 1 feet towards quadrant, if no find come back to degree 0
+and move forward by 1 foot and repeat
+
+
+
+State 0 - go nearer to block state
+State 1 - orient a little bit state
+State 2 - perfect orietation
+State 3 - Grab
+State 4 - Send email
+State 5 - Reverse out after checking if directly possible, if not change state
+State 6 - check current pos and move to y wall, ultrasonic at [variable distance]
+(Turn toward 180, drive till ultrasonic shows wall)
+State 7 - turn to 90, move till ultrasonic [variable distance]
+State 8 - place object
+State 9 - reset for state 0

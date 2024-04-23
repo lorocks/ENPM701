@@ -13,7 +13,7 @@ gpio.setup(echo, gpio.IN)
 gpio.output(trig, False)
 time.sleep(0.01)
 
-def dist():
+def wall_dist():
     gpio.output(trig, True)
     time.sleep(0.00001)
     gpio.output(trig, False)
@@ -31,7 +31,7 @@ def dist():
 
     return distance
 
-d = dist()
+d = wall_dist()
 print(f"Distance {d} cm")
 gpio.cleanup()
 
