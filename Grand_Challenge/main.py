@@ -504,9 +504,9 @@ try:
                             angle = left(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
-                        forward(int((motor_rots*encoder_tick*(d/2 - 9))/(2*3.1415*wheel_radius)))
-                        x_pos += (d/2) * math.cos((360 - angle) * math.pi / 180)
-                        y_pos += (d/2) * math.sin((360 - angle) * math.pi / 180)
+                        forward(int((motor_rots*encoder_tick*(d/2 - 10))/(2*3.1415*wheel_radius)))
+                        x_pos += (d/2 - 10) * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += (d/2 - 10) * math.sin((360 - angle) * math.pi / 180)
 
                         print(state)
                         state += 1
@@ -544,8 +544,8 @@ try:
                     d = findDistanceToBlock(h)
                     forward(int((motor_rots*encoder_tick*(d - 10))/(2*3.1415*wheel_radius)))
                     pwm_servo.ChangeDutyCycle(open_s)
-                    x_pos += (d*2/3) * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += (d*2/3) * math.sin((360 - angle) * math.pi / 180)
+                    x_pos += (d - 10) * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += (d - 10) * math.sin((360 - angle) * math.pi / 180)
 
                     print(state)
                     state += 1
