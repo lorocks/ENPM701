@@ -106,11 +106,14 @@ try:
         while gpio.input(echo) == 1:
             end = time.time()
 
-        duration = end - start
+        try:
+            duration = end - start
 
-        distance = duration * 17150
+            distance = duration * 17150
 
-        return distance
+            return distance
+        except:
+            return 400
         
     def forward():
         
