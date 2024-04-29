@@ -451,7 +451,7 @@ try:
 
     print("Starting")
     while True:
-        movetill(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)), 5)
+        movetill(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)), 45)
         break
         frame = videostream.read()
 
