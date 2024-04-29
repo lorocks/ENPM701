@@ -426,9 +426,9 @@ try:
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    angle = right(abs(x_diff*0.061))
-                else:
                     angle = left(abs(x_diff*0.061))
+                else:
+                    angle = right(abs(x_diff*0.061))
                 forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
 
                 x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
@@ -476,9 +476,9 @@ try:
                         x_diff = 320 - x_centr
 
                         if x_diff < 0:
-                            angle = right(abs(x_diff*0.0061))
-                        else:
                             angle = left(abs(x_diff*0.0061))
+                        else:
+                            angle = right(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
                         forward(int((motor_rots*encoder_tick*(d/2))/(2*3.1415*wheel_radius)))
@@ -510,9 +510,9 @@ try:
                     x_diff = 320 - x_centr
 
                     if x_diff < 0:
-                        angle = right(abs(x_diff*0.0061))
-                    else:
                         angle = left(abs(x_diff*0.0061))
+                    else:
+                        angle = right(abs(x_diff*0.0061))
                 else:
                     ##### maybe just have to minus distance from cam to block
                     d = findDistanceToBlock(h)
@@ -542,9 +542,9 @@ try:
                     x_diff = 320 - x_centr
 
                     if x_diff < 0:
-                        angle = right(abs(x_diff*0.0061))
-                    else:
                         angle = left(abs(x_diff*0.0061))
+                    else:
+                        angle = right(abs(x_diff*0.0061))
                 else:
                     d_ = findDistanceToBlock(h) ##### Do something maybe idk
                     approach = approachObject(y, h, w)
