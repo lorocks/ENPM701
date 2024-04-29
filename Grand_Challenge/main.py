@@ -534,7 +534,7 @@ try:
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
-                if x + w > 320  or x + w < 320:
+                if x > 320  or x + w < 320:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
@@ -569,7 +569,7 @@ try:
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
-                if x + w > 320  or x + w < 320:
+                if x > 320  or x + w < 320:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
