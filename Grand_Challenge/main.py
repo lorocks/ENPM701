@@ -410,6 +410,31 @@ try:
         pwm31.stop()
         pwm37.stop()
     
+    def lefttill(angle):
+        ser.reset_input_buffer()
+        time.sleep(0.1)
+        data = ser.readline()
+        data = data.decode()
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
+        current_angle = initial_angle
+        
+        pwm33.start(90)
+        pwm37.start(90)
+
+        while current_angle < angle - 2 or current_angle > angle + 2:
+            data = ser.readline()
+            data = data.decode()
+            current_angle = float(data.split(" ")[1][:-4])
+
+
+        pwm33.stop()
+        pwm37.stop()
+
+        return current_angle
+    
     # Initialize the webcam
     videostream = VideoStream().start()
     time.sleep(1)
@@ -635,10 +660,14 @@ try:
             data = data.decode()
             angle_b = float(data.split(" ")[1][:-4])
 
-            if angle_b > 182:
-                angle = left(angle_b - 1.5 % 180)
-            elif angle_b < 178:
-                angle = right(180 - angle_b + 1.5)
+            angle = lefttill(180)
+
+            angle_diff = 180 - angle
+            if angle_diff < 0:
+                right(angle_diff)
+            else:
+                left(angle_diff)
+
             movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), u_x_dist[current_block])
             x_pos = u_x_dist[current_block] * 0.393701
 
@@ -647,7 +676,7 @@ try:
 
         # Turn and approach y value
         elif state == 7:
-            angle = right(88)
+            angle = right(88.5)
             movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), u_y_dist[current_block])
             y_pos = 120 - (u_y_dist[current_block] * 0.393701)
 
