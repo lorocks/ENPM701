@@ -122,7 +122,7 @@ try:
         counter_r = counter_l = 0
         tick_r = tick_l = 0
 
-        dist = 0
+        dist = wall_dist()
 
         gpio.output(31,True)
         gpio.output(33,False)
