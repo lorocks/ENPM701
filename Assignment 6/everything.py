@@ -192,7 +192,7 @@ try:
         if counter%2 == 0:
             key_press = input("Enter keyboard input:")
             if(key_press.lower()=='w'):
-                forward()
+                movetill()
                 
             elif(key_press.lower()=='s'):
                 reverse()
