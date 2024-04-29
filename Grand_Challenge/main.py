@@ -674,6 +674,15 @@ try:
             break            
         
         ##### For move_till might need a 10 values check for ultrasonic
+    pwm_servo.stop()
+    pwm31.stop()
+    pwm33.stop()
+    pwm35.stop()
+    pwm37.stop()
+    gpio.cleanup()
+    result.release()
+    cv2.destroyAllWindows()
+    videostream.stop()
 
 except Exception as e:
     print(e)
