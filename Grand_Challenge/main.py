@@ -413,6 +413,10 @@ try:
 
         cv2.imshow("Frame", frame)
 
+        # Press key q to stop
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
         # Move toward block on image quadrant
         if state == 0:
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
