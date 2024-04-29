@@ -489,7 +489,7 @@ try:
                             angle = left(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
-                        forward(int((motor_rots*encoder_tick*(d/2 - 3))/(2*3.1415*wheel_radius)))
+                        forward(int((motor_rots*encoder_tick*(d/2 - 7))/(2*3.1415*wheel_radius)))
                         x_pos += (d/2) * math.cos((360 - angle) * math.pi / 180)
                         y_pos += (d/2) * math.sin((360 - angle) * math.pi / 180)
 
