@@ -434,6 +434,7 @@ try:
                 x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
                 y_pos += 12 * math.sin((360 - angle) * math.pi / 180)
 
+                print(state)
                 state += 1
 
             else:
@@ -482,9 +483,11 @@ try:
                             angle = right(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
-                        forward(int((motor_rots*encoder_tick*(d/2))/(2*3.1415*wheel_radius)))
+                        forward(int((motor_rots*encoder_tick*(d/2 - 3))/(2*3.1415*wheel_radius)))
                         x_pos += (d/2) * math.cos((360 - angle) * math.pi / 180)
                         y_pos += (d/2) * math.sin((360 - angle) * math.pi / 180)
+
+                        print(state)
                         state += 1
                 else:
                     forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
@@ -518,10 +521,12 @@ try:
                 else:
                     ##### maybe just have to minus distance from cam to block
                     d = findDistanceToBlock(h)
-                    forward(int((motor_rots*encoder_tick*(d*2/3))/(2*3.1415*wheel_radius)))
+                    forward(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius)))
                     pwm_servo.ChangeDutyCycle(open_s)
                     x_pos += (d*2/3) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d*2/3) * math.sin((360 - angle) * math.pi / 180)
+
+                    print(state)
                     state += 1
             cv2.imshow("Frame", frame)
 
@@ -555,6 +560,7 @@ try:
                         pwm_servo.ChangeDutyCycle(close - 0.5)
                         time.sleep(0.5)
 
+                        print(state)
                         state += 1
                     else:
                         forward(20)
@@ -583,6 +589,7 @@ try:
 
                 send_email(image, x_pos, y_pos)
 
+                print(state)
                 state += 1
             cv2.imshow("Frame", frame)
 
@@ -596,6 +603,7 @@ try:
                 x_pos = x_test
                 y_pos = y_test
             else:
+                print(state)
                 state += 1
 
         # Turn and approach x value
@@ -613,6 +621,7 @@ try:
             movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), u_x_dist[current_block])
             x_pos = u_x_dist[current_block] * 0.393701
 
+            print(state)
             state += 1
 
         # Turn and approach y value
@@ -621,6 +630,7 @@ try:
             movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), u_y_dist[current_block])
             y_pos = 120 - (u_y_dist[current_block] * 0.393701)
 
+            print(state)
             state += 1
 
         # Place object
@@ -632,6 +642,7 @@ try:
             if current_block >= 9:
                 state = 10
             else:
+                print(state)
                 state += 1
 
         # Wiggle Wiggle for Start
@@ -645,6 +656,7 @@ try:
             x_pos += (12) * math.cos((360 - angle) * math.pi / 180)
             y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
             
+            print(state)
             state = 0
 
         # Task completed
