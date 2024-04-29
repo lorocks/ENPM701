@@ -454,6 +454,7 @@ try:
                     angle = left(30)
                 else:
                     angle = right(30)
+            cv2.imshow("Frame", frame)
         
         # Move closer to block based on estimate location
         elif state == 1:
@@ -489,6 +490,7 @@ try:
                     forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                     x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
+            cv2.imshow("Frame", frame)
 
         # Perfectly Orient and move closest
         elif state == 2:
@@ -521,6 +523,7 @@ try:
                     x_pos += (d*2/3) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d*2/3) * math.sin((360 - angle) * math.pi / 180)
                     state += 1
+            cv2.imshow("Frame", frame)
 
         # Approach and grab
         elif state == 3:
@@ -559,6 +562,7 @@ try:
                         x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
                         y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
                     
+            cv2.imshow("Frame", frame)
         # Send email
         elif state == 4:
             frame = videostream.read()
@@ -580,6 +584,7 @@ try:
                 send_email(image, x_pos, y_pos)
 
                 state += 1
+            cv2.imshow("Frame", frame)
 
         # Reverse out of clump
         elif state == 5:
@@ -657,6 +662,7 @@ try:
             videostream.stop()
 
             break
+            
         
         ##### For move_till might need a 10 values check for ultrasonic
 
