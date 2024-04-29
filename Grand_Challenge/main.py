@@ -363,7 +363,7 @@ try:
         counter_r = counter_l = 0
         tick_r = tick_l = 0
 
-        dist = 0
+        dist = wall_dist()
 
         pwm31.start(pwm_val)
         pwm37.start(pwm_val)
