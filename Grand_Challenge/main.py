@@ -527,7 +527,7 @@ try:
                 else:
                     ##### maybe just have to minus distance from cam to block
                     d = findDistanceToBlock(h)
-                    forward(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius)))
+                    forward(int((motor_rots*encoder_tick*(d - 10))/(2*3.1415*wheel_radius)))
                     pwm_servo.ChangeDutyCycle(open_s)
                     x_pos += (d*2/3) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d*2/3) * math.sin((360 - angle) * math.pi / 180)
