@@ -140,8 +140,8 @@ lower_red = np.array([150, 100, 100])
 upper_red = np.array([200, 255, 255])
 
 # Change order based on actual application
-lower = [lower_blue, lower_green, lower_red]
-upper = [upper_blue, upper_green, upper_red]
+lower = [lower_green, lower_red]
+upper = [upper_green, upper_red]
 
 # For block rotation
 current_block = 0
