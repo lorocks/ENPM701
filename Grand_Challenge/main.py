@@ -399,7 +399,7 @@ try:
             dist = dist/10
             
             error = counter_r - counter_l
-            Kp = -2.5
+            Kp = -2.1
             val = pwm_val + (Kp*error)
             if val > 100:
                 val = 100
@@ -451,6 +451,8 @@ try:
 
     print("Starting")
     while True:
+        movetill(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)), 5)
+        break
         frame = videostream.read()
 
         image = cv2.flip(frame, -1)
