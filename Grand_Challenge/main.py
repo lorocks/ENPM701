@@ -249,8 +249,8 @@ try:
         else:
             check_angle = 360
 
-        pwm31.start(90)
-        pwm35.start(90)
+        pwm31.start(95)
+        pwm35.start(95)
 
         while round(current_angle - initial_angle) % check_angle < angle_turn:
             data = ser.readline()
@@ -668,20 +668,22 @@ try:
             else:
                 left(angle_diff)
 
-            movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), u_x_dist[current_block])
-            x_pos = u_x_dist[current_block] * 0.393701
+            movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 40)
+            x_pos = 40 * 0.393701
 
-            print(state)
-            state += 1
+            if x_pos < 24:
+                print(state)
+                state += 1
 
         # Turn and approach y value
         elif state == 7:
             angle = right(91)
-            movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), u_y_dist[current_block])
-            y_pos = 120 - (u_y_dist[current_block] * 0.393701)
+            movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), 40)
+            y_pos = 120 - (40 * 0.393701)
 
-            print(state)
-            state += 1
+            if y_pos > 120 - 24:
+                print(state)
+                state += 1
 
         # Place object
         elif state == 8:
