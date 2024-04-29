@@ -327,7 +327,8 @@ try:
         s.ehlo()
 
         s.login(smtpUser, smtpPass)
-        s.sendmail(fromAdd, to.split(",") + cc.split(","), msg.as_string())
+        # s.sendmail(fromAdd, to.split(",") + cc.split(","), msg.as_string())
+        s.sendmail(fromAdd, to.split(","), msg.as_string())
         s.quit()
 
         print("Email send")
