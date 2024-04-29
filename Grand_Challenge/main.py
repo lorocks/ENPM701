@@ -636,9 +636,9 @@ try:
             angle_b = float(data.split(" ")[1][:-4])
 
             if angle_b > 182:
-                angle = left(angle_b % 180)
+                angle = left(angle_b - 1.5 % 180)
             elif angle_b < 178:
-                angle = right(180 - angle_b)
+                angle = right(180 - angle_b + 1.5)
             movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), u_x_dist[current_block])
             x_pos = u_x_dist[current_block] * 0.393701
 
@@ -647,7 +647,7 @@ try:
 
         # Turn and approach y value
         elif state == 7:
-            angle = right(90)
+            angle = right(88)
             movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), u_y_dist[current_block])
             y_pos = 120 - (u_y_dist[current_block] * 0.393701)
 
@@ -668,9 +668,8 @@ try:
 
         # Wiggle Wiggle for Start
         elif state == 9:
-            reverse(20) # small amount
-            d_ = 20 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-            y_pos -= d_ * math.sin((360 - angle) * math.pi / 180)
+            reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius))) # small amount
+            y_pos -= 1
             pwm_servo.ChangeDutyCycle(close)
             angle = right(90)
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
