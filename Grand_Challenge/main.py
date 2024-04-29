@@ -513,6 +513,8 @@ try:
                 c = max(contours, key = cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(c)
 
+                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+
                 if x + w > 320  or x + w < 320:
                     x_centr = x + (w/2)
 
@@ -545,6 +547,8 @@ try:
             if len(contours) > 0:
                 c = max(contours, key = cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(c)
+
+                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
                 if x + w > 320  or x + w < 320:
                     x_centr = x + (w/2)
