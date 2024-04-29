@@ -608,7 +608,7 @@ try:
                     approach = approachObject(y, h, w)
                     if not approach:
                         pwm_servo.ChangeDutyCycle(close - 0.5)
-                        time.sleep(0.5)
+                        time.sleep(0.25)
 
                         print(state)
                         state += 1
