@@ -407,10 +407,6 @@ try:
 
 
     while True:
-        # End condition
-        if current_block == 9:
-            break
-
         # Move toward block on image quadrant
         if state == 0:
             frame = videostream.read()
@@ -508,7 +504,7 @@ try:
                 c = max(contours, key = cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(c)
 
-                if x + (w*2/5) > 320  or x - (w*2/5) < 320:
+                if x + (w*2/5) > 320  or x + w - (w*2/5) < 320:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
@@ -540,7 +536,7 @@ try:
                 c = max(contours, key = cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(c)
 
-                if x + (w*2/5) > 320  or x - (w*2/5) < 320:
+                if x + (w*2/5) > 320  or x + w - (w*2/5) < 320:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
@@ -627,7 +623,11 @@ try:
             pwm_servo.ChangeDutyCycle(open_s)
             current_block += 1
 
-            state += 1
+            # End condition
+            if current_block >= 9:
+                state = 10
+            else:
+                state += 1
 
         # Wiggle Wiggle for Start
         elif state == 9:
@@ -641,8 +641,24 @@ try:
             y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
             
             state = 0
-        
 
+        # Task completed
+        elif state == 10:
+            print("Task Completed")
+
+            pwm_servo.stop()
+            pwm31.stop()
+            pwm33.stop()
+            pwm35.stop()
+            pwm37.stop()
+            gpio.cleanup()
+            result.release()
+            cv2.destroyAllWindows()
+            videostream.stop()
+
+            break
+        
+        ##### For move_till might need a 10 values check for ultrasonic
 
 except Exception as e:
     print(e)

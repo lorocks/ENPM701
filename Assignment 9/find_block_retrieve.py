@@ -353,7 +353,9 @@ try:
     while True:
         frame = videostream.read()
 
-        image = cv2.flip(frame,-1)
+        image = frame
+
+        # image = cv2.flip(frame,-1)
 
         # Only mask if object not in servo, object_in_servo = False
         # When object_in_servo = True, navigate to drop zone
@@ -377,7 +379,7 @@ try:
 #                send_email(image)
                 break
 
-            if x > 320  or x  < 320:
+            if x > 320  or x + w  < 320:
                 ser.reset_input_buffer()
                 x_centr = x + (w/2)
 

@@ -94,13 +94,52 @@ try:
         gpio.output(35,False)
         gpio.output(37,False)
         time.sleep(0.5)
+    
+    def wall_dist():
+        gpio.output(trig, True)
+        time.sleep(0.00001)
+        gpio.output(trig, False)
+
+        while gpio.input(echo) == 0:
+            start = time.time()
+
+        while gpio.input(echo) == 1:
+            end = time.time()
+
+        duration = end - start
+
+        distance = duration * 17150
+
+        return distance
         
     def forward():
+        
+        time.sleep(1)
+        
+
+    # Forward until reaching wall
+    def movetill(encoder_count, u_dist):
+        counter_r = counter_l = 0
+        tick_r = tick_l = 0
+
+        dist = 0
+
         gpio.output(31,True)
         gpio.output(33,False)
         gpio.output(35,False)
         gpio.output(37,True)
-        time.sleep(1)
+
+        while counter_r < encoder_count and dist < u_dist:
+            if gpio.input(12) != tick_r:
+                counter_r += 1
+                tick_r = gpio.input(12)
+
+            if gpio.input(7) != tick_l:
+                counter_l += 1
+                tick_l = gpio.input(7)
+            
+            dist = wall_dist()
+
         gameover()
 
     def reverse():
