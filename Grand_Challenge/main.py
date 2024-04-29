@@ -676,7 +676,7 @@ try:
 
         # Turn and approach y value
         elif state == 7:
-            angle = right(88.5)
+            angle = right(91)
             movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), u_y_dist[current_block])
             y_pos = 120 - (u_y_dist[current_block] * 0.393701)
 
@@ -685,6 +685,7 @@ try:
 
         # Place object
         elif state == 8:
+            # before drop put a state to check actuality
             pwm_servo.ChangeDutyCycle(open_s)
             current_block += 1
 
