@@ -399,7 +399,7 @@ try:
             dist = dist/10
             
             error = counter_r - counter_l
-            Kp = -2.1
+            Kp = -1.9
             val = pwm_val + (Kp*error)
             if val > 100:
                 val = 100
