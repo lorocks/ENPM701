@@ -456,10 +456,10 @@ try:
                     angle = right(abs(x_diff*0.051))
                 else:
                     angle = left(abs(x_diff*0.051))
-                forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
+                forward(int((motor_rots*encoder_tick*(10))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
 
-                x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
-                y_pos += 12 * math.sin((360 - angle) * math.pi / 180)
+                x_pos += 10 * math.cos((360 - angle) * math.pi / 180)
+                y_pos += 10 * math.sin((360 - angle) * math.pi / 180)
 
                 print(state)
                 state += 1
@@ -475,9 +475,9 @@ try:
                         angle = right(angle)
                     else:
                         angle = left(angle)
-                    forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
-                    x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 12 * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(10))/(2*3.1415*wheel_radius)))
+                    x_pos += 10 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 10 * math.sin((360 - angle) * math.pi / 180)
                 if y_pos < 60:
                     angle = left(30)
                 else:
