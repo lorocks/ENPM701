@@ -509,7 +509,7 @@ try:
                 c = max(contours, key = cv2.contourArea)
                 x, y, w, h = cv2.boundingRect(c)
 
-                if x + (w*2/5) > 320  or x + w - (w*2/5) < 320:
+                if x + (w*1/5) > 320  or x + w - (w*1/5) < 320:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
