@@ -407,10 +407,14 @@ try:
 
 
     while True:
+        frame = videostream.read()
+
+        image = cv2.flip(frame, -1)
+
+        cv2.imshow("Frame", frame)
+
         # Move toward block on image quadrant
         if state == 0:
-            frame = videostream.read()
-
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
@@ -426,9 +430,9 @@ try:
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    angle = left(abs(x_diff*0.061))
-                else:
                     angle = right(abs(x_diff*0.061))
+                else:
+                    angle = left(abs(x_diff*0.061))
                 forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
 
                 x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
@@ -455,12 +459,10 @@ try:
                     angle = left(30)
                 else:
                     angle = right(30)
-            cv2.imshow("Frame", frame)
+            
         
         # Move closer to block based on estimate location
         elif state == 1:
-            frame = videostream.read()
-
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
@@ -478,9 +480,9 @@ try:
                         x_diff = 320 - x_centr
 
                         if x_diff < 0:
-                            angle = left(abs(x_diff*0.0061))
-                        else:
                             angle = right(abs(x_diff*0.0061))
+                        else:
+                            angle = left(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
                         forward(int((motor_rots*encoder_tick*(d/2 - 3))/(2*3.1415*wheel_radius)))
@@ -493,12 +495,10 @@ try:
                     forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                     x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
-            cv2.imshow("Frame", frame)
+            
 
         # Perfectly Orient and move closest
         elif state == 2:
-            frame = videostream.read()
-
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
@@ -515,9 +515,9 @@ try:
                     x_diff = 320 - x_centr
 
                     if x_diff < 0:
-                        angle = left(abs(x_diff*0.0061))
-                    else:
                         angle = right(abs(x_diff*0.0061))
+                    else:
+                        angle = left(abs(x_diff*0.0061))
                 else:
                     ##### maybe just have to minus distance from cam to block
                     d = findDistanceToBlock(h)
@@ -528,12 +528,10 @@ try:
 
                     print(state)
                     state += 1
-            cv2.imshow("Frame", frame)
+            
 
         # Approach and grab
         elif state == 3:
-            frame = videostream.read()
-
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
@@ -550,9 +548,9 @@ try:
                     x_diff = 320 - x_centr
 
                     if x_diff < 0:
-                        angle = left(abs(x_diff*0.0061))
-                    else:
                         angle = right(abs(x_diff*0.0061))
+                    else:
+                        angle = left(abs(x_diff*0.0061))
                 else:
                     d_ = findDistanceToBlock(h) ##### Do something maybe idk
                     approach = approachObject(y, h, w)
@@ -568,13 +566,9 @@ try:
                         x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
                         y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
                     
-            cv2.imshow("Frame", frame)
+            
         # Send email
         elif state == 4:
-            frame = videostream.read()
-
-            image = cv2.flip(frame, -1)
-
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
@@ -591,7 +585,7 @@ try:
 
                 print(state)
                 state += 1
-            cv2.imshow("Frame", frame)
+            
 
         # Reverse out of clump
         elif state == 5:
@@ -673,8 +667,7 @@ try:
             cv2.destroyAllWindows()
             videostream.stop()
 
-            break
-            
+            break            
         
         ##### For move_till might need a 10 values check for ultrasonic
 
