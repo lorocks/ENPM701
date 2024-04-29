@@ -130,13 +130,13 @@ try:
         gpio.output(37,True)
 
         while counter_r < encoder_count and dist < u_dist:
-            if gpio.input(12) != tick_r:
-                counter_r += 1
-                tick_r = gpio.input(12)
+            # if gpio.input(12) != tick_r:
+            #     counter_r += 1
+            #     tick_r = gpio.input(12)
 
-            if gpio.input(7) != tick_l:
-                counter_l += 1
-                tick_l = gpio.input(7)
+            # if gpio.input(7) != tick_l:
+            #     counter_l += 1
+            #     tick_l = gpio.input(7)
             
             dist = wall_dist()
 
@@ -192,7 +192,7 @@ try:
         if counter%2 == 0:
             key_press = input("Enter keyboard input:")
             if(key_press.lower()=='w'):
-                movetill()
+                movetill(100, 40)
                 
             elif(key_press.lower()=='s'):
                 reverse()
