@@ -129,7 +129,7 @@ try:
         gpio.output(35,False)
         gpio.output(37,True)
 
-        while counter_r < encoder_count and dist < u_dist:
+        while dist > u_dist:
             # if gpio.input(12) != tick_r:
             #     counter_r += 1
             #     tick_r = gpio.input(12)
@@ -139,6 +139,7 @@ try:
             #     tick_l = gpio.input(7)
             
             dist = wall_dist()
+            print(dist)
 
         gameover()
 
