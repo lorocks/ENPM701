@@ -368,7 +368,7 @@ try:
         pwm31.start(pwm_val)
         pwm37.start(pwm_val)
 
-        while counter_r < encoder_count and dist < u_dist:
+        while counter_r < encoder_count and dist > u_dist:
             if gpio.input(12) != tick_r:
                 counter_r += 1
                 tick_r = gpio.input(12)
