@@ -449,9 +449,9 @@ try:
                 x_diff = 320 - x_centr
 
                 if x_diff < 0:
-                    angle = right(abs(x_diff*0.061))
+                    angle = right(abs(x_diff*0.0121))
                 else:
-                    angle = left(abs(x_diff*0.061))
+                    angle = left(abs(x_diff*0.0121))
                 forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
 
                 x_pos += 12 * math.cos((360 - angle) * math.pi / 180)
