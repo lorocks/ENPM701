@@ -411,7 +411,7 @@ try:
 
         image = cv2.flip(frame, -1)
 
-        cv2.imshow("Frame", frame)
+        cv2.imshow("Frame", image)
 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -419,7 +419,7 @@ try:
 
         # Move toward block on image quadrant
         if state == 0:
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
 
@@ -467,7 +467,7 @@ try:
         
         # Move closer to block based on estimate location
         elif state == 1:
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
 
@@ -503,7 +503,7 @@ try:
 
         # Perfectly Orient and move closest
         elif state == 2:
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
 
@@ -536,7 +536,7 @@ try:
 
         # Approach and grab
         elif state == 3:
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
 
@@ -573,7 +573,7 @@ try:
             
         # Send email
         elif state == 4:
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
             mask = cv2.inRange(hsv, lower[current_block % 3], upper[current_block % 3])
 
