@@ -211,12 +211,24 @@ try:
         pwm37.stop()
 
     def reverse(encoder_count):
-        gpio.output(31,False)
-        gpio.output(33,True)
-        gpio.output(35,True)
-        gpio.output(37,False)
-        time.sleep(encoder_count)
-        gameover()
+        counter_r = counter_l = 0
+        tick_r = tick_l = 0
+
+        pwm33.start(pwm_val)
+        pwm35.start(pwm_val)
+
+        while counter_r < encoder_count or counter_l < encoder_count:
+            if gpio.input(12) != tick_r:
+                counter_r += 1
+                tick_r = gpio.input(12)
+
+            if gpio.input(7) != tick_l:
+                counter_l += 1
+                tick_l = gpio.input(7)
+            
+
+        pwm33.stop()
+        pwm35.stop()
 
     def right(angle_turn):
         ser.reset_input_buffer()
@@ -489,7 +501,7 @@ try:
                             angle = left(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
-                        forward(int((motor_rots*encoder_tick*(d/2 - 7))/(2*3.1415*wheel_radius)))
+                        forward(int((motor_rots*encoder_tick*(d/2 - 9))/(2*3.1415*wheel_radius)))
                         x_pos += (d/2) * math.cos((360 - angle) * math.pi / 180)
                         y_pos += (d/2) * math.sin((360 - angle) * math.pi / 180)
 
