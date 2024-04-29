@@ -384,6 +384,7 @@ try:
         pwm37.start(pwm_val)
 
         while counter_r < encoder_count and dist > u_dist:
+            dist = 0
             if gpio.input(12) != tick_r:
                 counter_r += 1
                 tick_r = gpio.input(12)
@@ -392,7 +393,9 @@ try:
                 counter_l += 1
                 tick_l = gpio.input(7)
             
-            dist = wall_dist()
+            for i in range(10):
+                dist += wall_dist()
+            dist = dist/10
             
             error = counter_r - counter_l
             Kp = -2.5
