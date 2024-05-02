@@ -613,10 +613,9 @@ def runPlanner(step_size):
 
     print("Image of final path will be displayed after 2 seconds, enter any key to exit image and continue application")
     time.sleep(2)
+
+    cv2.imwrite("Initial_Path.jpg", cv2.resize(cv2.flip(image, 0), (1200, 400)))
     
-    cv2.imshow("Path", cv2.resize(cv2.flip(image, 0), (1200, 400)))
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
     # Optimize path
     print("Optimizing Path")
@@ -672,9 +671,6 @@ def runPlanner(step_size):
     print("Optimized path will be overlapped on initial image, display in 2 seconds, enter any key to exit image and continue application")
     time.sleep(2)
 
-    cv2.imshow("Path", cv2.resize(cv2.flip(image, 0), (1200, 400)))
-    cv2.waitKey(0)
-
-    cv2.destroyAllWindows()
+    cv2.imwrite("Optimal_Path.jpg", cv2.resize(cv2.flip(image, 0), (1200, 400)))
     
     return  np.array(path_o)/scale
