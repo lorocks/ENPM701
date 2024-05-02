@@ -110,7 +110,6 @@ gpio.setup(33,gpio.OUT) #IN2
 gpio.setup(35,gpio.OUT) #IN3
 gpio.setup(37,gpio.OUT)
 
-gpio.setmode(gpio.BOARD)
 gpio.setup(trig, gpio.OUT)
 gpio.setup(echo, gpio.IN)
 
@@ -133,7 +132,7 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 lower_green = np.array([37, 85, 100])
 upper_green = np.array([60, 255, 255])
 
-lower_blue = np.array([110, 90, 30])
+lower_blue = np.array([105, 90, 30])
 upper_blue = np.array([130, 255, 255])
 
 lower_red = np.array([150, 100, 100])
@@ -385,7 +384,7 @@ try:
         pwm37.start(pwm_val)
 
         while counter_r < encoder_count and dist > u_dist:
-            dist = 0
+            d = []
             if gpio.input(12) != tick_r:
                 counter_r += 1
                 tick_r = gpio.input(12)
@@ -395,8 +394,9 @@ try:
                 tick_l = gpio.input(7)
             
             for i in range(10):
-                dist += wall_dist()
-            dist = dist/10
+                d.append(wall_dist())
+            d = sorted(d)
+            dist = (d[4] + d[5])/2
             
             error = counter_r - counter_l
             Kp = -1.9
@@ -435,6 +435,32 @@ try:
 
         return current_angle
     
+    def righttill(angle):
+        ser.reset_input_buffer()
+        time.sleep(0.1)
+        data = ser.readline()
+        data = data.decode()
+        try:
+            initial_angle = float(data.split(" ")[1][:-4])
+        except:
+            initial_angle = 0
+        current_angle = initial_angle
+        
+        pwm31.start(95)
+        pwm35.start(95)
+
+        while current_angle < angle - 2 or current_angle > angle + 2:
+            data = ser.readline()
+            data = data.decode()
+            current_angle = float(data.split(" ")[1][:-4])
+
+
+        pwm31.stop()
+        pwm35.stop()
+
+        return current_angle
+
+    
     # Initialize the webcam
     videostream = VideoStream().start()
     time.sleep(1)
@@ -449,15 +475,14 @@ try:
                             cv2.VideoWriter_fourcc(*'MJPG'),
                             5, size)
 
+    first_dist = 10
+    first_find = 0
+
     print("Starting")
     while True:
-        movetill(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)), 45)
-        break
         frame = videostream.read()
 
         image = cv2.flip(frame, -1)
-
-        cv2.imshow("Frame", image)
 
         # Press key q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -471,9 +496,15 @@ try:
 
             contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
+            
             if len(contours) > 0:
-                c = max(contours, key = cv2.contourArea)
-                x, y, w, h = cv2.boundingRect(c)
+                # assuming blue is third
+                if current_block % 3 == 3:
+                    cnt = contours[0]
+                    x,y,w,h = cv2.boundingRect(cnt)
+                else:
+                    c = max(contours, key = cv2.contourArea)
+                    x, y, w, h = cv2.boundingRect(c)
 
                 x_centr = x + (w/2)
 
@@ -483,33 +514,47 @@ try:
                     angle = right(abs(x_diff*0.051))
                 else:
                     angle = left(abs(x_diff*0.051))
-                forward(int((motor_rots*encoder_tick*(10))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
+                forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius))) ##### For now move 1 foot
 
-                x_pos += 10 * math.cos((360 - angle) * math.pi / 180)
-                y_pos += 10 * math.sin((360 - angle) * math.pi / 180)
+                x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
+                y_pos += first_dist * math.sin((360 - angle) * math.pi / 180)
 
                 print(state)
                 state += 1
 
             else:
-                ser.reset_input_buffer()
-                time.sleep(0.1)
-                data = ser.readline()
-                data = data.decode()
-                angle_b = float(data.split(" ")[1][:-4])
-                if angle_b >= 57 and angle_b <= 303:
-                    if angle_b < 180:
-                        angle = right(angle)
+                first_dist = 0
+
+                if current_block == 0 and first_find == 0:
+                    if current_block == 0:
+                        angle = lefttill(51)
                     else:
-                        angle = left(angle)
-                    forward(int((motor_rots*encoder_tick*(10))/(2*3.1415*wheel_radius)))
-                    x_pos += 10 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 10 * math.sin((360 - angle) * math.pi / 180)
-                if y_pos < 60:
-                    angle = left(30)
-                else:
-                    angle = right(30)
-            
+                        angle = righttill(360 - 51)
+                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
+                    x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                    angle = righttill(330)
+                elif first_find == 0:
+                    if current_block == 0:
+                        angle = lefttill(51)
+                    else:
+                        angle = righttill(360 - 51)
+                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
+                    x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                    angle = lefttill(330) # go to 330
+                elif first_find == 1:
+                    angle = lefttill(30)
+                elif first_find == 2:
+                    angle = righttill(2)
+                elif first_find == 3:
+                    forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                    x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
+                    righttill(360 - 45)
+                    first_find = 0
+
+                first_find += 1         
         
         # Move closer to block based on estimate location
         elif state == 1:
@@ -520,8 +565,12 @@ try:
             contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
             if len(contours) > 0:
-                c = max(contours, key = cv2.contourArea)
-                x, y, w, h = cv2.boundingRect(c)
+                if current_block % 3 == 3:
+                    cnt = contours[0]
+                    x,y,w,h = cv2.boundingRect(cnt)
+                else:
+                    c = max(contours, key = cv2.contourArea)
+                    x, y, w, h = cv2.boundingRect(c)
 
                 if h >= 40:
                     if x > 320  or x + w  < 320:
@@ -535,16 +584,21 @@ try:
                             angle = left(abs(x_diff*0.0061))
                     else:
                         d = findDistanceToBlock(h)
-                        forward(int((motor_rots*encoder_tick*(d/2 - 10))/(2*3.1415*wheel_radius)))
-                        x_pos += (d/2 - 10) * math.cos((360 - angle) * math.pi / 180)
-                        y_pos += (d/2 - 10) * math.sin((360 - angle) * math.pi / 180)
+                        forward(int((motor_rots*encoder_tick*(d/3 - 12))/(2*3.1415*wheel_radius)))
+                        x_pos += (d/3 - 12) * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += (d/3 - 12) * math.sin((360 - angle) * math.pi / 180)
 
                         print(state)
                         state += 1
                 else:
-                    forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
-                    x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
+                    if first_dist == 0:
+                        forward(int((motor_rots*encoder_tick*(3))/(2*3.1415*wheel_radius)))
+                        x_pos += 3 * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += 3 * math.sin((360 - angle) * math.pi / 180)
+                    else:
+                        forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                        x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             
 
         # Perfectly Orient and move closest
@@ -556,8 +610,12 @@ try:
             contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
             if len(contours) > 0:
-                c = max(contours, key = cv2.contourArea)
-                x, y, w, h = cv2.boundingRect(c)
+                if current_block % 3 == 3:
+                    cnt = contours[0]
+                    x,y,w,h = cv2.boundingRect(cnt)
+                else:
+                    c = max(contours, key = cv2.contourArea)
+                    x, y, w, h = cv2.boundingRect(c)
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
@@ -573,7 +631,7 @@ try:
                 else:
                     ##### maybe just have to minus distance from cam to block
                     d = findDistanceToBlock(h)
-                    forward(int((motor_rots*encoder_tick*(d - 10))/(2*3.1415*wheel_radius)))
+                    forward(int((motor_rots*encoder_tick*(d - 11))/(2*3.1415*wheel_radius)))
                     pwm_servo.ChangeDutyCycle(open_s)
                     x_pos += (d - 10) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d - 10) * math.sin((360 - angle) * math.pi / 180)
@@ -591,8 +649,12 @@ try:
             contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
             if len(contours) > 0:
-                c = max(contours, key = cv2.contourArea)
-                x, y, w, h = cv2.boundingRect(c)
+                if current_block % 3 == 3:
+                    cnt = contours[0]
+                    x,y,w,h = cv2.boundingRect(cnt)
+                else:
+                    c = max(contours, key = cv2.contourArea)
+                    x, y, w, h = cv2.boundingRect(c)
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
@@ -670,8 +732,8 @@ try:
             else:
                 left(angle_diff)
 
-            movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 40)
-            x_pos = 40 * 0.393701
+            movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 49)
+            x_pos = 49 * 0.393701 # this is wrong, need to get x_pos using encoder data, return imu also
 
             if x_pos < 24:
                 print(state)
@@ -679,9 +741,9 @@ try:
 
         # Turn and approach y value
         elif state == 7:
-            angle = right(91)
-            movetill(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)), 40)
-            y_pos = 120 - (40 * 0.393701)
+            angle = righttill(85)
+            movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 40)
+            y_pos = 120 - (40 * 0.393701) # this is wrong, need to get y_pos using encoder data, return imu also
 
             if y_pos > 120 - 24:
                 print(state)
@@ -703,15 +765,18 @@ try:
         # Wiggle Wiggle for Start
         elif state == 9:
             reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius))) # small amount
-            y_pos -= 1
+            y_pos -= 120 - y_pos
             pwm_servo.ChangeDutyCycle(close)
-            angle = right(90)
+            angle = lefttill(350) # choose between left right which faster
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
             x_pos += (12) * math.cos((360 - angle) * math.pi / 180)
             y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
             
             print(state)
             state = 0
+
+            first_dist = 10
+            first_find = 0
 
         # Task completed
         elif state == 10:
@@ -727,7 +792,9 @@ try:
             cv2.destroyAllWindows()
             videostream.stop()
 
-            break            
+            break  
+
+        cv2.imshow("Frame", image)          
         
         ##### For move_till might need a 10 values check for ultrasonic
     pwm_servo.stop()
