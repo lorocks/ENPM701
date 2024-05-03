@@ -136,17 +136,26 @@ try:
     def getangle():
         ser.reset_input_buffer()
         time.sleep(0.1)
-        got_angle = False
-        angle = -1
+        data = ser.readline()
+        data = data.decode()
+        try:
+            angle = float(data.split(" ")[1][:-4])
+        except:
+            angle = -1
+
+        # ser.reset_input_buffer()
+        # time.sleep(0.1)
+        # got_angle = False
+        # angle = -1
         
-        while got_angle:
-            data = ser.readline()
-            data = data.decode()
-            try:
-                angle = float(data.split(" ")[1][:-4])
-                got_angle = True
-            except:
-                pass
+        # while got_angle:
+        #     data = ser.readline()
+        #     data = data.decode()
+        #     try:
+        #         angle = float(data.split(" ")[1][:-4])
+        #         got_angle = True
+        #     except:
+        #         pass
 
         return angle
     
@@ -173,10 +182,14 @@ try:
 
     for location in path_points[1:]:
         for i in division:
+            gottem = False
             dist = heuristic(location, (x_pos, y_pos))
             desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - x_pos)) % 360
             desired_angle = 360 - desired_angle
-            angle = getangle()
+            while not gottem:
+                angle = getangle()
+                if angle != -1:
+                    gottem = True
 
             print(f"Current: {angle}, Desired: {desired_angle}")
 
