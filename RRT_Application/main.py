@@ -137,6 +137,7 @@ try:
         ser.reset_input_buffer()
         time.sleep(0.1)
         got_angle = False
+        angle = -1
         
         while got_angle:
             data = ser.readline()
