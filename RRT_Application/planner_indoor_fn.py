@@ -163,7 +163,7 @@ def runPlanner(step_size):
     starting_x = 0 * scale
     starting_y = 32 * scale
 
-    goal_x = 82 * scale
+    goal_x = 87 * scale
     goal_y = 15 * scale
     
     print("Building Obstacle Space")

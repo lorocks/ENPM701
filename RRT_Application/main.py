@@ -38,6 +38,8 @@ pwm33 = gpio.PWM(33, 50)
 pwm35 = gpio.PWM(35, 50)
 pwm37 = gpio.PWM(37, 50)
 
+gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
+gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 try:
     def forward(encoder_count):
@@ -57,7 +59,7 @@ try:
                 tick_l = gpio.input(7)
             
             error = counter_r - counter_l
-            Kp = -2.5
+            Kp = -1.6
             val = pwm_val + (Kp*error)
             if val > 100:
                 val = 100
