@@ -18,7 +18,7 @@ count = 0
 while not printed:
     if ser.in_waiting > 0:
         count += 1
-        angle = ser.readline()
+        data = ser.readline()
 
         if count > 10:
             printed = True
@@ -52,7 +52,7 @@ pwm37 = gpio.PWM(37, 50)
 gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
 gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 
-print(f"Current Orientation: {angle}")
+print(f"Current Orientation: {data}")
 
 try:
     def forward(encoder_count):
