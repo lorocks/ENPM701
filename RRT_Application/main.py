@@ -11,6 +11,17 @@ import serial
 
 # Initialise Serial
 ser = serial.Serial('/dev/ttyUSB0', 115200)
+printed = False
+
+count = 0
+
+while not printed:
+    if ser.in_waiting > 0:
+        count += 1
+        ser.readline()
+
+        if count > 10:
+            printed = True
 
 # Initialise Robot Params
 wheel_radius = 1.3
@@ -158,7 +169,7 @@ try:
     for location in path_points[1:]:
         for i in division:
             dist = heuristic(location, (x_pos, y_pos))
-            desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - y_pos))
+            desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - x_pos))
             angle = getangle()
 
             print(f"Current: {angle}, Desired: {desired_angle}")
