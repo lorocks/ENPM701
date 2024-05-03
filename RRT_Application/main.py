@@ -132,29 +132,67 @@ try:
             except:
                 pass
     
+    def getquad(angle):
+        angle = round(angle)
+        if angle <= 90:
+            return 4
+        elif angle <=180:
+            return 3
+        elif angle <= 270:
+            return 2
+        elif angle < 360:
+            return 1
+
+        return 4
+    
     
     path_points = runPlanner(1/2)
 
     x_pos = path_points[0][0]
     y_pos = path_points[0][1]
 
+    division = [2, 1]
+
     for location in path_points[1:]:
-        for i in range(2):
+        for i in division:
             dist = heuristic(location, (x_pos, y_pos))
             desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - y_pos))
+            angle = getangle()
 
-            # Need to think of logic for turning properly, based on lowesy angle cost to get there and not some nonse lik this
-            angle_error = desired_angle - round(getangle())
+            angle_quad = getquad(angle)
+            desired_quad = getquad(desired_angle)
 
-            if angle_error < 0:
-                angle = righttill(desired_angle)
-            elif angle_error > 0:
-                angle = lefttill(desired_angle)
+            if desired_quad == 1 and angle_quad == 2:
+                righttill(desired_angle)
+            elif desired_quad == 1 and angle_quad == 4:
+                lefttill(desired_angle)
+            elif desired_quad == 2 and angle_quad == 3:
+                righttill(desired_angle)
+            elif desired_quad == 2 and angle_quad == 1:
+                lefttill(desired_angle)
+            elif desired_quad == 3 and angle_quad == 4:
+                righttill(desired_angle)
+            elif desired_quad == 3 and angle_quad == 2:
+                lefttill(desired_angle)
+            elif desired_quad == 4 and angle_quad == 1:
+                righttill(desired_angle)
+            elif desired_quad == 4 and angle_quad == 3:
+                lefttill(desired_angle)
+            elif desired_quad == angle_quad:
+                if desired_angle - angle < 0:
+                    righttill(desired_angle)
+                else:
+                    lefttill(desired_angle)
+            else:
+                if (180 - desired_angle) - angle < 0:
+                    righttill(desired_angle)
+                else:
+                    lefttill(desired_angle)
 
-            forward(int((motor_rots*encoder_tick*(dist/2))/(2*3.1415*wheel_radius)))
+            forward(int((motor_rots*encoder_tick*(dist/i))/(2*3.1415*wheel_radius)))
 
-            x_pos += (dist/2) * math.cos((360 - angle) * math.pi / 180)
-            y_pos += (dist/2) * math.sin((360 - angle) * math.pi / 180)
+            x_pos += (dist/i) * math.cos((360 - angle) * math.pi / 180)
+            y_pos += (dist/i) * math.sin((360 - angle) * math.pi / 180)
 
 
     pwm_servo.stop()
