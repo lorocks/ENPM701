@@ -197,34 +197,34 @@ try:
             angle_quad = getquad(angle)
             desired_quad = getquad(desired_angle)
 
-            print(desired_quad, angle_quad)
+            # print(desired_quad, angle_quad)
 
             if desired_quad == 1 and angle_quad == 2:
-                righttill(desired_angle)
+                angle = righttill(desired_angle)
             elif desired_quad == 1 and angle_quad == 4:
-                lefttill(desired_angle)
+                angle = lefttill(desired_angle)
             elif desired_quad == 2 and angle_quad == 3:
-                righttill(desired_angle)
+                angle = righttill(desired_angle)
             elif desired_quad == 2 and angle_quad == 1:
-                lefttill(desired_angle)
+                angle = lefttill(desired_angle)
             elif desired_quad == 3 and angle_quad == 4:
-                righttill(desired_angle)
+                angle = righttill(desired_angle)
             elif desired_quad == 3 and angle_quad == 2:
-                lefttill(desired_angle)
+                angle = lefttill(desired_angle)
             elif desired_quad == 4 and angle_quad == 1:
-                righttill(desired_angle)
+                angle = righttill(desired_angle)
             elif desired_quad == 4 and angle_quad == 3:
-                lefttill(desired_angle)
+                angle = lefttill(desired_angle)
             elif desired_quad == angle_quad:
                 if desired_angle - angle < 0:
-                    righttill(desired_angle)
+                    angle = lefttill(desired_angle)
                 else:
-                    lefttill(desired_angle)
+                    angle = righttill(desired_angle)
             else:
                 if (180 - desired_angle) - angle < 0:
-                    righttill(desired_angle)
+                    angle = righttill(desired_angle)
                 else:
-                    lefttill(desired_angle)
+                    angle = lefttill(desired_angle)
 
             forward(int((motor_rots*encoder_tick*(dist/i))/(2*3.1415*wheel_radius)))
 
