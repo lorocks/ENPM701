@@ -148,7 +148,7 @@ try:
         return 4
     
     
-    path_points = runPlanner(1/2)
+    path_points = runPlanner(2)
 
     x_pos = path_points[0][0]
     y_pos = path_points[0][1]
