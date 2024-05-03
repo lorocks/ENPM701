@@ -161,6 +161,8 @@ try:
             desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - y_pos))
             angle = getangle()
 
+            print(f"Current: {angle}, Desired: {desired_angle}")
+
             angle_quad = getquad(angle)
             desired_quad = getquad(desired_angle)
 
