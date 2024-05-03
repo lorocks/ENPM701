@@ -181,6 +181,7 @@ try:
     division = [2, 1]
 
     for location in path_points[1:]:
+        print(location)
         for i in division:
             gottem = False
             dist = heuristic(location, (x_pos, y_pos))
@@ -195,6 +196,8 @@ try:
 
             angle_quad = getquad(angle)
             desired_quad = getquad(desired_angle)
+
+            print(desired_quad, angle_quad)
 
             if desired_quad == 1 and angle_quad == 2:
                 righttill(desired_angle)
