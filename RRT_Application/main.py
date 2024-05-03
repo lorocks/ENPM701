@@ -18,7 +18,7 @@ count = 0
 while not printed:
     if ser.in_waiting > 0:
         count += 1
-        ser.readline()
+        angle = ser.readline()
 
         if count > 10:
             printed = True
@@ -51,6 +51,8 @@ pwm37 = gpio.PWM(37, 50)
 
 gpio.setup(12, gpio.IN, pull_up_down=gpio.PUD_UP)
 gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
+
+print(f"Current Orientation: {angle}")
 
 try:
     def forward(encoder_count):
@@ -141,9 +143,11 @@ try:
             data = data.decode()
             try:
                 angle = float(data.split(" ")[1][:-4])
-                return angle
+                got_angle = True
             except:
                 pass
+
+        return angle
     
     def getquad(angle):
         angle = round(angle)
@@ -169,7 +173,8 @@ try:
     for location in path_points[1:]:
         for i in division:
             dist = heuristic(location, (x_pos, y_pos))
-            desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - x_pos))
+            desired_angle = math.degrees(math.atan2(location[1] - y_pos, location[0] - x_pos)) % 360
+            desired_angle = 360 - desired_angle
             angle = getangle()
 
             print(f"Current: {angle}, Desired: {desired_angle}")
