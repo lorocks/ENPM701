@@ -119,8 +119,8 @@ try:
             initial_angle = 0
         current_angle = initial_angle
         
-        pwm31.start(95)
-        pwm35.start(95)
+        pwm31.start(90)
+        pwm35.start(90)
 
         while current_angle < angle - 2 or current_angle > angle + 2:
             data = ser.readline()
@@ -236,8 +236,7 @@ try:
     pwm37.stop()
     gpio.cleanup()
 
-except Exception as e:
-    print(e)
+except:
     pwm_servo.stop()
     pwm31.stop()
     pwm33.stop()
