@@ -153,10 +153,9 @@ def runPlanner(step_size):
     width = 93 * scale
 
     obstacle_bounding_boxes = [
-        [(24, height), (24, 29), (25, 29), (25, height)],
-        [(88, height), (88, 29), (89, 29), (89, height)],
-        [(56, 35), (56, 0), (57, 0), (57, 35)],
-        ]
+    [(65, 36), (65, 26), (75, 26), (75, 36)],
+    [(34, 35), (34, 0), (35, 0), (35, 35)],
+    ]
 
     step_size = int(step_size * scale) # 15
 
