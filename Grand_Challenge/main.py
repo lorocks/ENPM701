@@ -718,7 +718,7 @@ try:
                     x_pos += (d - 7) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d - 7) * math.sin((360 - angle) * math.pi / 180)
 
-                    state == 3
+                    state = 3
                     print(state)
             else:
                 reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
