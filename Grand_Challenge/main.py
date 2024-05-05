@@ -233,14 +233,21 @@ try:
         pwm35.stop()
 
     def right(angle_turn):
-        ser.reset_input_buffer()
-        time.sleep(0.1)
-        data = ser.readline()
-        data = data.decode()
-        try:
-            initial_angle = float(data.split(" ")[1][:-4])
-        except:
-            initial_angle = 0
+        # ser.reset_input_buffer()
+        # time.sleep(0.1)
+        # data = ser.readline()
+        # data = data.decode()
+        # try:
+        #     initial_angle = float(data.split(" ")[1][:-4])
+        # except:
+        #     initial_angle = 0
+
+        gottem = False
+        while not gottem:
+            initial_angle = getangle()
+            if initial_angle != -1:
+                gottem = True   
+
         current_angle = initial_angle
 
         if angle_turn < 180:
@@ -263,14 +270,22 @@ try:
         return current_angle
 
     def left(angle_turn):
-        ser.reset_input_buffer()
-        time.sleep(0.1)
-        data = ser.readline()
-        data = data.decode()
-        try:
-            initial_angle = float(data.split(" ")[1][:-4])
-        except:
-            initial_angle = 0
+        # ser.reset_input_buffer()
+        # time.sleep(0.1)
+        # data = ser.readline()
+        # data = data.decode()
+        # try:
+        #     initial_angle = float(data.split(" ")[1][:-4])
+        # except:
+        #     initial_angle = 0
+
+
+        gottem = False
+        while not gottem:
+            initial_angle = getangle()
+            if initial_angle != -1:
+                gottem = True   
+        
         current_angle = initial_angle
 
         if angle_turn < 180:
@@ -413,15 +428,23 @@ try:
         return (counter_l + counter_r)/2, dist
     
     def lefttill(angle):
-        ser.reset_input_buffer()
-        time.sleep(0.1)
-        data = ser.readline()
-        data = data.decode()
-        try:
-            initial_angle = float(data.split(" ")[1][:-4])
-        except:
-            initial_angle = 0
-        current_angle = initial_angle
+        # ser.reset_input_buffer()
+        # time.sleep(0.1)
+        # data = ser.readline()
+        # data = data.decode()
+        # try:
+        #     initial_angle = float(data.split(" ")[1][:-4])
+        # except:
+        #     initial_angle = 0
+        
+
+        gottem = False
+        while not gottem:
+            initial_angle = getangle()
+            if initial_angle != -1:
+                gottem = True   
+
+        current_angle = initial_angle 
         
         pwm33.start(90)
         pwm37.start(90)
@@ -438,14 +461,21 @@ try:
         return current_angle
     
     def righttill(angle):
-        ser.reset_input_buffer()
-        time.sleep(0.1)
-        data = ser.readline()
-        data = data.decode()
-        try:
-            initial_angle = float(data.split(" ")[1][:-4])
-        except:
-            initial_angle = 0
+        # ser.reset_input_buffer()
+        # time.sleep(0.1)
+        # data = ser.readline()
+        # data = data.decode()
+        # try:
+        #     initial_angle = float(data.split(" ")[1][:-4])
+        # except:
+        #     initial_angle = 0
+
+        gottem = False
+        while not gottem:
+            initial_angle = getangle()
+            if initial_angle != -1:
+                gottem = True   
+        
         current_angle = initial_angle
         
         pwm31.start(95)
