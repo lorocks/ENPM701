@@ -661,8 +661,8 @@ try:
                     d = findDistanceToBlock(h)
                     forward(int((motor_rots*encoder_tick*(d/2 - 6))/(2*3.1415*wheel_radius))) ##### Need to test this
                     pwm_servo.ChangeDutyCycle(open_s)
-                    x_pos += (d/2 - 5) * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += (d/2 - 5) * math.sin((360 - angle) * math.pi / 180)
+                    x_pos += (d/2 - 6) * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += (d/2 - 6) * math.sin((360 - angle) * math.pi / 180)
 
                     state = 20
                     print(state)
@@ -703,8 +703,8 @@ try:
                     d = findDistanceToBlock(h)
 
                     forward(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius))) ##### Need to test this
-                    x_pos += (d/2 - 5) * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += (d/2 - 5) * math.sin((360 - angle) * math.pi / 180)
+                    x_pos += (d - 7) * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += (d - 7) * math.sin((360 - angle) * math.pi / 180)
 
                     state == 3
                     print(state)
