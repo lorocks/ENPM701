@@ -801,7 +801,10 @@ try:
             # data = ser.readline()
             # data = data.decode()
             # angle_b = float(data.split(" ")[1][:-4])
+            x_pos = 50 # testing
+            y_pos = 50 # testing
             angle_ = math.degrees(math.atan2(108 - y_pos, 0 - x_pos)) % 360
+            angle_ = 360 - angle_
 
             if angle_ > 180 and angle_ < 245:
                 angle_ -= 1
