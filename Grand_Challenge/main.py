@@ -832,7 +832,7 @@ try:
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)       
-            print(u_dist)     
+            y_pos = 110 # testing thing
 
             if y_pos > 120 - 24:
                 y_pos = 120 - (45 * 0.393701)
