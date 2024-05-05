@@ -146,7 +146,7 @@ upper = [upper_red, upper_green, upper_blue]
 current_block = 0
 
 # FSM
-state = 7
+state = 9
 
 # Location in Grid
 x_pos = 0
@@ -832,7 +832,6 @@ try:
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)       
-            y_pos = 110 # testing thing
 
             if y_pos > 120 - 24:
                 y_pos = 120 - (45 * 0.393701)
@@ -843,6 +842,7 @@ try:
         elif state == 8:
             # before drop put a state to check actuality
             pwm_servo.ChangeDutyCycle(open_s)
+            time.sleep(0.1)
             current_block += 1
 
             # End condition
@@ -854,6 +854,7 @@ try:
 
         # Wiggle Wiggle for Start
         elif state == 9:
+            y_pos = 110 # testing
             reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)))
             y_pos -= 120 - y_pos
             pwm_servo.ChangeDutyCycle(close)
