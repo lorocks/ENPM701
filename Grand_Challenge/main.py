@@ -146,7 +146,7 @@ upper = [upper_red, upper_green, upper_blue]
 current_block = 0
 
 # FSM
-state = 6
+state = 9
 
 # Location in Grid
 x_pos = 0
@@ -834,7 +834,7 @@ try:
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
-            x_pos = 10 
+            x_pos = 10 # testing
 
             gottem = False
             while not gottem:
