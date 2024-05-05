@@ -146,7 +146,7 @@ upper = [upper_red, upper_green, upper_blue]
 current_block = 0
 
 # FSM
-state = 9
+state = 0
 
 # Location in Grid
 x_pos = 0
