@@ -316,6 +316,8 @@ try:
             c = max(contours, key = cv2.contourArea)
             x,y,w,h = cv2.boundingRect(c)
 
+            print(h)
+
             if (x > 320+5 or x + w < 320 - 5) and (w > 30 or h > 30):
                 # ser.reset_input_buffer()
                 x_centr = x + (w/2)
