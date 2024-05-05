@@ -146,7 +146,7 @@ upper = [upper_red, upper_green, upper_blue]
 current_block = 0
 
 # FSM
-state = 9
+state = 6
 
 # Location in Grid
 x_pos = 0
@@ -854,7 +854,6 @@ try:
 
         # Wiggle Wiggle for Start
         elif state == 9:
-            y_pos = 110 # testing
             reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)))
             y_pos -= 120 - y_pos
             pwm_servo.ChangeDutyCycle(close)
