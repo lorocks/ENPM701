@@ -146,7 +146,7 @@ upper = [upper_red, upper_green, upper_blue]
 current_block = 0
 
 # FSM
-state = 0
+state = 7
 
 # Location in Grid
 x_pos = 0
@@ -829,7 +829,7 @@ try:
         # Turn and approach y value
         elif state == 7:
             angle = righttill(360 - 85)
-            encoder_count = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
             
 
