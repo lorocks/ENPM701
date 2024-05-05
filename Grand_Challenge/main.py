@@ -461,6 +461,18 @@ try:
         pwm35.stop()
 
         return current_angle
+    
+    def getangle():
+        ser.reset_input_buffer()
+        time.sleep(0.1)
+        data = ser.readline()
+        data = data.decode()
+        try:
+            angle = float(data.split(" ")[1][:-4])
+        except:
+            angle = -1
+        
+        return angle
 
     
     # Initialize the webcam
@@ -801,8 +813,7 @@ try:
             # data = ser.readline()
             # data = data.decode()
             # angle_b = float(data.split(" ")[1][:-4])
-            x_pos = 50 # testing
-            y_pos = 50 # testing
+
             angle_ = math.degrees(math.atan2(108 - y_pos, 0 - x_pos)) % 360
             angle_ = 360 - angle_
 
@@ -821,10 +832,19 @@ try:
 
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 49)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-            x_pos += d_ * math.cos((360 - angle) * math.pi / 180)            
+            x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
+            x_pos = 10 
+
+            gottem = False
+            while not gottem:
+                angle = getangle()
+                if angle != -1:
+                    gottem = True       
+
+            ### Query angle again for proper location
             if x_pos < 24:
-                x_pos = math.cos(math.radians(angle)) * u_dist * 0.393701
+                x_pos = math.cos(math.radians(abs(270 - angle))) * u_dist * 0.393701
                 # x_pos = 49 * 0.393701
                 state += 1
                 print(state)
@@ -834,10 +854,19 @@ try:
             angle = righttill(360 - 85)
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-            y_pos += d_ * math.sin((360 - angle) * math.pi / 180)       
+            y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
+            y_pos = 110 # testing
+
+            gottem = False
+            while not gottem:
+                angle = getangle()
+                if angle != -1:
+                    gottem = True      
+
+            ### Query angle again for proper location
             if y_pos > 120 - 24:
-                y_pos = 120 - (45 * 0.393701)
+                y_pos = math.cos(math.radians(abs(angle - 180))) * u_dist * 0.393701
                 state += 1
                 print(state)
 
