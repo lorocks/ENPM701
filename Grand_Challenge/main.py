@@ -41,7 +41,7 @@ count = 0
 while not printed:
     if ser.in_waiting > 0:
         count += 1
-        ser.readline()
+        print(ser.readline())
 
         if count > 10:
             printed = True
