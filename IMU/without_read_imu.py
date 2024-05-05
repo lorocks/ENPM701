@@ -11,6 +11,9 @@ count = 0
 
 print("Started serial thingies")
 
+time.sleep(10)
+print("Slept 10 sec")
+
 ser.reset_input_buffer()
 time.sleep(0.1)
 
