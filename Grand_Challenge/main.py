@@ -829,11 +829,9 @@ try:
         # Turn and approach y value
         elif state == 7:
             angle = righttill(360 - 85)
-            print("Turned")
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
-            y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
-            print("Moved")
-            
+            d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
+            y_pos += d_ * math.sin((360 - angle) * math.pi / 180)            
 
             if y_pos > 120 - 24:
                 y_pos = 120 - (45 * 0.393701)
