@@ -638,7 +638,7 @@ try:
                         x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                         y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             else:
-                andgle = left(45)
+                angle = left(45)
             
 
         # Perfectly Orient and move closest
@@ -928,8 +928,7 @@ try:
     cv2.destroyAllWindows()
     videostream.stop()
 
-except Exception as e:
-    print(e)
+except:
     pwm_servo.stop()
     pwm31.stop()
     pwm33.stop()
