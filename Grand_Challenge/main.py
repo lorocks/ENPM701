@@ -36,15 +36,16 @@ motor_rots = 120
 ser = serial.Serial('/dev/ttyUSB0', 115200)
 printed = False
 
-count = 0
+### Testing this removal
+# count = 0
 
-while not printed:
-    if ser.in_waiting > 0:
-        count += 1
-        print(ser.readline())
+# while not printed:
+#     if ser.in_waiting > 0:
+#         count += 1
+#         print(ser.readline())
 
-        if count > 10:
-            printed = True
+#         if count > 10:
+#             printed = True
 
 
 
