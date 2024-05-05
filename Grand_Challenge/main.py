@@ -829,8 +829,10 @@ try:
         # Turn and approach y value
         elif state == 7:
             angle = righttill(360 - 85)
+            print("Turned")
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+            print("Moved")
             
 
             if y_pos > 120 - 24:
@@ -895,7 +897,8 @@ try:
     cv2.destroyAllWindows()
     videostream.stop()
 
-except:
+except Exception as e:
+    print(e)
     pwm_servo.stop()
     pwm31.stop()
     pwm33.stop()
