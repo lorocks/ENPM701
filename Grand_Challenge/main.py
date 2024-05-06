@@ -854,6 +854,9 @@ try:
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
+                if x < 160 or x > 320 +160:
+                    pass
+
                 if x + (w*3/10) > 320  or x + w - (w*3/10) < 320:
                     x_centr = x + (w/2)
 
