@@ -591,9 +591,9 @@ try:
                     
                     if round(abs(x_diff)) != 0 and abs(x_diff) > 160:
                         if x_diff < 0:
-                            angle = right(abs(x_diff*0.061/2))
+                            angle = right(abs(x_diff*0.071/2))
                         else:
-                            angle = left(abs(x_diff*0.061/2))
+                            angle = left(abs(x_diff*0.071/2))
                     forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)))
 
                     x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
