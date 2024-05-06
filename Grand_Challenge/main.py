@@ -589,6 +589,7 @@ try:
 
                     
                     state += 1
+                    state = 10 # testing
                     print(state)
 
             else:
@@ -865,8 +866,6 @@ try:
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
-            x_pos = 10 # testing
-
             gottem = False
             while not gottem:
                 angle = getangle()
@@ -886,8 +885,6 @@ try:
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
-
-            y_pos = 110 # testing
 
             gottem = False
             while not gottem:
