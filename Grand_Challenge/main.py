@@ -144,14 +144,14 @@ lower = [lower_red, lower_green, lower_blue]
 upper = [upper_red, upper_green, upper_blue]
 
 # For block rotation
-current_block = 2
+current_block = 0
 
 # FSM
 state = 0
 
 # Location in Grid
 x_pos = 0
-y_pos = 0
+y_pos = 10
 angle = 0
 
 # Ultrsonic distances
@@ -516,9 +516,9 @@ try:
 
     size = (frame_width, frame_height)
 
-    result = cv2.VideoWriter('my_video.avi',
-                            cv2.VideoWriter_fourcc(*'MJPG'),
-                            5, size)
+    # result = cv2.VideoWriter('my_video.avi',
+    #                         cv2.VideoWriter_fourcc(*'MJPG'),
+    #                         5, size)
 
     first_dist = 10
     first_find = 0
@@ -549,7 +549,7 @@ try:
             
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
-                # forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
+                forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
                 x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
                 y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
 
@@ -565,15 +565,17 @@ try:
                     c = max(contours, key = cv2.contourArea)
                     x, y, w, h = cv2.boundingRect(c)
 
-                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
-                cv2.imwrite("Check.jpg", image)
-
                 if current_block % 3 == 2 and y+h/480 < 0.35:
                     if first_find == 1:
                         angle = lefttill(360 - 45)
                     elif first_find == 2:
                         angle = righttill(2)
                     elif first_find == 3:
+                        gottem = False
+                        while not gottem:
+                            angle = getangle()
+                            if angle != -1:
+                                gottem = True  
                         forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                         x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                         y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
@@ -594,6 +596,11 @@ try:
                             angle = right(abs(x_diff*0.071/2))
                         else:
                             angle = left(abs(x_diff*0.071/2))
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)))
 
                     x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
@@ -615,6 +622,11 @@ try:
                         print("huh")
                     else:
                         angle = righttill(51)
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
                     x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
@@ -624,6 +636,11 @@ try:
                         angle = lefttill(360 - 51)
                     else:
                         angle = righttill(51)
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
                     x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
@@ -632,6 +649,11 @@ try:
                 elif first_find == 2:
                     angle = righttill(2)
                 elif first_find == 3:
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                     x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
@@ -669,6 +691,11 @@ try:
                     else:
                         d = findDistanceToBlock(h)
                         if not d/3 - 12 < 0:
+                            gottem = False
+                            while not gottem:
+                                angle = getangle()
+                                if angle != -1:
+                                    gottem = True  
                             forward(int((motor_rots*encoder_tick*(d/3 - 12))/(2*3.1415*wheel_radius)))
                             x_pos += (d/3 - 12) * math.cos((360 - angle) * math.pi / 180)
                             y_pos += (d/3 - 12) * math.sin((360 - angle) * math.pi / 180)
@@ -677,15 +704,32 @@ try:
                         print(state)
                 else:
                     if first_dist == 0:
+                        gottem = False
+                        while not gottem:
+                            angle = getangle()
+                            if angle != -1:
+                                gottem = True  
                         forward(int((motor_rots*encoder_tick*(3))/(2*3.1415*wheel_radius)))
                         x_pos += 3 * math.cos((360 - angle) * math.pi / 180)
                         y_pos += 3 * math.sin((360 - angle) * math.pi / 180)
                     else:
+                        gottem = False
+                        while not gottem:
+                            angle = getangle()
+                            if angle != -1:
+                                gottem = True  
                         forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                         x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                         y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             else:
-                angle = left(45)
+                gottem = False
+                while not gottem:
+                    angle = getangle()
+                    if angle != -1:
+                        gottem = True  
+                reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                x_pos += (6) * math.cos((360 - angle + 180) * math.pi / 180)
+                y_pos += (6) * math.sin((360 - angle + 180) * math.pi / 180)
             
 
         # Perfectly Orient and move closest
@@ -718,6 +762,11 @@ try:
                 else:
                     ##### maybe just have to minus distance from cam to block, might need reorient, run state 2 twice ?
                     d = findDistanceToBlock(h)
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(d/2 - 6))/(2*3.1415*wheel_radius))) ##### Need to test this
                     pwm_servo.ChangeDutyCycle(open_s)
                     x_pos += (d/2 - 6) * math.cos((360 - angle) * math.pi / 180)
@@ -726,6 +775,11 @@ try:
                     state = 20
                     print(state)
             else:
+                gottem = False
+                while not gottem:
+                    angle = getangle()
+                    if angle != -1:
+                        gottem = True  
                 reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                 x_pos += (6) * math.cos((360 - angle + 180) * math.pi / 180)
                 y_pos += (6) * math.sin((360 - angle + 180) * math.pi / 180)
@@ -760,7 +814,11 @@ try:
                 else:
                     ##### maybe just have to minus distance from cam to block, might need reorient, run state 2 twice ?
                     d = findDistanceToBlock(h)
-
+                    gottem = False
+                    while not gottem:
+                        angle = getangle()
+                        if angle != -1:
+                            gottem = True  
                     forward(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius))) ##### Need to test this
                     x_pos += (d - 7) * math.cos((360 - angle) * math.pi / 180)
                     y_pos += (d - 7) * math.sin((360 - angle) * math.pi / 180)
@@ -768,6 +826,11 @@ try:
                     state = 3
                     print(state)
             else:
+                gottem = False
+                while not gottem:
+                    angle = getangle()
+                    if angle != -1:
+                        gottem = True  
                 reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                 x_pos += (6) * math.cos((360 - angle + 180) * math.pi / 180)
                 y_pos += (6) * math.sin((360 - angle + 180) * math.pi / 180)
@@ -791,6 +854,9 @@ try:
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
+                if x < 160 or x > 320 +160:
+                    pass
+
                 if x + (w*3/10) > 320  or x + w - (w*3/10) < 320:
                     x_centr = x + (w/2)
 
@@ -811,12 +877,25 @@ try:
                         print(state)
                     else:
                         d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                            
+                        gottem = False
+                        while not gottem:
+                            angle = getangle()
+                            if angle != -1:
+                                gottem = True  
                         forward(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
                         # d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
                         x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
                         y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
-                    
+            else:
+                d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
+                gottem = False
+                while not gottem:
+                    angle = getangle()
+                    if angle != -1:
+                        gottem = True  
+                reverse(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
+                x_pos += (d_) * math.cos((360 - angle + 180) * math.pi / 180)
+                y_pos += (d_) * math.sin((360 - angle + 180) * math.pi / 180)
             
         # Send email
         elif state == 4:
@@ -834,22 +913,35 @@ try:
 
                 send_email(image, x_pos, y_pos)
 
-                state += 1
-                print(state)
+            state += 1
+            print(state)
             
 
         # Reverse out of clump
         elif state == 5:
             # use x and y pos here to ensure action not too far going
-            x_test = x_pos + (d * math.cos((360 - angle + 180) * math.pi / 180))
-            y_test = y_pos + (d * math.sin((360 - angle + 180) * math.pi / 180))
+            gottem = False
+            while not gottem:
+                angle = getangle()
+                if angle != -1:
+                    gottem = True  
+            x_test = x_pos + (2*d * math.cos((360 - angle + 180) * math.pi / 180))
+            y_test = y_pos + (2*d * math.sin((360 - angle + 180) * math.pi / 180))
             if x_test > 0 and y_test > 0 and x_test < 120 and y_test < 120:
-                reverse(int((motor_rots*encoder_tick*(d))/(2*3.1415*wheel_radius)))
+                reverse(int((motor_rots*encoder_tick*(2*d))/(2*3.1415*wheel_radius)))
                 x_pos = x_test
                 y_pos = y_test
-            else:
+
                 state += 1
-                print(state)
+            else:
+                x_test = x_pos + (d * math.cos((360 - angle + 180) * math.pi / 180))
+                y_test = y_pos + (d * math.sin((360 - angle + 180) * math.pi / 180))
+                if x_test > 0 and y_test > 0 and x_test < 120 and y_test < 120:
+                    reverse(int((motor_rots*encoder_tick*(d))/(2*3.1415*wheel_radius)))
+                    x_pos = x_test
+                    y_pos = y_test
+                state += 1
+            print(state)
 
 
         ### Here is the optimization step
@@ -864,10 +956,10 @@ try:
             angle_ = math.degrees(math.atan2(108 - y_pos, 0 - x_pos)) % 360
             angle_ = 360 - angle_
 
-            if angle_ > 180 and angle_ < 245:
+            if angle_ > 188 and angle_ < 245:
                 angle_ -= 1
             else:
-                angle_ = 180
+                angle_ = 188
 
             angle = lefttill(angle_)
 
@@ -896,7 +988,7 @@ try:
 
         # Turn and approach y value
         elif state == 7:
-            angle = righttill(360 - 85)
+            angle = righttill(360 - 87.5)
             encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
@@ -932,7 +1024,7 @@ try:
             reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)))
             y_pos -= 120 - y_pos
             pwm_servo.ChangeDutyCycle(close)
-            angle = lefttill(360 - 350) # choose between left right which faster
+            angle = righttill(360 - 350) # choose between left right which faster
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
             x_pos += (12) * math.cos((360 - angle) * math.pi / 180)
             y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
@@ -959,7 +1051,7 @@ try:
     pwm35.stop()
     pwm37.stop()
     gpio.cleanup()
-    result.release()
+    # result.release()
     cv2.destroyAllWindows()
     videostream.stop()
 
@@ -970,6 +1062,6 @@ except:
     pwm35.stop()
     pwm37.stop()
     gpio.cleanup()
-    result.release()
+    # result.release()
     cv2.destroyAllWindows()
     videostream.stop()
