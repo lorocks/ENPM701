@@ -589,6 +589,7 @@ try:
 
                     
                     state += 1
+                    state = 10 # testing
                     print(state)
 
             else:
