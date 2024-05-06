@@ -939,6 +939,8 @@ try:
         # Task completed
         elif state == 10:
             print("Task Completed")
+            for i in range(10):
+                print(getangle())
 
             break  
 
