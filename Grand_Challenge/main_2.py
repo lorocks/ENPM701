@@ -244,6 +244,7 @@ try:
         #     initial_angle = 0
 
         gottem = False
+        print("Angle read")
         while not gottem:
             initial_angle = getangle()
             if initial_angle != -1:
@@ -282,6 +283,7 @@ try:
 
 
         gottem = False
+        print("Angle read")
         while not gottem:
             initial_angle = getangle()
             if initial_angle != -1:
@@ -440,6 +442,7 @@ try:
         
 
         gottem = False
+        print("Angle read")
         while not gottem:
             initial_angle = getangle()
             if initial_angle != -1:
@@ -472,6 +475,7 @@ try:
         #     initial_angle = 0
 
         gottem = False
+        print("Angle read")
         while not gottem:
             initial_angle = getangle()
             if initial_angle != -1:
@@ -551,6 +555,7 @@ try:
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
                 gottem = False
+                print("Angle read")
                 while not gottem:
                     angle = getangle()
                     if angle != -1:
@@ -578,6 +583,7 @@ try:
                         angle = righttill(2)
                     elif first_find == 3:
                         gottem = False
+                        print("Angle read")
                         while not gottem:
                             angle = getangle()
                             if angle != -1:
@@ -603,6 +609,7 @@ try:
                         else:
                             angle = left(abs(x_diff*0.071/2))
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -629,6 +636,7 @@ try:
                     else:
                         angle = righttill(51)
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -643,6 +651,7 @@ try:
                     else:
                         angle = righttill(51)
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -656,6 +665,7 @@ try:
                     angle = righttill(2)
                 elif first_find == 3:
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -698,6 +708,7 @@ try:
                         d = findDistanceToBlock(h)
                         if not d/3 - 12 < 0:
                             gottem = False
+                            print("Angle read")
                             while not gottem:
                                 angle = getangle()
                                 if angle != -1:
@@ -711,6 +722,7 @@ try:
                 else:
                     if first_dist == 0:
                         gottem = False
+                        print("Angle read")
                         while not gottem:
                             angle = getangle()
                             if angle != -1:
@@ -720,6 +732,7 @@ try:
                         y_pos += 3 * math.sin((360 - angle) * math.pi / 180)
                     else:
                         gottem = False
+                        print("Angle read")
                         while not gottem:
                             angle = getangle()
                             if angle != -1:
@@ -729,6 +742,7 @@ try:
                         y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             else:
                 gottem = False
+                print("Angle read")
                 while not gottem:
                     angle = getangle()
                     if angle != -1:
@@ -771,6 +785,7 @@ try:
                     ##### maybe just have to minus distance from cam to block, might need reorient, run state 2 twice ?
                     d = findDistanceToBlock(h)
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -784,6 +799,7 @@ try:
                     print(state)
             else:
                 gottem = False
+                print("Angle read")
                 while not gottem:
                     angle = getangle()
                     if angle != -1:
@@ -823,6 +839,7 @@ try:
                     ##### maybe just have to minus distance from cam to block, might need reorient, run state 2 twice ?
                     d = findDistanceToBlock(h)
                     gottem = False
+                    print("Angle read")
                     while not gottem:
                         angle = getangle()
                         if angle != -1:
@@ -835,6 +852,7 @@ try:
                     print(state)
             else:
                 gottem = False
+                print("Angle read")
                 while not gottem:
                     angle = getangle()
                     if angle != -1:
@@ -889,6 +907,7 @@ try:
                     else:
                         d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
                         gottem = False
+                        print("Angle read")
                         while not gottem:
                             angle = getangle()
                             if angle != -1:
@@ -900,6 +919,7 @@ try:
             else:
                 d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
                 gottem = False
+                print("Angle read")
                 while not gottem:
                     angle = getangle()
                     if angle != -1:
@@ -937,6 +957,7 @@ try:
         elif state == 5:
             # use x and y pos here to ensure action not too far going
             gottem = False
+            print("Angle read")
             while not gottem:
                 angle = getangle()
                 if angle != -1:
@@ -990,6 +1011,7 @@ try:
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
             gottem = False
+            print("Angle read")
             while not gottem:
                 angle = getangle()
                 if angle != -1:
@@ -1009,6 +1031,7 @@ try:
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
             gottem = False
+            print("Angle read")
             while not gottem:
                 angle = getangle()
                 if angle != -1:
