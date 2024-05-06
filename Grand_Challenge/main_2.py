@@ -1031,11 +1031,11 @@ try:
         # Turn and approach y value
         elif state == 7:
             angle = righttill(360 - 87.5)
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 40)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 36)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 40)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 36)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
