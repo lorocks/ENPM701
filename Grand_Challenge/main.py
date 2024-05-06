@@ -151,7 +151,7 @@ state = 0
 
 # Location in Grid
 x_pos = 0
-y_pos = 0
+y_pos = 10
 angle = 0
 
 # Ultrsonic distances
@@ -516,9 +516,9 @@ try:
 
     size = (frame_width, frame_height)
 
-    result = cv2.VideoWriter('my_video.avi',
-                            cv2.VideoWriter_fourcc(*'MJPG'),
-                            5, size)
+    # result = cv2.VideoWriter('my_video.avi',
+    #                         cv2.VideoWriter_fourcc(*'MJPG'),
+    #                         5, size)
 
     first_dist = 10
     first_find = 0
@@ -682,7 +682,9 @@ try:
                         x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
                         y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             else:
-                angle = left(45)
+                reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                x_pos += (6) * math.cos((360 - angle + 180) * math.pi / 180)
+                y_pos += (6) * math.sin((360 - angle + 180) * math.pi / 180)
             
 
         # Perfectly Orient and move closest
@@ -813,7 +815,11 @@ try:
                         # d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
                         x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
                         y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
-                    
+            else:
+                d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
+                reverse(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
+                x_pos += (d_) * math.cos((360 - angle + 180) * math.pi / 180)
+                y_pos += (d_) * math.sin((360 - angle + 180) * math.pi / 180)
             
         # Send email
         elif state == 4:
@@ -831,22 +837,30 @@ try:
 
                 send_email(image, x_pos, y_pos)
 
-                state += 1
-                print(state)
+            state += 1
+            print(state)
             
 
         # Reverse out of clump
         elif state == 5:
             # use x and y pos here to ensure action not too far going
-            x_test = x_pos + (d * math.cos((360 - angle + 180) * math.pi / 180))
-            y_test = y_pos + (d * math.sin((360 - angle + 180) * math.pi / 180))
+            x_test = x_pos + (2*d * math.cos((360 - angle + 180) * math.pi / 180))
+            y_test = y_pos + (2*d * math.sin((360 - angle + 180) * math.pi / 180))
             if x_test > 0 and y_test > 0 and x_test < 120 and y_test < 120:
-                reverse(int((motor_rots*encoder_tick*(d))/(2*3.1415*wheel_radius)))
+                reverse(int((motor_rots*encoder_tick*(2*d))/(2*3.1415*wheel_radius)))
                 x_pos = x_test
                 y_pos = y_test
-            else:
+
                 state += 1
-                print(state)
+            else:
+                x_test = x_pos + (d * math.cos((360 - angle + 180) * math.pi / 180))
+                y_test = y_pos + (d * math.sin((360 - angle + 180) * math.pi / 180))
+                if x_test > 0 and y_test > 0 and x_test < 120 and y_test < 120:
+                    reverse(int((motor_rots*encoder_tick*(d))/(2*3.1415*wheel_radius)))
+                    x_pos = x_test
+                    y_pos = y_test
+                state += 1
+            print(state)
 
 
         ### Here is the optimization step
@@ -861,10 +875,10 @@ try:
             angle_ = math.degrees(math.atan2(108 - y_pos, 0 - x_pos)) % 360
             angle_ = 360 - angle_
 
-            if angle_ > 180 and angle_ < 245:
+            if angle_ > 188 and angle_ < 245:
                 angle_ -= 1
             else:
-                angle_ = 180
+                angle_ = 188
 
             angle = lefttill(angle_)
 
@@ -929,7 +943,7 @@ try:
             reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)))
             y_pos -= 120 - y_pos
             pwm_servo.ChangeDutyCycle(close)
-            angle = lefttill(360 - 350) # choose between left right which faster
+            angle = righttill(360 - 350) # choose between left right which faster
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
             x_pos += (12) * math.cos((360 - angle) * math.pi / 180)
             y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
@@ -956,7 +970,7 @@ try:
     pwm35.stop()
     pwm37.stop()
     gpio.cleanup()
-    result.release()
+    # result.release()
     cv2.destroyAllWindows()
     videostream.stop()
 
@@ -967,6 +981,6 @@ except:
     pwm35.stop()
     pwm37.stop()
     gpio.cleanup()
-    result.release()
+    # result.release()
     cv2.destroyAllWindows()
     videostream.stop()
