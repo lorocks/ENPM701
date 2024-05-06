@@ -550,9 +550,14 @@ try:
             
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
-                forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
-                x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
-                y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
+                gottem = False
+                while not gottem:
+                    angle = getangle()
+                    if angle != -1:
+                        gottem = True 
+                forward(int((motor_rots*encoder_tick*(65))/(2*3.1415*wheel_radius)))
+                x_pos += 65 * math.cos((360 - angle) * math.pi / 180)
+                y_pos += 65 * math.sin((360 - angle) * math.pi / 180)
 
                 first_find += 1
                 first_dist = 0
@@ -919,7 +924,10 @@ try:
 
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
-                send_email(image, x_pos, y_pos)
+                try:
+                    send_email(image, x_pos, y_pos)
+                except:
+                    print("Email failed whoops")
 
             state += 1
             print(state)
