@@ -122,6 +122,9 @@ def lefttill(angle):
 
 angle = lefttill(360 - 120)
 
+for i in range(10):
+    print(getangle())
+
 pwm_servo.stop()
 pwm31.stop()
 pwm33.stop()
