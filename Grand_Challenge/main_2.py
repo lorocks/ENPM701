@@ -994,6 +994,7 @@ try:
             angle_ = 360 - angle_
 
             if angle_ > 188 and angle_ < 245:
+                print("Within")
                 angle_ -= 1
             else:
                 angle_ = 188
@@ -1066,8 +1067,8 @@ try:
 
         # Wiggle Wiggle for Start
         elif state == 9:
-            reverse(int((motor_rots*encoder_tick*(120 - y_pos))/(2*3.1415*wheel_radius)))
-            y_pos -= 120 - y_pos
+            reverse(int((motor_rots*encoder_tick*(120 - 6))/(2*3.1415*wheel_radius)))
+            y_pos -= 120 - 6
             pwm_servo.ChangeDutyCycle(close)
             angle = righttill(360 - 350) # choose between left right which faster
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
