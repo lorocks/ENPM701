@@ -603,7 +603,6 @@ try:
 
                     
                     state += 1
-                    state = 10 # testing
                     print(state)
 
             else:
@@ -616,7 +615,7 @@ try:
                         print("huh")
                     else:
                         angle = righttill(51)
-                    # forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius))) testng
+                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
                     x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
                     angle = righttill(45)
@@ -640,8 +639,6 @@ try:
                     first_find = 0
 
                 first_find += 1     
-                state = 10 # testing 
-                print("changed state skip")   
         
         # Move closer to block based on estimate location
         elif state == 1:
