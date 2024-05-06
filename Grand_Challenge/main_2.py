@@ -568,7 +568,7 @@ try:
                 first_dist = 0
 
             elif len(contours) > 0:
-                # assuming blue is third
+                # assuming blue is
                 if current_block % 3 == 2:
                     cnt = contours[0]
                     x,y,w,h = cv2.boundingRect(cnt)
@@ -576,7 +576,7 @@ try:
                     c = max(contours, key = cv2.contourArea)
                     x, y, w, h = cv2.boundingRect(c)
 
-                if current_block % 3 == 2 and y+h/480 < 0.4:
+                if current_block % 3 == 2 and y+h/480 < 0.3:
                     if first_find == 1:
                         angle = lefttill(360 - 45)
                     elif first_find == 2:
