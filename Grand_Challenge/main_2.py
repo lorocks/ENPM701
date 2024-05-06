@@ -1007,11 +1007,11 @@ try:
             # else:
             #     angle = left(angle_diff)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 43)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 47)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 43)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 47)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
@@ -1031,11 +1031,11 @@ try:
         # Turn and approach y value
         elif state == 7:
             angle = righttill(360 - 87.5)
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 40)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 45)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(120))/(2*3.1415*wheel_radius)), 40)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
 
@@ -1067,8 +1067,8 @@ try:
 
         # Wiggle Wiggle for Start
         elif state == 9:
-            reverse(int((motor_rots*encoder_tick*(120 - 6))/(2*3.1415*wheel_radius)))
-            y_pos -= 120 - 6
+            reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+            y_pos -= 6
             pwm_servo.ChangeDutyCycle(close)
             angle = righttill(360 - 350) # choose between left right which faster
             forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
