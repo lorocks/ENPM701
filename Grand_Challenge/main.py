@@ -151,7 +151,7 @@ state = 0
 
 # Location in Grid
 x_pos = 0
-y_pos = 10
+y_pos = 15
 angle = 0
 
 # Ultrsonic distances
@@ -522,6 +522,7 @@ try:
 
     first_dist = 10
     first_find = 0
+    try_count = 0
 
 
     for i in range(10):
@@ -549,9 +550,9 @@ try:
             
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
-                forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
-                x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
-                y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
+                x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
+                y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
 
                 first_find += 1
                 first_dist = 0
@@ -627,9 +628,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
-                    x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
+                    x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
                     angle = righttill(45)
                 elif first_find == 0:
                     if current_block == 0:
@@ -641,9 +642,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
-                    x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)))
+                    x_pos += 50 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 50 * math.sin((360 - angle) * math.pi / 180)
                 elif first_find == 1:
                     angle = lefttill(360 - 45)
                 elif first_find == 2:
@@ -730,6 +731,8 @@ try:
                 reverse(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
                 x_pos += (6) * math.cos((360 - angle + 180) * math.pi / 180)
                 y_pos += (6) * math.sin((360 - angle + 180) * math.pi / 180)
+                try_count += 1
+                
             
 
         # Perfectly Orient and move closest
@@ -855,7 +858,10 @@ try:
                 cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
 
                 if x < 160 or x > 320 +160:
-                    pass
+                    reverse(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
+                    x_pos += (d_) * math.cos((360 - angle + 180) * math.pi / 180)
+                    y_pos += (d_) * math.sin((360 - angle + 180) * math.pi / 180)
+                
 
                 if x + (w*3/10) > 320  or x + w - (w*3/10) < 320:
                     x_centr = x + (w/2)
@@ -896,6 +902,8 @@ try:
                 reverse(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
                 x_pos += (d_) * math.cos((360 - angle + 180) * math.pi / 180)
                 y_pos += (d_) * math.sin((360 - angle + 180) * math.pi / 180)
+                try_count += 1
+                
             
         # Send email
         elif state == 4:
@@ -969,7 +977,7 @@ try:
             # else:
             #     angle = left(angle_diff)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 49)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 40)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
@@ -980,11 +988,10 @@ try:
                     gottem = True       
 
             ### Query angle again for proper location
-            if x_pos < 24:
-                x_pos = math.cos(math.radians(abs(270 - angle))) * u_dist * 0.393701
-                # x_pos = 49 * 0.393701
-                state += 1
-                print(state)
+            x_pos = math.cos(math.radians(abs(270 - angle))) * u_dist * 0.393701
+            # x_pos = 49 * 0.393701
+            state += 1
+            print(state)
 
         # Turn and approach y value
         elif state == 7:
@@ -1000,10 +1007,9 @@ try:
                     gottem = True      
 
             ### Query angle again for proper location
-            if y_pos > 120 - 24:
-                y_pos = math.cos(math.radians(abs(angle - 180))) * u_dist * 0.393701
-                state += 1
-                print(state)
+            y_pos = math.cos(math.radians(abs(angle - 180))) * u_dist * 0.393701
+            state += 1
+            print(state)
 
         # Place object
         elif state == 8:
@@ -1034,6 +1040,7 @@ try:
 
             first_dist = 10
             first_find = 0
+            try_count = 0
 
         # Task completed
         elif state == 10:
