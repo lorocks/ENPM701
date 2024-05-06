@@ -962,10 +962,10 @@ try:
                 angle = getangle()
                 if angle != -1:
                     gottem = True  
-            x_test = x_pos + (2*d * math.cos((360 - angle + 180) * math.pi / 180))
-            y_test = y_pos + (2*d * math.sin((360 - angle + 180) * math.pi / 180))
+            x_test = x_pos + (1.5*d * math.cos((360 - angle + 180) * math.pi / 180))
+            y_test = y_pos + (1.5*d * math.sin((360 - angle + 180) * math.pi / 180))
             if x_test > 0 and y_test > 0 and x_test < 120 and y_test < 120:
-                reverse(int((motor_rots*encoder_tick*(2*d))/(2*3.1415*wheel_radius)))
+                reverse(int((motor_rots*encoder_tick*(1.5*d))/(2*3.1415*wheel_radius)))
                 x_pos = x_test
                 y_pos = y_test
 
