@@ -559,6 +559,9 @@ try:
                     c = max(contours, key = cv2.contourArea)
                     x, y, w, h = cv2.boundingRect(c)
 
+                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
+                cv2.imwrite("Check.jpg", image)
+
                 if current_block % 3 == 2 and y+h/480 < 0.35:
                     if first_find == 1:
                         angle = lefttill(360 - 45)
