@@ -576,7 +576,7 @@ try:
                     c = max(contours, key = cv2.contourArea)
                     x, y, w, h = cv2.boundingRect(c)
 
-                if current_block % 3 == 2 and y+h/480 < 0.35:
+                if current_block % 3 == 2 and y+h/480 < 0.4:
                     if first_find == 1:
                         angle = lefttill(360 - 45)
                     elif first_find == 2:
