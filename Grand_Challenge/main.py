@@ -631,7 +631,8 @@ try:
                     righttill(45)
                     first_find = 0
 
-                first_find += 1         
+                first_find += 1     
+                state = 10 # testing    
         
         # Move closer to block based on estimate location
         elif state == 1:
