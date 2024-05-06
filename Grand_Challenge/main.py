@@ -608,7 +608,7 @@ try:
                         angle = lefttill(360 - 51)
                     else:
                         angle = righttill(51)
-                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
+                    # forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius))) testng
                     x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
                     y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
                     angle = righttill(45)
