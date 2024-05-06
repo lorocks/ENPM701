@@ -549,9 +549,9 @@ try:
             
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
-                forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
-                x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
-                y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
+                x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
+                y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
 
                 first_find += 1
                 first_dist = 0
@@ -627,9 +627,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
-                    x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
+                    x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
                     angle = righttill(45)
                 elif first_find == 0:
                     if current_block == 0:
