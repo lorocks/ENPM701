@@ -129,7 +129,7 @@ gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_UP)
 lower_green = np.array([37, 60, 100])
 upper_green = np.array([60, 255, 255])
 
-lower_blue = np.array([110, 90, 30])
+lower_blue = np.array([105, 90, 30])
 upper_blue = np.array([130, 255, 255])
 
 lower_red = np.array([150, 100, 100])
