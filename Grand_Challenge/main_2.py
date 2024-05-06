@@ -985,7 +985,7 @@ try:
             # else:
             #     angle = left(angle_diff)
 
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 40)
+            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(x_pos))/(2*3.1415*wheel_radius)), 43)
             d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
             x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
 
