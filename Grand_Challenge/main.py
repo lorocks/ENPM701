@@ -579,7 +579,7 @@ try:
 
                     x_diff = 320 - x_centr
 
-                    print(x_diff) # testing
+                    print(f"difference: {x_diff}") # testing
 
                     if x_diff < 0:
                         angle = right(abs(x_diff*0.051))
