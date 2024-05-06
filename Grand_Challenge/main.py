@@ -450,7 +450,7 @@ try:
         pwm33.start(90)
         pwm37.start(90)
 
-        while current_angle < angle - 2 or current_angle > angle + 2:
+        while current_angle < angle - 4 or current_angle > angle + 4:
             data = ser.readline()
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
@@ -482,7 +482,7 @@ try:
         pwm31.start(95)
         pwm35.start(95)
 
-        while current_angle < angle - 2 or current_angle > angle + 2:
+        while current_angle < angle - 4 or current_angle > angle + 4:
             data = ser.readline()
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
@@ -583,11 +583,11 @@ try:
 
                     print(f"Difference {x_diff}")
                     
-                    if round(abs(x_diff)) != 0:
+                    if round(abs(x_diff)) != 0 and abs(x_diff) > 160:
                         if x_diff < 0:
-                            angle = right(abs(x_diff*0.051))
+                            angle = right(abs(x_diff*0.051/2))
                         else:
-                            angle = left(abs(x_diff*0.051))
+                            angle = left(abs(x_diff*0.051/2))
                     forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)))
 
                     x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
@@ -632,7 +632,8 @@ try:
                     first_find = 0
 
                 first_find += 1     
-                state = 10 # testing    
+                state = 10 # testing 
+                print("changed state skip")   
         
         # Move closer to block based on estimate location
         elif state == 1:
