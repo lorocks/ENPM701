@@ -593,6 +593,8 @@ try:
                     x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
                     y_pos += first_dist * math.sin((360 - angle) * math.pi / 180)
 
+                    print(angle)
+
                     
                     state += 1
                     state = 10 # testing
