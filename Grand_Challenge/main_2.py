@@ -560,10 +560,9 @@ try:
                     angle = getangle()
                     if angle != -1:
                         gottem = True 
-                encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(65))/(2*3.1415*wheel_radius)), 30)
-                d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                forward(int((motor_rots*encoder_tick*(65))/(2*3.1415*wheel_radius)))
+                x_pos += 65 * math.cos((360 - angle) * math.pi / 180)
+                y_pos += 65 * math.sin((360 - angle) * math.pi / 180)
 
                 first_find += 1
                 first_dist = 0
@@ -589,10 +588,9 @@ try:
                             angle = getangle()
                             if angle != -1:
                                 gottem = True  
-                        encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)), 30)
-                        d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                        x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                        y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                        forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                        x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
                         righttill(45)
                         first_find = 0
 
@@ -616,10 +614,10 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)), 30)
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)))
+
+                    x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += first_dist * math.sin((360 - angle) * math.pi / 180)
 
                     print(angle)
 
@@ -643,10 +641,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)), 30)
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(60))/(2*3.1415*wheel_radius)))
+                    x_pos += 60 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 60 * math.sin((360 - angle) * math.pi / 180)
                     angle = righttill(45)
                 elif first_find == 0:
                     if current_block == 0:
@@ -659,10 +656,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)), 30)
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(50))/(2*3.1415*wheel_radius)))
+                    x_pos += 50 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 50 * math.sin((360 - angle) * math.pi / 180)
                 elif first_find == 1:
                     angle = lefttill(360 - 45)
                 elif first_find == 2:
@@ -674,10 +670,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)), 30)
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                    x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
                     righttill(45)
                     first_find = 0
 
@@ -718,10 +713,9 @@ try:
                                 angle = getangle()
                                 if angle != -1:
                                     gottem = True  
-                            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(d/3 - 12))/(2*3.1415*wheel_radius)), 30)
-                            d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                            x_pos += (d_) * math.cos((360 - angle) * math.pi / 180)
-                            y_pos += (d_) * math.sin((360 - angle) * math.pi / 180)
+                            forward(int((motor_rots*encoder_tick*(d/3 - 12))/(2*3.1415*wheel_radius)))
+                            x_pos += (d/3 - 12) * math.cos((360 - angle) * math.pi / 180)
+                            y_pos += (d/3 - 12) * math.sin((360 - angle) * math.pi / 180)
 
                         state += 1
                         print(state)
@@ -733,10 +727,9 @@ try:
                             angle = getangle()
                             if angle != -1:
                                 gottem = True  
-                        encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(3))/(2*3.1415*wheel_radius)), 30)
-                        d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                        x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                        y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                        forward(int((motor_rots*encoder_tick*(3))/(2*3.1415*wheel_radius)))
+                        x_pos += 3 * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += 3 * math.sin((360 - angle) * math.pi / 180)
                     else:
                         gottem = False
                         print("Angle read")
@@ -744,10 +737,9 @@ try:
                             angle = getangle()
                             if angle != -1:
                                 gottem = True  
-                        encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)), 30)
-                        d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                        x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
-                        y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
+                        forward(int((motor_rots*encoder_tick*(6))/(2*3.1415*wheel_radius)))
+                        x_pos += 6 * math.cos((360 - angle) * math.pi / 180)
+                        y_pos += 6 * math.sin((360 - angle) * math.pi / 180)
             else:
                 gottem = False
                 print("Angle read")
@@ -798,11 +790,10 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(d/2 - 6))/(2*3.1415*wheel_radius)), 30) ##### Need to test this
+                    forward(int((motor_rots*encoder_tick*(d/2 - 6))/(2*3.1415*wheel_radius))) ##### Need to test this
                     pwm_servo.ChangeDutyCycle(open_s)
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += (d_) * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += (d_) * math.sin((360 - angle) * math.pi / 180)
+                    x_pos += (d/2 - 6) * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += (d/2 - 6) * math.sin((360 - angle) * math.pi / 180)
 
                     state = 20
                     print(state)
@@ -853,10 +844,9 @@ try:
                         angle = getangle()
                         if angle != -1:
                             gottem = True  
-                    encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius)), 30) ##### Need to test this
-                    d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                    x_pos += (d_) * math.cos((360 - angle) * math.pi / 180)
-                    y_pos += (d_) * math.sin((360 - angle) * math.pi / 180)
+                    forward(int((motor_rots*encoder_tick*(d - 7))/(2*3.1415*wheel_radius))) ##### Need to test this
+                    x_pos += (d - 7) * math.cos((360 - angle) * math.pi / 180)
+                    y_pos += (d - 7) * math.sin((360 - angle) * math.pi / 180)
 
                     state = 3
                     print(state)
@@ -910,7 +900,7 @@ try:
                     approach = approachObject(y, h, w)
                     if not approach:
                         pwm_servo.ChangeDutyCycle(close - 0.5)
-                        time.sleep(0.30)
+                        time.sleep(0.25)
 
                         state += 1
                         print(state)
@@ -922,9 +912,8 @@ try:
                             angle = getangle()
                             if angle != -1:
                                 gottem = True  
-                        encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)), 30)
+                        forward(int((motor_rots*encoder_tick*(d_))/(2*3.1415*wheel_radius)))
                         # d_ = 45 * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-                        d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
                         x_pos += d_ * math.cos((360 - angle) * math.pi / 180)
                         y_pos += d_ * math.sin((360 - angle) * math.pi / 180)
             else:
@@ -1082,10 +1071,9 @@ try:
             y_pos -= 6
             pwm_servo.ChangeDutyCycle(close)
             angle = righttill(360 - 350) # choose between left right which faster
-            encoder_count, u_dist = movetill(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)), 30)
-            d_ = encoder_count * (2*3.1415*wheel_radius) / (motor_rots*encoder_tick)
-            x_pos += (d_) * math.cos((360 - angle) * math.pi / 180)
-            y_pos += (d_) * math.sin((360 - angle) * math.pi / 180)
+            forward(int((motor_rots*encoder_tick*(12))/(2*3.1415*wheel_radius)))
+            x_pos += (12) * math.cos((360 - angle) * math.pi / 180)
+            y_pos += (12) * math.sin((360 - angle) * math.pi / 180)
             
             state = 0
             print(state)
