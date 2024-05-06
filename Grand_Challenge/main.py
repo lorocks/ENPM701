@@ -560,6 +560,7 @@ try:
                     x, y, w, h = cv2.boundingRect(c)
 
                 if current_block % 3 == 2 and y+h/480 < 0.35:
+                    print("in if") # testing
                     if first_find == 1:
                         angle = lefttill(360 - 45)
                     elif first_find == 2:
@@ -577,6 +578,8 @@ try:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
+
+                    print(x_diff) # testing
 
                     if x_diff < 0:
                         angle = right(abs(x_diff*0.051))
@@ -931,16 +934,6 @@ try:
         # Task completed
         elif state == 10:
             print("Task Completed")
-
-            pwm_servo.stop()
-            pwm31.stop()
-            pwm33.stop()
-            pwm35.stop()
-            pwm37.stop()
-            gpio.cleanup()
-            result.release()
-            cv2.destroyAllWindows()
-            videostream.stop()
 
             break  
 
