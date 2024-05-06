@@ -560,7 +560,6 @@ try:
                     x, y, w, h = cv2.boundingRect(c)
 
                 if current_block % 3 == 2 and y+h/480 < 0.35:
-                    print("in if") # testing
                     if first_find == 1:
                         angle = lefttill(360 - 45)
                     elif first_find == 2:
@@ -578,13 +577,12 @@ try:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
-
-                    print(f"difference: {x_diff}") # testing
-
-                    if x_diff < 0:
-                        angle = right(abs(x_diff*0.051))
-                    else:
-                        angle = left(abs(x_diff*0.051))
+                    
+                    if round(abs(x_diff)) != 0:
+                        if x_diff < 0:
+                            angle = right(abs(x_diff*0.051))
+                        else:
+                            angle = left(abs(x_diff*0.051))
                     forward(int((motor_rots*encoder_tick*(first_dist))/(2*3.1415*wheel_radius)))
 
                     x_pos += first_dist * math.cos((360 - angle) * math.pi / 180)
