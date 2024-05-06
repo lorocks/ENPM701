@@ -108,7 +108,7 @@ def lefttill(angle):
         pwm33.start(90)
         pwm37.start(90)
 
-        while current_angle < angle - 2 or current_angle > angle + 2:
+        while current_angle < angle - 4 or current_angle > angle + 4:
             data = ser.readline()
             data = data.decode()
             current_angle = float(data.split(" ")[1][:-4])
@@ -121,6 +121,8 @@ def lefttill(angle):
 
 
 angle = lefttill(360 - 120)
+
+print(angle)
 
 for i in range(10):
     print(getangle())
