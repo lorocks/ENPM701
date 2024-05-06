@@ -580,6 +580,8 @@ try:
                     x_centr = x + (w/2)
 
                     x_diff = 320 - x_centr
+
+                    print(f"Difference {x_diff}")
                     
                     if round(abs(x_diff)) != 0:
                         if x_diff < 0:
