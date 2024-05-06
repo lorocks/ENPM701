@@ -605,6 +605,7 @@ try:
 
                 if current_block == 0 and first_find == 0:
                     if current_block == 0:
+                        print("here")
                         angle = lefttill(360 - 51)
                     else:
                         angle = righttill(51)
