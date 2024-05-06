@@ -144,7 +144,7 @@ lower = [lower_red, lower_green, lower_blue]
 upper = [upper_red, upper_green, upper_blue]
 
 # For block rotation
-current_block = 2
+current_block = 0
 
 # FSM
 state = 0
@@ -549,7 +549,7 @@ try:
             
             if current_block % 3 == 2 and first_dist > 0: ## Later
                 angle = righttill(51)
-                # forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
+                forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius)))
                 x_pos += 70 * math.cos((360 - angle) * math.pi / 180)
                 y_pos += 70 * math.sin((360 - angle) * math.pi / 180)
 
@@ -564,9 +564,6 @@ try:
                 else:
                     c = max(contours, key = cv2.contourArea)
                     x, y, w, h = cv2.boundingRect(c)
-
-                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 0, 0), 2)
-                cv2.imwrite("Check.jpg", image)
 
                 if current_block % 3 == 2 and y+h/480 < 0.35:
                     if first_find == 1:
