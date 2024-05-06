@@ -523,6 +523,12 @@ try:
     first_dist = 10
     first_find = 0
 
+
+    for i in range(10):
+        print(getangle())
+
+    begin = input("Enter to start: ")
+
     print("Starting")
     while True:
         frame = videostream.read()
@@ -607,6 +613,7 @@ try:
                     if current_block == 0:
                         print("here")
                         angle = lefttill(360 - 51)
+                        print("huh")
                     else:
                         angle = righttill(51)
                     # forward(int((motor_rots*encoder_tick*(70))/(2*3.1415*wheel_radius))) testng
