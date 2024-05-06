@@ -313,8 +313,10 @@ try:
         contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
         if len(contours) > 0:
-            c = max(contours, key = cv2.contourArea)
-            x,y,w,h = cv2.boundingRect(c)
+            # c = max(contours, key = cv2.contourArea)
+            # x,y,w,h = cv2.boundingRect(c)
+            cnt = contours[0]
+            x,y,w,h = cv2.boundingRect(cnt)
 
             print(h)
 
